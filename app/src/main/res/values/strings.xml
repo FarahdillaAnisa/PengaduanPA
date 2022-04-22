@@ -1,0 +1,17 @@
+<resources>
+    <string name="app_name">LayananPengaduanPA</string>
+    <string name="title_activity_main2">MainActivity</string>
+    <string name="title_beranda">Beranda</string>
+    <string name="title_pengaduan">Pengaduan</string>
+    <string name="title_akun">Akun</string>
+    <string name="tab_text_proses">Belum Diproses</string>
+    <string name="tab_text_selesai">Selesai</string>
+    <string-array name="opsi_login">
+        <item>Masyarakat</item>
+        <item>SPKT Polsek</item>
+        <item>Polisi</item>
+        <item>Operator</item>
+    </string-array>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+</resources>

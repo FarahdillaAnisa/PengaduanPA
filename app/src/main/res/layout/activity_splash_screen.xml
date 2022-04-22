@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#FFFFFF"
+    tools:context=".ui.login.SplashScreenActivity">
+
+    <ImageView
+        android:id="@+id/logo_polresta"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toTopOf="parent"
+        android:layout_marginTop="100dp"
+        android:src="@drawable/logopolrestapekanbaru"
+        />
+
+    <TextView
+        android:id="@+id/app_name"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Layanan Pengaduan"
+        app:layout_constraintTop_toBottomOf="@+id/logo_polresta"
+        android:textAlignment="center"
+        android:textSize="28sp"
+        android:textStyle="bold"
+        android:textColor="#353535"
+        android:layout_marginTop="10dp"
+        />
+
+    <TextView
+        android:id="@+id/app_name2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Polresta Pekanbaru"
+        app:layout_constraintTop_toBottomOf="@+id/app_name"
+        android:textAlignment="center"
+        android:textSize="28sp"
+        android:textStyle="bold"
+        android:textColor="#353535"
+        />
+
+<!--    <ImageView-->
+<!--        android:id="@+id/wave"-->
+<!--        android:layout_width="410dp"-->
+<!--        android:layout_height="688dp"-->
+<!--        android:src="@drawable/wavesplash"-->
+<!--        app:layout_constraintBottom_toBottomOf="parent"-->
+<!--        app:layout_constraintEnd_toEndOf="parent" />-->
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/loginbtn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="100dp"
+        android:layout_marginEnd="30dp"
+        android:paddingStart="30dp"
+        android:paddingEnd="30dp"
+        android:text="masuk"
+        android:textSize="16sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/signupbtn"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/app_name2" />
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/signupbtn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="100dp"
+        android:backgroundTint="@color/white"
+        android:paddingStart="30dp"
+        android:paddingEnd="30dp"
+        android:text="daftar"
+        android:textColor="@color/maroon_main_theme"
+        android:textSize="16sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/loginbtn"
+        app:layout_constraintTop_toBottomOf="@+id/app_name2"
+        app:strokeColor="@color/maroon_main_theme"
+        app:strokeWidth="1dp" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
