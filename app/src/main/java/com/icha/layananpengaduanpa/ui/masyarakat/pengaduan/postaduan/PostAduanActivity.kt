@@ -53,8 +53,6 @@ class PostAduanActivity : AppCompatActivity(), LocationListener {
 
         btn_add_aduan.setOnClickListener{
             createNewAduan()
-//            val intent = Intent(, AduanProsesFragment::class)
-//            startActivity(intent)
         }
     }
 
@@ -72,18 +70,18 @@ class PostAduanActivity : AppCompatActivity(), LocationListener {
             if (it != null) {
                 latitude = it.latitude
                 longitude = it.longitude
-                koordinat_msy.text = "$latitude , $longitude"
+                koordinat_msy.text = "Latitude : $latitude , Longitude : $longitude"
             }
         }
     }
 
-    private fun getLocations() {
-        locationManager = getSystemService(Context.LOCATION_SERVICE) as LocationManager
-        if ((ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED)){
-            ActivityCompat.requestPermissions(this, arrayOf(Manifest.permission.ACCESS_FINE_LOCATION), locationPermissionCode)
-        }
-//        locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 1000, 0, this)
-    }
+//    private fun getLocations() {
+//        locationManager = getSystemService(Context.LOCATION_SERVICE) as LocationManager
+//        if ((ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED)){
+//            ActivityCompat.requestPermissions(this, arrayOf(Manifest.permission.ACCESS_FINE_LOCATION), locationPermissionCode)
+//        }
+////        locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 1000, 0, this)
+//    }
 
 
     override fun onLocationChanged(location: Location) {
@@ -114,7 +112,7 @@ class PostAduanActivity : AppCompatActivity(), LocationListener {
         val isiaduan_msy : TextInputEditText = findViewById(R.id.txt_isi_aduan)
 
         ApiConfig.instance.createNewAduan(
-                "ADUANDUMMY2",
+                "ADUANDUMMY4",
                 latitude,
                 longitude,
                 "sukajadi",

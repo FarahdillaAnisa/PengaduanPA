@@ -43,7 +43,6 @@ class AduanProsesFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-
         rvAduan = view.findViewById(R.id.rv_aduan_proses)
         rvAduan.setHasFixedSize(true)
 
@@ -75,8 +74,8 @@ class AduanProsesFragment : Fragment() {
 
     private fun showSelectedAduan(aduan : ResponsePengaduan) {
         Toast.makeText(context, "Data Aduan : ${aduan.kodeAduan}", Toast.LENGTH_SHORT).show()
-//        val intent = Intent(context, DetailAduanActivity::class.java)
-//        intent.putExtra(DetailAduanActivity.EXTRA_KODE_ADUAN, aduan.kodeAduan)
-//        startActivity(intent)
+        val intent = Intent(context, DetailAduanActivity::class.java)
+        intent.putExtra(DetailAduanActivity.EXTRA_KODE_ADUAN, aduan.kodeAduan)
+        startActivity(intent)
     }
 }

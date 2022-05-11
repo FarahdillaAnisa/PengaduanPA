@@ -9,8 +9,8 @@ import retrofit2.http.*
     fun getListAduan(): Call<ArrayList<ResponsePengaduan>>
 
     //get aduan by id
-    @GET("api/pengaduan/{kode_aduan}")
-    fun getAduan(@Path("kode_aduan") kode_aduan:String): Call<ResponsePengaduan>
+    @GET("api/pengaduan/getaduanbyid/{kode_aduan}")
+    fun getAduan(@Query("kode_aduan") kode_aduan : String): Call<ResponsePengaduan>
 
     //get aduan by status
     @GET("api/pengaduan/getaduanbystatus/{status_aduan}")
@@ -20,12 +20,18 @@ import retrofit2.http.*
     @FormUrlEncoded
     @POST("api/pengaduan")
     fun createNewAduan(
-            @Field("kode_aduan") kode_aduan: String,
-            @Field("lat_lokasi") lat_lokasi: Double,
-            @Field("long_lokasi") long_lokasi: Double,
-            @Field("kec_lokasi") kec_lokasi: String,
-            @Field("isi_aduan") isi_aduan: String,
-            @Field("tgl_aduan") tgl_aduan: String
-
+         @Field("kode_aduan") kode_aduan: String,
+         @Field("lat_lokasi") lat_lokasi: Double,
+         @Field("long_lokasi") long_lokasi: Double,
+         @Field("kec_lokasi") kec_lokasi: String,
+         @Field("isi_aduan") isi_aduan: String,
+         @Field("tgl_aduan") tgl_aduan: String
     ): Call<ResponsePengaduan>
+
+    //Signup-User
+    @FormUrlEncoded
+    @POST("auth/registration")
+    fun signupUser(
+//         @Field("")
+    ): Call<MasyarakatModel>
 }
