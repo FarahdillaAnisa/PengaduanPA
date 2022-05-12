@@ -14,14 +14,14 @@ object ApiConfig {
             val retrofit = Retrofit.Builder()
                     .baseUrl(BASE_URL)
                     .addConverterFactory(GsonConverterFactory.create())
-                    .client(client)
+//                    .client(client)
                     .build()
 
             retrofit.create(ApiService::class.java)
         }
-            val loggingInterceptor =
-                    HttpLoggingInterceptor().setLevel(HttpLoggingInterceptor.Level.BODY)
-            val client = OkHttpClient.Builder()
-                    .addInterceptor(loggingInterceptor)
-                    .build()
+//            val loggingInterceptor =
+//                    HttpLoggingInterceptor().setLevel(HttpLoggingInterceptor.Level.BODY)
+//            val client = OkHttpClient.Builder()
+//                    .addInterceptor(loggingInterceptor)
+//                    .build()
         }
