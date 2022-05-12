@@ -34,6 +34,7 @@
             app:boxStrokeColor="@color/maroon_main_theme">
 
             <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/edt_nama"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:hint="Nama Lengkap"
@@ -54,6 +55,7 @@
             app:boxStrokeColor="@color/maroon_main_theme">
 
             <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/edt_notelp"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:hint="Nomor Telepon / WA"
@@ -74,6 +76,7 @@
             app:boxStrokeColor="@color/maroon_main_theme">
 
             <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/edt_uname"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:hint="Username"
@@ -95,6 +98,7 @@
             app:boxStrokeColor="@color/maroon_main_theme">
 
             <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/edt_password"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:hint="Password"

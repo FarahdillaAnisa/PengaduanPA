@@ -35,6 +35,7 @@
             app:boxStrokeColor="@color/maroon_main_theme">
 
             <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/edt_uname"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:hint="Username"
@@ -56,6 +57,7 @@
             app:boxStrokeColor="@color/maroon_main_theme">
 
             <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/edt_pass"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:hint="Password"
@@ -82,6 +84,7 @@
             />
 
         <com.google.android.material.button.MaterialButton
+            android:id="@+id/loginbtn"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="Login"

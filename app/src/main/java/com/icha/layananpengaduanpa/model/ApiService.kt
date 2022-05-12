@@ -32,6 +32,16 @@ import retrofit2.http.*
     @FormUrlEncoded
     @POST("auth/registration")
     fun signupUser(
-//         @Field("")
+         @Field("nama_msy") nama_msy: String,
+         @Field("notelp_msy") notelp_msy: String,
+         @Field("uname_msy") uname_msy: String,
+         @Field("pass_msy") pass_msy: String
+    ): Call<MasyarakatModel>
+
+    @GET("auth/{uname_user}")
+    fun loginUser(
+            @Query("uname_user") uname_msy: String,
+            @Query("role_user") role_user: String,
+            @Query("pass_user") pass_msy: String
     ): Call<MasyarakatModel>
 }

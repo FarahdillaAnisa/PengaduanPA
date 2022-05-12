@@ -12,7 +12,6 @@ import androidx.recyclerview.widget.RecyclerView
 import com.icha.layananpengaduanpa.R
 import com.icha.layananpengaduanpa.model.ApiConfig
 import com.icha.layananpengaduanpa.model.ResponsePengaduan
-import com.icha.layananpengaduanpa.ui.masyarakat.pengaduan.AduanProsesFragment.Companion.EXTRA_KODE_ADUAN
 import com.icha.layananpengaduanpa.ui.masyarakat.pengaduan.postaduan.DetailAduanActivity
 import retrofit2.Call
 import retrofit2.Callback
