@@ -8,6 +8,7 @@ import android.util.Log
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.icha.layananpengaduanpa.MainActivity
+import com.icha.layananpengaduanpa.MenuMasyarakat
 import com.icha.layananpengaduanpa.databinding.ActivityLoginBinding
 import com.icha.layananpengaduanpa.model.ApiConfig
 import com.icha.layananpengaduanpa.model.MasyarakatModel
@@ -32,7 +33,7 @@ class LoginActivity : AppCompatActivity() {
 
         session = SessionManager(applicationContext)
         if (session.isLoggedIn()) {
-            val intent = Intent(applicationContext, MainActivity::class.java)
+            val intent = Intent(applicationContext, MenuMasyarakat::class.java)
             intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
             intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK)
             startActivity(intent)
@@ -55,9 +56,9 @@ class LoginActivity : AppCompatActivity() {
                 Toast.makeText(this@LoginActivity, "User berhasil login!", Toast.LENGTH_SHORT).show()
                 val user = response.body()
                 if (user != null) {
-                    session.createLoginSession(user.unameMsy, user.passMsy)
-                    val intent = Intent(this@LoginActivity, MainActivity::class.java)
-                    intent.putExtra(MainActivity.EXTRA_USERNAME, user.unameMsy)
+                    session.createLoginSession(user.unameMsy, user.passMsy, user.idMsy.toString(), user.namaMsy, user.notelpMsy)
+                    val intent = Intent(this@LoginActivity, MenuMasyarakat::class.java)
+//                    intent.putExtra(MainActivity.EXTRA_USERNAME, user.unameMsy)
                     startActivity(intent)
                     finish()
                 }
@@ -76,7 +77,6 @@ class LoginActivity : AppCompatActivity() {
                 Toast.makeText(this@LoginActivity, "Message : ${t.message}", Toast.LENGTH_SHORT).show()
                 Log.d("Gagal : ", t.message.toString())
             }
-
         })
     }
 

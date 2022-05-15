@@ -31,5 +31,8 @@ data class ResponsePengaduan(
         val tglLaporan: Date? = null,
 
         @field:SerializedName("status_aduan")
-        val statusAduan: String
+        val statusAduan: String,
+
+        @field:SerializedName("id_msy_fk")
+        val idMsyFk: Int
 )

@@ -1,31 +1,21 @@
 package com.icha.layananpengaduanpa.ui.masyarakat.pengaduan.postaduan
 
 import android.Manifest
-import android.annotation.SuppressLint
-import android.content.Context
-import android.content.Intent
 import android.content.pm.PackageManager
 import android.location.LocationManager
 import android.location.Location
 import android.location.LocationListener
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.widget.Button
 import android.widget.Toast
 import androidx.core.app.ActivityCompat
-import androidx.core.content.ContextCompat
 import com.google.android.gms.location.FusedLocationProviderClient
 import com.google.android.gms.location.LocationServices
 import com.google.android.gms.tasks.Task
-import com.google.android.material.textfield.TextInputEditText
-import com.google.android.material.textfield.TextInputLayout
-import com.google.android.material.textview.MaterialTextView
-import com.icha.layananpengaduanpa.R
+import com.icha.layananpengaduanpa.databinding.ActivityPostAduanBinding
 import com.icha.layananpengaduanpa.model.ApiConfig
 import com.icha.layananpengaduanpa.model.ResponsePengaduan
-import com.icha.layananpengaduanpa.ui.masyarakat.pengaduan.AduanProsesFragment
-import com.icha.layananpengaduanpa.ui.masyarakat.pengaduan.PengaduanFragment
-import org.w3c.dom.Text
+import com.icha.layananpengaduanpa.session.SessionManager
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -41,23 +31,39 @@ class PostAduanActivity : AppCompatActivity(), LocationListener {
     //location-fusedprovider
     lateinit var fusedLocationProviderClient: FusedLocationProviderClient
 
+    //session
+    lateinit var session: SessionManager
+
+    //binding
+    private lateinit var binding : ActivityPostAduanBinding
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_post_aduan)
+        binding = ActivityPostAduanBinding.inflate(layoutInflater)
+        setContentView(binding.root)
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
 
         fusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(this)
 //        getLocations()
         getLokasi()
-        val btn_add_aduan : Button = findViewById(R.id.btn_add_aduan)
 
-        btn_add_aduan.setOnClickListener{
-            createNewAduan()
+        //get id_msy
+        session = SessionManager(applicationContext)
+        session.checkLogin()
+        val user: HashMap<String, String> = session.getUserDetails()
+        val id: String = user.get(SessionManager.KEY_ID)!!
+        val nama: String = user.get(SessionManager.KEY_NAMA)!!
+        val notelp: String = user.get(SessionManager.KEY_NOTELP)!!
+
+        binding.txtNama.setText(nama)
+        binding.notelpTxt.setText(notelp)
+
+        binding.btnAddAduan.setOnClickListener{
+            createNewAduan(id.toInt())
         }
     }
 
     private fun getLokasi() {
-        val koordinat_msy : MaterialTextView = findViewById(R.id.koordinat_txt)
         val task : Task<Location> = fusedLocationProviderClient.lastLocation
         if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION)
         != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION)
@@ -70,7 +76,7 @@ class PostAduanActivity : AppCompatActivity(), LocationListener {
             if (it != null) {
                 latitude = it.latitude
                 longitude = it.longitude
-                koordinat_msy.text = "Latitude : $latitude , Longitude : $longitude"
+                binding.koordinatTxt.text = "Latitude : $latitude , Longitude : $longitude"
             }
         }
     }
@@ -88,8 +94,7 @@ class PostAduanActivity : AppCompatActivity(), LocationListener {
         latitude = location.latitude
         longitude = location.longitude
 
-        val koordinat_msy : MaterialTextView = findViewById(R.id.koordinat_txt)
-        koordinat_msy.text = "$latitude , $longitude"
+        binding.koordinatTxt.text = "$latitude , $longitude"
 
     }
 
@@ -105,19 +110,15 @@ class PostAduanActivity : AppCompatActivity(), LocationListener {
 //        }
 //    }
 
-    private fun createNewAduan() {
-        val nama_msy : TextInputLayout = findViewById(R.id.txt_nama)
-        val notelp_msy : TextInputLayout = findViewById(R.id.txt_notelp)
-        val koordinat_msy : MaterialTextView = findViewById(R.id.koordinat_txt)
-        val isiaduan_msy : TextInputEditText = findViewById(R.id.txt_isi_aduan)
-
+    private fun createNewAduan(id_msy : Int) {
         ApiConfig.instance.createNewAduan(
-                "ADUANDUMMY4",
+                "ADUAN_SKJD6",
                 latitude,
                 longitude,
                 "sukajadi",
-                isiaduan_msy.text.toString(),
-                "2022-04-05"
+                binding.txtIsiAduan.text.toString(),
+                "2022-04-05",
+                id_msy
         ).enqueue(object : Callback<ResponsePengaduan>{
             override fun onResponse(call: Call<ResponsePengaduan>, response: Response<ResponsePengaduan>) {
                 Toast.makeText(applicationContext, "Data telah berhasil disimpan!", Toast.LENGTH_SHORT).show()

@@ -12,6 +12,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.icha.layananpengaduanpa.R
 import com.icha.layananpengaduanpa.model.ApiConfig
 import com.icha.layananpengaduanpa.model.ResponsePengaduan
+import com.icha.layananpengaduanpa.session.SessionManager
 import com.icha.layananpengaduanpa.ui.masyarakat.pengaduan.postaduan.DetailAduanActivity
 import retrofit2.Call
 import retrofit2.Callback
@@ -20,6 +21,7 @@ import retrofit2.Response
 class AduanProsesFragment : Fragment() {
     private lateinit var rvAduan: RecyclerView
     private val listAduan = ArrayList<ResponsePengaduan>()
+    lateinit var session: SessionManager
 
     companion object {
         private const val EXTRA_KODE_ADUAN = "kode_aduan"
@@ -41,11 +43,16 @@ class AduanProsesFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        //session
+        session = SessionManager(view.context)
+        session.checkLogin()
+        val user: HashMap<String, String> = session.getUserDetails()
+        val id_user: String = user.get(SessionManager.KEY_ID)!!
 
         rvAduan = view.findViewById(R.id.rv_aduan_proses)
         rvAduan.setHasFixedSize(true)
 
-        ApiConfig.instance.getAduanStatus("proses").enqueue(object : Callback<ArrayList<ResponsePengaduan>> {
+        ApiConfig.instance.getAduanStatus("proses", id_user.toInt()).enqueue(object : Callback<ArrayList<ResponsePengaduan>> {
             override fun onResponse(call: Call<ArrayList<ResponsePengaduan>>, response: Response<ArrayList<ResponsePengaduan>>) {
 
                 response.body()?.let { listAduan.addAll(it) }

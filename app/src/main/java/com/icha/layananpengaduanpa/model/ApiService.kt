@@ -14,7 +14,10 @@ import retrofit2.http.*
 
     //get aduan by status
     @GET("api/pengaduan/getaduanbystatus/{status_aduan}")
-    fun getAduanStatus(@Query("status_aduan") status_aduan:String): Call<ArrayList<ResponsePengaduan>>
+    fun getAduanStatus(
+            @Query("status_aduan") status_aduan:String,
+            @Query("id_msy_fk") id_msy_fk:Int
+    ): Call<ArrayList<ResponsePengaduan>>
 
     //post new aduan using field x-www-form-urlencoded
     @FormUrlEncoded
@@ -25,7 +28,8 @@ import retrofit2.http.*
          @Field("long_lokasi") long_lokasi: Double,
          @Field("kec_lokasi") kec_lokasi: String,
          @Field("isi_aduan") isi_aduan: String,
-         @Field("tgl_aduan") tgl_aduan: String
+         @Field("tgl_aduan") tgl_aduan: String,
+         @Field("id_msy_fk") id_msy_fk: Int
     ): Call<ResponsePengaduan>
 
     //Signup-User

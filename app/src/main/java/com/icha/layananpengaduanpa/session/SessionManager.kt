@@ -20,14 +20,20 @@ class SessionManager {
     companion object {
         val PREF_NAME: String = "DataLogin"
         val IS_LOGIN: String = "isLogin"
+        val KEY_ID: String = "id"
+        val KEY_NAMA: String = "nama"
+        val KEY_NOTELP: String = "notelp"
         val KEY_USERNAME: String = "uname"
         val KEY_PASSWORD: String = "pass"
     }
 
-    fun createLoginSession(uname: String, pass: String) {
+    fun createLoginSession(uname: String, pass: String, id: String, nama: String, notelp: String) {
         editor.putBoolean(IS_LOGIN, true)
         editor.putString(KEY_USERNAME, uname)
         editor.putString(KEY_PASSWORD, pass)
+        editor.putString(KEY_ID, id)
+        editor.putString(KEY_NAMA, nama)
+        editor.putString(KEY_NOTELP, notelp)
         editor.commit()
     }
 
@@ -48,6 +54,9 @@ class SessionManager {
         var user : Map<String, String> = HashMap()
         (user as HashMap).put(KEY_USERNAME, pref.getString(KEY_USERNAME, null).toString())
         user.put(KEY_PASSWORD, pref.getString(KEY_PASSWORD, null).toString())
+        user.put(KEY_ID, pref.getString(KEY_ID, null).toString())
+        user.put(KEY_NAMA, pref.getString(KEY_NAMA, null).toString())
+        user.put(KEY_NOTELP, pref.getString(KEY_NOTELP, null).toString())
         return user
     }
 
@@ -59,6 +68,4 @@ class SessionManager {
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK)
         context.startActivity(intent)
     }
-
-
 }

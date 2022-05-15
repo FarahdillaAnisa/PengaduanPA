@@ -31,7 +31,6 @@ class MainActivity : Activity() {
         val username: String = user.get(SessionManager.KEY_USERNAME)!!
 //        val password: String = user.get(SessionManager.KEY_PASSWORD)!!
 
-//        val username = intent.getStringExtra(EXTRA_USERNAME)
         binding.unameTxt.setText(username)
 
         binding.logoutBtn.setOnClickListener {

@@ -25,7 +25,6 @@
         android:text="Nama Lengkap"/>
 
     <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/txt_nama"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginBottom="20dp"
@@ -33,6 +32,7 @@
         app:boxStrokeColor="@color/maroon_main_theme">
 
         <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/txt_nama"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:hint="Nama Lengkap"
@@ -46,7 +46,6 @@
         android:text="Nomor Telepon"/>
 
     <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/txt_notelp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginBottom="20dp"
