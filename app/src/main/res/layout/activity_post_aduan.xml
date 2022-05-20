@@ -95,6 +95,11 @@
             android:maxLines="10" />
     </com.google.android.material.textfield.TextInputLayout>
 
+    <Spinner
+        android:id="@+id/subdistrict_spinner"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
     <com.google.android.material.button.MaterialButton
         android:id="@+id/btn_add_aduan"
         android:layout_width="wrap_content"
@@ -102,4 +107,6 @@
         android:text="BUAT PENGADUAN"
         android:textSize="16dp"
         android:layout_gravity="center"/>
+
+
 </LinearLayout>

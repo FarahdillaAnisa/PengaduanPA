@@ -5,13 +5,20 @@ import android.content.pm.PackageManager
 import android.location.LocationManager
 import android.location.Location
 import android.location.LocationListener
+import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
+import android.view.View
+import android.widget.AdapterView
+import android.widget.ArrayAdapter
 import android.widget.Toast
+import androidx.annotation.RequiresApi
 import androidx.core.app.ActivityCompat
 import com.google.android.gms.location.FusedLocationProviderClient
 import com.google.android.gms.location.LocationServices
 import com.google.android.gms.tasks.Task
+import com.icha.layananpengaduanpa.R
 import com.icha.layananpengaduanpa.databinding.ActivityPostAduanBinding
 import com.icha.layananpengaduanpa.model.ApiConfig
 import com.icha.layananpengaduanpa.model.ResponsePengaduan
@@ -19,11 +26,16 @@ import com.icha.layananpengaduanpa.session.SessionManager
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
+import java.time.LocalDate
+import java.util.*
+import kotlin.collections.HashMap
 
 class PostAduanActivity : AppCompatActivity(), LocationListener {
     //get location
     private lateinit var locationManager: LocationManager
     private val locationPermissionCode = 2
+    private var subdistrict : String = ""
+//    val subdistrictArray = resources.getStringArray(R.array.subdistrict_array)
 
     private var latitude : Double = 0.0
     private var longitude : Double = 0.0
@@ -37,6 +49,7 @@ class PostAduanActivity : AppCompatActivity(), LocationListener {
     //binding
     private lateinit var binding : ActivityPostAduanBinding
 
+    @RequiresApi(Build.VERSION_CODES.O)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityPostAduanBinding.inflate(layoutInflater)
@@ -46,6 +59,30 @@ class PostAduanActivity : AppCompatActivity(), LocationListener {
         fusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(this)
 //        getLocations()
         getLokasi()
+
+        ArrayAdapter.createFromResource(
+                this,
+                R.array.subdistrict_array,
+                android.R.layout.simple_spinner_item
+        ).also { adapter ->
+            adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
+            binding.subdistrictSpinner.adapter = adapter
+        }
+
+        // --------------------
+        val subdistrictArray = resources.getStringArray(R.array.subdistrict_array)
+        binding.subdistrictSpinner.onItemSelectedListener = object :
+            AdapterView.OnItemSelectedListener {
+            override fun onItemSelected(parent: AdapterView<*>, view: View, position: Int, id: Long) {
+                Toast.makeText(this@PostAduanActivity, subdistrictArray[position], Toast.LENGTH_SHORT).show()
+                subdistrict = subdistrictArray[position].toString()
+                Log.d("kecamatan" , subdistrict)
+            }
+
+            override fun onNothingSelected(parent: AdapterView<*>) {
+                // write code to perform some action
+            }
+        }
 
         //get id_msy
         session = SessionManager(applicationContext)
@@ -110,14 +147,31 @@ class PostAduanActivity : AppCompatActivity(), LocationListener {
 //        }
 //    }
 
+    @RequiresApi(Build.VERSION_CODES.O)
     private fun createNewAduan(id_msy : Int) {
+//        val subdistrictArray = resources.getStringArray(R.array.subdistrict_array)
+//        binding.subdistrictSpinner.onItemSelectedListener = object :
+//            AdapterView.OnItemSelectedListener {
+//            override fun onItemSelected(parent: AdapterView<*>, view: View, position: Int, id: Long) {
+//                Toast.makeText(this@PostAduanActivity, subdistrictArray[position], Toast.LENGTH_SHORT).show()
+//                subdistrict = subdistrictArray[position].toString()
+//                Log.d("kecamatan" , subdistrict)
+//            }
+//
+//            override fun onNothingSelected(parent: AdapterView<*>) {
+//                // write code to perform some action
+//            }
+//        }
+
+        val tanggalAduan = LocalDate.now()
+
         ApiConfig.instance.createNewAduan(
                 "ADUAN_SKJD6",
                 latitude,
                 longitude,
-                "sukajadi",
+                subdistrict,
                 binding.txtIsiAduan.text.toString(),
-                "2022-04-05",
+                tanggalAduan.toString(),
                 id_msy
         ).enqueue(object : Callback<ResponsePengaduan>{
             override fun onResponse(call: Call<ResponsePengaduan>, response: Response<ResponsePengaduan>) {

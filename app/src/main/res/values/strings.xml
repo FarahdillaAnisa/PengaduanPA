@@ -12,6 +12,21 @@
         <item>Polisi</item>
         <item>Operator</item>
     </string-array>
+
+    <string-array name="subdistrict_array">
+        <item>Bukit Raya</item>
+        <item>Kawasan Pelabuhan</item>
+        <item>Lima Puluh</item>
+        <item>Payung Sekaki</item>
+        <item>Pekanbaru Kota</item>
+        <item>Rumbai</item>
+        <item>Rumbai Pesisir</item>
+        <item>Senapelan</item>
+        <item>Sukajadi</item>
+        <item>Tampan</item>
+        <item>Tenayan Raya</item>
+    </string-array>
+
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>
