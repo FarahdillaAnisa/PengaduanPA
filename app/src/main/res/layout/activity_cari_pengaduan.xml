@@ -36,7 +36,7 @@
         app:boxStrokeColor="@color/maroon_main_theme">
 
         <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/txt_nama"
+            android:id="@+id/txt_kode_aduan"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:hint="Kode Pengaduan"
@@ -55,7 +55,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:backgroundTint="#367A59"
-            android:text="Cari Pengaduan"
+            android:text="Cari Aduan"
             android:layout_marginEnd="10dp"
             android:layout_marginStart="20dp"/>
 
@@ -64,7 +64,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:backgroundTint="#367A59"
-            android:text="Tambah Pelaporan" />
+            android:text="Tambah Laporan" />
     </LinearLayout>
 
     <androidx.cardview.widget.CardView
@@ -84,13 +84,13 @@
                 android:id="@+id/tv_keterangan"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Keterangan Penanganan"
+                android:text="Data Aduan"
                 android:textSize="14sp"
                 android:textColor="@color/black"
                 app:layout_constraintTop_toTopOf="parent" />
 
             <ImageView
-                android:id="@+id/img_petugas"
+                android:id="@+id/img_pelapor"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="20dp"
@@ -99,26 +99,26 @@
                 app:layout_constraintTop_toBottomOf="@+id/tv_keterangan"/>
 
             <TextView
-                android:id="@+id/tv_nama_petugas"
+                android:id="@+id/tv_nama_pelapor"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Nama Pelapor"
                 android:layout_marginStart="10dp"
                 android:textColor="@color/black"
                 android:textSize="12sp"
-                app:layout_constraintStart_toEndOf="@+id/img_petugas"
-                app:layout_constraintTop_toTopOf="@+id/img_petugas" />
+                app:layout_constraintStart_toEndOf="@+id/img_pelapor"
+                app:layout_constraintTop_toTopOf="@+id/img_pelapor" />
 
             <TextView
-                android:id="@+id/tv_data_nama_petugas"
+                android:id="@+id/tv_data_nama_pelapor"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="10dp"
                 android:text="Tidak Ada"
                 android:textColor="#616161"
                 android:textSize="12sp"
-                app:layout_constraintStart_toEndOf="@+id/img_petugas"
-                app:layout_constraintTop_toBottomOf="@+id/tv_nama_petugas" />
+                app:layout_constraintStart_toEndOf="@+id/img_pelapor"
+                app:layout_constraintTop_toBottomOf="@+id/tv_nama_pelapor" />
 
             <ImageView
                 android:id="@+id/img_satwil"
@@ -127,7 +127,7 @@
                 android:layout_marginTop="10dp"
                 android:src="@drawable/ic_baseline_person_24"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/tv_data_nama_petugas" />
+                app:layout_constraintTop_toBottomOf="@+id/tv_data_nama_pelapor" />
 
             <TextView
                 android:id="@+id/tv_satuan_wilayah"
@@ -137,11 +137,11 @@
                 android:text="Nomor Telepon"
                 android:textColor="@color/black"
                 android:textSize="12sp"
-                app:layout_constraintStart_toEndOf="@+id/img_petugas"
+                app:layout_constraintStart_toEndOf="@+id/img_pelapor"
                 app:layout_constraintTop_toTopOf="@+id/img_satwil" />
 
             <TextView
-                android:id="@+id/tv_ket_satwil"
+                android:id="@+id/tv_notelp_pelapor"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="10dp"
@@ -158,7 +158,7 @@
                 android:layout_marginTop="10dp"
                 android:src="@drawable/ic_baseline_person_24"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/tv_ket_satwil" />
+                app:layout_constraintTop_toBottomOf="@+id/tv_notelp_pelapor" />
 
             <TextView
                 android:id="@+id/tv_laporan"
@@ -172,7 +172,7 @@
                 app:layout_constraintTop_toTopOf="@+id/img_laporan" />
 
             <TextView
-                android:id="@+id/tv_ket_laporan"
+                android:id="@+id/tv_ket_aduan"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="10dp"

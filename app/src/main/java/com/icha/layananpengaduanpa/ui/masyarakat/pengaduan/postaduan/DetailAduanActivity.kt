@@ -53,7 +53,7 @@ class DetailAduanActivity : AppCompatActivity() {
                                 } else {
                                     binding.statusAduan.text = "Selesai"
                                     binding.tvDataNamaPetugas.setText(dataAduan.idPolisi)
-                                    binding.tvKetLaporan.setText(dataAduan.isiLaporanpolisi)
+                                    binding.tvKetAduan.setText(dataAduan.isiLaporanpolisi)
                                 }
 
                                 latitude = dataAduan.latLokasi

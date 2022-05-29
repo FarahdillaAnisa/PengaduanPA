@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/polisi_navigation"
+    app:startDestination="@+id/navigation_beranda_polisi">
+
+    <fragment
+        android:id="@+id/navigation_beranda_polisi"
+        android:name="com.icha.layananpengaduanpa.ui.polisi.beranda.BerandaPolisiFragment"
+        android:label="Beranda"
+        tools:layout="@layout/fragment_beranda_polisi" />
+
+    <fragment
+        android:id="@+id/navigation_pelaporan"
+        android:name="com.icha.layananpengaduanpa.ui.polisi.pelaporan.PelaporanFragment"
+        android:label="Pelaporan"
+        tools:layout="@layout/fragment_pelaporan" />
+
+    <fragment
+        android:id="@+id/navigation_akun_polisi"
+        android:name="com.icha.layananpengaduanpa.ui.polisi.akun.AkunPolisiFragment"
+        android:label="Akun"
+        tools:layout="@layout/fragment_akun_polisi" />
+</navigation>

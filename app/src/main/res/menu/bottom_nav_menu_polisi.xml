@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@+id/navigation_beranda_polisi"
+        android:icon="@drawable/ic_home_black_24dp"
+        android:title="@string/title_beranda" />
+
+    <item
+        android:id="@+id/navigation_pelaporan"
+        android:icon="@drawable/ic_baseline_announcement_24"
+        android:title="@string/title_pelaporan" />
+
+    <item
+        android:id="@+id/navigation_akun_polisi"
+        android:icon="@drawable/ic_baseline_person_24"
+        android:title="@string/title_akun" />
+</menu>

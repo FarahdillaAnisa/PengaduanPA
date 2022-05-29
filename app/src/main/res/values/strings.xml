@@ -3,6 +3,7 @@
     <string name="title_activity_main2">MainActivity</string>
     <string name="title_beranda">Beranda</string>
     <string name="title_pengaduan">Pengaduan</string>
+    <string name="title_pelaporan">Pelaporan</string>
     <string name="title_akun">Akun</string>
     <string name="tab_text_proses">Belum Diproses</string>
     <string name="tab_text_selesai">Selesai</string>
@@ -29,4 +30,5 @@
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="title_activity_menu_polisi">Menu Polisi</string>
 </resources>

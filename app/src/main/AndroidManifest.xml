@@ -13,15 +13,21 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.LayananPengaduanPA">
-        <activity android:name=".ui.polisi.pelaporan.postlaporan.PostPelaporanActivity"></activity>
-        <activity android:name=".ui.polisi.pelaporan.postlaporan.CariPengaduanActivity" />
+        <activity android:name=".ui.polisi.pelaporan.postlaporan.DetailLaporanActivity"></activity>
+        <!-- masyarakat -->
+        <activity android:name=".MenuMasyarakat" />
         <activity android:name=".ui.masyarakat.pengaduan.postaduan.MapsActivity" />
         <activity android:name=".ui.masyarakat.pengaduan.postaduan.DetailAduanActivity" />
-        <activity android:name=".ui.masyarakat.pengaduan.postaduan.PostAduanActivity" />
+        <activity android:name=".ui.masyarakat.pengaduan.postaduan.PostAduanActivity" /> <!-- polisi -->
+        <activity
+            android:name=".MenuPolisi"
+            android:label="@string/title_activity_menu_polisi"></activity>
+        <activity android:name=".ui.polisi.pelaporan.postlaporan.PostPelaporanActivity" />
+        <activity android:name=".ui.polisi.pelaporan.postlaporan.CariPengaduanActivity" /> <!-- operator -->
+        <activity android:name=".ui.operator.kelolaakun.akunpolisi.PostAkunPolisiActivity" />
         <activity android:name=".MainActivity" />
         <activity android:name=".ui.login.SignupActivity" />
         <activity android:name=".ui.login.LoginActivity" />
-        <activity android:name=".MenuMasyarakat" /> <!-- <activity android:name=".ui.login.SplashScreenActivity" /> -->
         <activity android:name=".ui.login.SplashScreenActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

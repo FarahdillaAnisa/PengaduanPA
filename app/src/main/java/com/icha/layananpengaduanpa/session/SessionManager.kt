@@ -25,6 +25,7 @@ class SessionManager {
         val KEY_NOTELP: String = "notelp"
         val KEY_USERNAME: String = "uname"
         val KEY_PASSWORD: String = "pass"
+        val KEY_SATWIL: String = "satwil"
     }
 
     fun createLoginSession(uname: String, pass: String, id: String, nama: String, notelp: String) {
@@ -34,6 +35,16 @@ class SessionManager {
         editor.putString(KEY_ID, id)
         editor.putString(KEY_NAMA, nama)
         editor.putString(KEY_NOTELP, notelp)
+        editor.commit()
+    }
+
+    fun createLoginPolisiSession(pass: String, id: String, nama: String, notelp: String, satwil: String) {
+        editor.putBoolean(IS_LOGIN, true)
+        editor.putString(KEY_PASSWORD, pass)
+        editor.putString(KEY_ID, id)
+        editor.putString(KEY_NAMA, nama)
+        editor.putString(KEY_NOTELP, notelp)
+        editor.putString(KEY_SATWIL, satwil)
         editor.commit()
     }
 
@@ -60,6 +71,16 @@ class SessionManager {
         return user
     }
 
+    fun getPolisiDetails(): HashMap<String, String> {
+        var polisi : Map<String, String> = HashMap()
+        (polisi as HashMap).put(KEY_ID, pref.getString(KEY_ID, null).toString())
+        polisi.put(KEY_PASSWORD, pref.getString(KEY_PASSWORD, null).toString())
+        polisi.put(KEY_SATWIL, pref.getString(KEY_SATWIL, null).toString())
+        polisi.put(KEY_NAMA, pref.getString(KEY_NAMA, null).toString())
+        polisi.put(KEY_NOTELP, pref.getString(KEY_NOTELP, null).toString())
+        return polisi
+    }
+
     fun logoutUser() {
         editor.clear()
         editor.commit()
@@ -68,4 +89,5 @@ class SessionManager {
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK)
         context.startActivity(intent)
     }
+
 }

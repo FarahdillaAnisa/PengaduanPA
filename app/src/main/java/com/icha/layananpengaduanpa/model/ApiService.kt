@@ -42,10 +42,36 @@ import retrofit2.http.*
          @Field("pass_msy") pass_msy: String
     ): Call<MasyarakatModel>
 
+    //login akun masyarakat
     @GET("auth/{uname_user}")
-    fun loginUser(
+    fun loginMasyarakat(
             @Query("uname_user") uname_msy: String,
             @Query("role_user") role_user: String,
             @Query("pass_user") pass_msy: String
     ): Call<MasyarakatModel>
+
+     //Signup-User
+     @FormUrlEncoded
+     @POST("api/polisi")
+     fun tambahAkunPolisi(
+         @Field("id_polisi") id_polisi: String,
+         @Field("nama_polisi") nama_polisi: String,
+         @Field("satuan_wilayah") satuan_wilayah: String,
+         @Field("notelp_polisi") notelp_polisi: String,
+         @Field("pass_polisi") pass_polisi: String
+     ): Call<PolisiModel>
+
+    //Login Akun Polisi
+    @GET("auth/{id_polisi}")
+    fun loginPolisi(
+            @Query("id_polisi") id_polisi: String,
+            @Query("role_user") role_user: String,
+            @Query("pass_polisi") pass_polisi: String
+    ): Call<PolisiModel>
+
+    //cari aduan - polisi
+    @GET("api/pelaporan/cariaduan/{kode_aduan}")
+    fun cariAduan(
+        @Query("kode_aduan") kode_aduan : String
+    ): Call<ResponsePengaduan>
 }
