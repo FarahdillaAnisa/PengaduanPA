@@ -35,7 +35,6 @@ class CariPengaduanActivity : AppCompatActivity() {
         binding.btnTambahLaporan.setOnClickListener {
             tambahLaporan(kode_aduan)
         }
-
     }
 
     private fun tambahLaporan(kodeAduan : String) {

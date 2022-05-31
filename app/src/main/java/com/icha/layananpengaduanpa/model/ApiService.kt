@@ -74,4 +74,13 @@ import retrofit2.http.*
     fun cariAduan(
         @Query("kode_aduan") kode_aduan : String
     ): Call<ResponsePengaduan>
+
+    //post laporan
+    @PUT("api/pelaporan/{kode_aduan}")
+    fun tambahLaporan(
+            @Query("kode_aduan") kode_aduan : String,
+            @Query("id_polisi") id_polisi : String,
+            @Query("isi_laporanpolisi") isi_laporanpolisi : String,
+            @Query("tgl_laporan") tgl_laporan : String
+    ) : Call<ResponsePengaduan>
 }
