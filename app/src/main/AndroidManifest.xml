@@ -13,15 +13,15 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.LayananPengaduanPA">
-        <activity android:name=".ui.polisi.pelaporan.postlaporan.DetailLaporanActivity"></activity>
-        <!-- masyarakat -->
+        <activity android:name=".ui.operator.kelolaakun.akunspkt.PostSpktPolsekActivity"></activity>
+        <activity android:name=".ui.polisi.pelaporan.postlaporan.DetailLaporanActivity" /> <!-- masyarakat -->
         <activity android:name=".MenuMasyarakat" />
         <activity android:name=".ui.masyarakat.pengaduan.postaduan.MapsActivity" />
         <activity android:name=".ui.masyarakat.pengaduan.postaduan.DetailAduanActivity" />
         <activity android:name=".ui.masyarakat.pengaduan.postaduan.PostAduanActivity" /> <!-- polisi -->
         <activity
             android:name=".MenuPolisi"
-            android:label="@string/title_activity_menu_polisi"></activity>
+            android:label="@string/title_activity_menu_polisi" />
         <activity android:name=".ui.polisi.pelaporan.postlaporan.PostPelaporanActivity" />
         <activity android:name=".ui.polisi.pelaporan.postlaporan.CariPengaduanActivity" /> <!-- operator -->
         <activity android:name=".ui.operator.kelolaakun.akunpolisi.PostAkunPolisiActivity" />

@@ -4,10 +4,6 @@ import retrofit2.Call
 import retrofit2.http.*
 
  interface ApiService {
-    //get all aduan
-    @GET("api/pengaduan")
-    fun getListAduan(): Call<ArrayList<ResponsePengaduan>>
-
     //get aduan by id
     @GET("api/pengaduan/getaduanbyid/{kode_aduan}")
     fun getAduan(@Query("kode_aduan") kode_aduan : String): Call<ResponsePengaduan>
@@ -61,6 +57,17 @@ import retrofit2.http.*
          @Field("pass_polisi") pass_polisi: String
      ): Call<PolisiModel>
 
+     //tambah akun spkt
+     @FormUrlEncoded
+     @POST("api/spktpolsek")
+     fun tambahAkunSpkt(
+//             @Field("id_spkt") id_spkt: String,
+             @Field("uname_spkt") uname_spkt: String,
+             @Field("satuan_wilayah") satuan_wilayah: String,
+             @Field("pass_spkt") pass_spkt: String,
+             @Field("notelp_spkt") notelp_spkt: String
+     ): Call<SpktModel>
+
     //Login Akun Polisi
     @GET("auth/{id_polisi}")
     fun loginPolisi(
@@ -83,4 +90,10 @@ import retrofit2.http.*
             @Query("isi_laporanpolisi") isi_laporanpolisi : String,
             @Query("tgl_laporan") tgl_laporan : String
     ) : Call<ResponsePengaduan>
-}
+
+    //get aduan oleh polisi
+    @GET("api/pengaduan")
+    fun getLaporan(@Query("id_polisi") id_polisi : String): Call<ArrayList<ResponsePengaduan>>
+
+
+ }

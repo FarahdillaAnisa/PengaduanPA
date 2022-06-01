@@ -75,7 +75,7 @@ class AduanProsesFragment : Fragment() {
             override fun onItemClicked(data: ResponsePengaduan) {
                 showSelectedAduan(data)
             }
-        } )
+        })
     }
 
     private fun showSelectedAduan(aduan : ResponsePengaduan) {

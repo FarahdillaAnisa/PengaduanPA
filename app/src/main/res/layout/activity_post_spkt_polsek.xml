@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.operator.kelolaakun.akunpolisi.PostAkunPolisiActivity">
+    tools:context=".ui.operator.kelolaakun.akunspkt.PostSpktPolsekActivity">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -17,14 +17,14 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="20dp"
-            android:text="Tambah Akun Polisi"
+            android:text="Tambah Akun SPKT Polsek"
             android:textAlignment="center"
             android:textSize="28sp" />
 
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="ID Polisi" />
+            android:text="ID SPKT Polsek" />
 
         <com.google.android.material.textfield.TextInputLayout
             android:layout_width="match_parent"
@@ -34,10 +34,10 @@
             app:boxStrokeWidth="1dp">
 
             <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/edt_idpolisi"
+                android:id="@+id/edt_idspkt"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:hint="ID Polisi"
+                android:hint="ID SPKT Polsek"
                 android:inputType="textPersonName" />
         </com.google.android.material.textfield.TextInputLayout>
 
@@ -125,7 +125,7 @@
         </com.google.android.material.textfield.TextInputLayout>
 
         <com.google.android.material.button.MaterialButton
-            android:id="@+id/btn_postpolisi"
+            android:id="@+id/btn_postspkt"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="20dp"
@@ -133,4 +133,5 @@
             android:textSize="16sp"
             android:textStyle="bold" />
     </LinearLayout>
+
 </androidx.constraintlayout.widget.ConstraintLayout>

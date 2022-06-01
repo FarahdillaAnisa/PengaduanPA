@@ -49,5 +49,4 @@ class PelaporanAdapter(private val listLaporan: ArrayList<ResponsePengaduan>) :
     interface OnItemClickCallback : PengaduanAdapter.OnItemClickCallback {
         override fun onItemClicked(data: ResponsePengaduan)
     }
-
 }
