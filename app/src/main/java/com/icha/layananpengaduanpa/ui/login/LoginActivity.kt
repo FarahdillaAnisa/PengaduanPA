@@ -7,13 +7,9 @@ import android.view.View
 import android.widget.AdapterView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
-import com.icha.layananpengaduanpa.MenuMasyarakat
-import com.icha.layananpengaduanpa.MenuPolisi
-import com.icha.layananpengaduanpa.R
+import com.icha.layananpengaduanpa.*
 import com.icha.layananpengaduanpa.databinding.ActivityLoginBinding
-import com.icha.layananpengaduanpa.model.ApiConfig
-import com.icha.layananpengaduanpa.model.MasyarakatModel
-import com.icha.layananpengaduanpa.model.PolisiModel
+import com.icha.layananpengaduanpa.model.*
 import com.icha.layananpengaduanpa.session.SessionManager
 import retrofit2.Call
 import retrofit2.Callback
@@ -70,7 +66,66 @@ class LoginActivity : AppCompatActivity() {
             loginMasyarakat(opsi)
         } else if (opsi.equals("Polisi")) {
             loginPolisi(opsi)
+        } else if (opsi.equals("SPKT Polsek")) {
+            loginSpkt("Spkt")
+        } else if (opsi.equals("Operator")) {
+            loginOperator("Operator")
         }
+    }
+
+    private fun loginOperator(opsi : String) {
+        ApiConfig.instance.loginOperator(
+                binding.edtUname.text.toString().trim(),
+                opsi,
+                binding.edtPass.text.toString().trim()
+        ).enqueue(object : Callback<OperatorModel> {
+            override fun onResponse(call: Call<OperatorModel>, response: Response<OperatorModel>) {
+                Toast.makeText(this@LoginActivity, "User ${response.body()?.unameOperator} berhasil login!", Toast.LENGTH_SHORT).show()
+                val operator = response.body()
+                if (operator != null) {
+                    session.createLoginOperatorSession(operator.idOperator.toString(), operator.unameOperator.toString())
+                    val intent = Intent(this@LoginActivity, MenuOperator::class.java)
+                    startActivity(intent)
+                    finish()
+                } else {
+                    Toast.makeText(applicationContext, "Login gagal", Toast.LENGTH_SHORT).show()
+                }
+            }
+
+            override fun onFailure(call: Call<OperatorModel>, t: Throwable) {
+                Toast.makeText(this@LoginActivity, "Operator gagal login!", Toast.LENGTH_SHORT).show()
+                Toast.makeText(this@LoginActivity, "Message : ${t.message}", Toast.LENGTH_SHORT).show()
+                Log.d("Gagal : ", t.message.toString())
+            }
+        })
+
+    }
+
+    private fun loginSpkt(opsi: String) {
+        ApiConfig.instance.loginSpkt(
+                binding.edtUname.text.toString().trim(),
+                opsi,
+                binding.edtPass.text.toString().trim()
+        ).enqueue(object : Callback<SpktModel> {
+            override fun onResponse(call: Call<SpktModel>, response: Response<SpktModel>) {
+                Toast.makeText(this@LoginActivity, "User ${response.body()?.unameSpkt} berhasil login!", Toast.LENGTH_SHORT).show()
+                val spkt = response.body()
+                if (spkt != null) {
+                    session.createLoginSpktSession(spkt.idSpkt.toString(), spkt.unameSpkt.toString(), spkt.satuanWilayah.toString(), spkt.notelpSpkt.toString())
+                    val intent = Intent(this@LoginActivity, MenuSpkt::class.java)
+                    startActivity(intent)
+                    finish()
+                } else {
+                    Toast.makeText(applicationContext, "Login gagal", Toast.LENGTH_SHORT).show()
+                }
+            }
+
+            override fun onFailure(call: Call<SpktModel>, t: Throwable) {
+                Toast.makeText(this@LoginActivity, "Spkt gagal login!", Toast.LENGTH_SHORT).show()
+                Toast.makeText(this@LoginActivity, "Message : ${t.message}", Toast.LENGTH_SHORT).show()
+                Log.d("Gagal : ", t.message.toString())
+            }
+        })
     }
 
     private fun loginPolisi(opsi: String) {
@@ -124,11 +179,6 @@ class LoginActivity : AppCompatActivity() {
                 } else {
                     Toast.makeText(applicationContext, "Login gagal", Toast.LENGTH_SHORT).show()
                 }
-
-//                //Menyimpan data login di SharedPreferences
-//                val editor: SharedPreferences.Editor = sharedPreferences.edit()
-//                editor.putString(Username, user?.unameMsy)
-//                editor.commit();
             }
 
             override fun onFailure(call: Call<MasyarakatModel>, t: Throwable) {

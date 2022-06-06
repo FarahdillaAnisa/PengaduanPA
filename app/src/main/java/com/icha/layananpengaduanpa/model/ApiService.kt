@@ -15,6 +15,13 @@ import retrofit2.http.*
             @Query("id_msy_fk") id_msy_fk:Int
     ): Call<ArrayList<ResponsePengaduan>>
 
+     //get aduan by status & kec
+     @GET("api/pengaduan/getaduanbykecamatan/")
+     fun getAduanStatus(
+             @Query("status_aduan") status_aduan:String,
+             @Query("kec_lokasi") kec_lokasi: String
+     ): Call<ArrayList<ResponsePengaduan>>
+
     //post new aduan using field x-www-form-urlencoded
     @FormUrlEncoded
     @POST("api/pengaduan")
@@ -59,7 +66,7 @@ import retrofit2.http.*
 
      //tambah akun spkt
      @FormUrlEncoded
-     @POST("api/spktpolsek")
+     @POST("api/spktpolsek/tambahspkt")
      fun tambahAkunSpkt(
 //             @Field("id_spkt") id_spkt: String,
              @Field("uname_spkt") uname_spkt: String,
@@ -76,6 +83,22 @@ import retrofit2.http.*
             @Query("pass_polisi") pass_polisi: String
     ): Call<PolisiModel>
 
+     //Login Akun SPKT
+     @GET("auth/{id_spkt}")
+     fun loginSpkt(
+             @Query("id_spkt") id_spkt: String,
+             @Query("role_user") role_user: String,
+             @Query("pass_spkt") pass_spkt: String
+     ): Call<SpktModel>
+
+     //Login Akun Operator
+     @GET("auth/{id_operator}")
+     fun loginOperator(
+             @Query("id_operator") id_operator: String,
+             @Query("role_user") role_user: String,
+             @Query("pass_operator") pass_operator: String
+     ): Call<OperatorModel>
+
     //cari aduan - polisi
     @GET("api/pelaporan/cariaduan/{kode_aduan}")
     fun cariAduan(
@@ -83,17 +106,16 @@ import retrofit2.http.*
     ): Call<ResponsePengaduan>
 
     //post laporan
+    @FormUrlEncoded
     @PUT("api/pelaporan/{kode_aduan}")
     fun tambahLaporan(
-            @Query("kode_aduan") kode_aduan : String,
-            @Query("id_polisi") id_polisi : String,
-            @Query("isi_laporanpolisi") isi_laporanpolisi : String,
-            @Query("tgl_laporan") tgl_laporan : String
+            @Path("kode_aduan") kode_aduan : String,
+            @Field("id_polisi") id_polisi : String,
+            @Field("isi_laporanpolisi") isi_laporanpolisi : String,
+            @Field("tgl_laporan") tgl_laporan : String
     ) : Call<ResponsePengaduan>
 
     //get aduan oleh polisi
     @GET("api/pengaduan")
     fun getLaporan(@Query("id_polisi") id_polisi : String): Call<ArrayList<ResponsePengaduan>>
-
-
  }

@@ -48,6 +48,22 @@ class SessionManager {
         editor.commit()
     }
 
+    fun createLoginSpktSession(idSpkt: String, unameSpkt: String, satuanWilayah: String, notelpSpkt: String) {
+        editor.putBoolean(IS_LOGIN, true)
+        editor.putString(KEY_ID, idSpkt)
+        editor.putString(KEY_NAMA, unameSpkt)
+        editor.putString(KEY_NOTELP, notelpSpkt)
+        editor.putString(KEY_SATWIL, satuanWilayah)
+        editor.commit()
+    }
+
+    fun createLoginOperatorSession(idOperator: String, unameOperator: String) {
+        editor.putBoolean(IS_LOGIN, true)
+        editor.putString(KEY_ID, idOperator)
+        editor.putString(KEY_NAMA, unameOperator)
+        editor.commit()
+    }
+
     fun isLoggedIn() : Boolean {
         return pref.getBoolean(IS_LOGIN, false)
     }
@@ -89,5 +105,8 @@ class SessionManager {
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK)
         context.startActivity(intent)
     }
+
+
+
 
 }

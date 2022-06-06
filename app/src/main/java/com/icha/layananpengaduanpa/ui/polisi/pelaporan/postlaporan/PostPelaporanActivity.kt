@@ -1,11 +1,13 @@
 package com.icha.layananpengaduanpa.ui.polisi.pelaporan.postlaporan
 
 import android.Manifest
+import android.content.Intent
 import android.content.pm.PackageManager
 import android.location.Location
 import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import android.widget.Toast
 import androidx.annotation.RequiresApi
 import androidx.core.app.ActivityCompat
@@ -17,6 +19,7 @@ import com.icha.layananpengaduanpa.model.ApiConfig
 import com.icha.layananpengaduanpa.model.ResponsePengaduan
 import com.icha.layananpengaduanpa.session.SessionManager
 import com.icha.layananpengaduanpa.ui.masyarakat.pengaduan.postaduan.DetailAduanActivity
+import com.icha.layananpengaduanpa.ui.polisi.pelaporan.PelaporanFragment
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -50,6 +53,7 @@ class PostPelaporanActivity : AppCompatActivity() {
             if (bundle?.containsKey(EXTRA_KODE_ADUAN)!!) {
                 val kodeAduan = intent.getStringExtra(EXTRA_KODE_ADUAN)
                 if (kodeAduan != null) {
+                    Log.d("kode_aduan : ", "${kodeAduan}")
                     tambahLaporan(kodeAduan)
                 }
             }
@@ -69,6 +73,8 @@ class PostPelaporanActivity : AppCompatActivity() {
         ).enqueue(object : Callback<ResponsePengaduan> {
             override fun onResponse(call: Call<ResponsePengaduan>, response: Response<ResponsePengaduan>) {
                 Toast.makeText(applicationContext, "Laporan ${kodeAduan} telah berhasil disimpan!", Toast.LENGTH_SHORT).show()
+//                val intent  = Intent(this@PostPelaporanActivity, PelaporanFragment::class.java)
+//                startActivity(intent)
             }
 
             override fun onFailure(call: Call<ResponsePengaduan>, t: Throwable) {

@@ -7,6 +7,7 @@ import com.icha.layananpengaduanpa.R
 import com.icha.layananpengaduanpa.databinding.ActivityDetailAduanBinding
 import com.icha.layananpengaduanpa.databinding.ActivitySplashScreenBinding
 import com.icha.layananpengaduanpa.ui.operator.kelolaakun.akunpolisi.PostAkunPolisiActivity
+import com.icha.layananpengaduanpa.ui.operator.kelolaakun.akunspkt.PostSpktPolsekActivity
 
 class SplashScreenActivity : AppCompatActivity() {
     private lateinit var binding : ActivitySplashScreenBinding
@@ -23,7 +24,7 @@ class SplashScreenActivity : AppCompatActivity() {
 
         //SEMENTARA
         binding.signupbtn.setOnClickListener {
-            val intent = Intent(this, PostAkunPolisiActivity::class.java)
+            val intent = Intent(this, SignupActivity::class.java)
             startActivity(intent)
         }
     }
