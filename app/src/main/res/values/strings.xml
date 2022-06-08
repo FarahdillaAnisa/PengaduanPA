@@ -4,7 +4,7 @@
     <string name="title_beranda">Beranda</string>
     <string name="title_pengaduan">Pengaduan</string>
     <string name="title_pelaporan">Pelaporan</string>
-    <string name="title_akun">Akun</string>
+    <string name="title_akun">Profil</string>
     <string name="tab_text_proses">Belum Diproses</string>
     <string name="tab_text_selesai">Selesai</string>
     <string-array name="opsi_login">

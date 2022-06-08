@@ -26,6 +26,7 @@ class SessionManager {
         val KEY_USERNAME: String = "uname"
         val KEY_PASSWORD: String = "pass"
         val KEY_SATWIL: String = "satwil"
+        val ROLE_USER: String = "roleuser"
     }
 
     fun createLoginSession(uname: String, pass: String, id: String, nama: String, notelp: String) {
@@ -35,6 +36,7 @@ class SessionManager {
         editor.putString(KEY_ID, id)
         editor.putString(KEY_NAMA, nama)
         editor.putString(KEY_NOTELP, notelp)
+        editor.putString(ROLE_USER, "masyarakat")
         editor.commit()
     }
 
@@ -45,6 +47,7 @@ class SessionManager {
         editor.putString(KEY_NAMA, nama)
         editor.putString(KEY_NOTELP, notelp)
         editor.putString(KEY_SATWIL, satwil)
+        editor.putString(ROLE_USER, "polisi")
         editor.commit()
     }
 
@@ -54,6 +57,7 @@ class SessionManager {
         editor.putString(KEY_NAMA, unameSpkt)
         editor.putString(KEY_NOTELP, notelpSpkt)
         editor.putString(KEY_SATWIL, satuanWilayah)
+        editor.putString(ROLE_USER, "spkt")
         editor.commit()
     }
 
@@ -61,6 +65,7 @@ class SessionManager {
         editor.putBoolean(IS_LOGIN, true)
         editor.putString(KEY_ID, idOperator)
         editor.putString(KEY_NAMA, unameOperator)
+        editor.putString(ROLE_USER, "operator")
         editor.commit()
     }
 
@@ -84,6 +89,8 @@ class SessionManager {
         user.put(KEY_ID, pref.getString(KEY_ID, null).toString())
         user.put(KEY_NAMA, pref.getString(KEY_NAMA, null).toString())
         user.put(KEY_NOTELP, pref.getString(KEY_NOTELP, null).toString())
+        user.put(KEY_SATWIL, pref.getString(KEY_SATWIL, null).toString())
+        user.put(ROLE_USER, pref.getString(ROLE_USER, null).toString())
         return user
     }
 
@@ -95,6 +102,16 @@ class SessionManager {
         polisi.put(KEY_NAMA, pref.getString(KEY_NAMA, null).toString())
         polisi.put(KEY_NOTELP, pref.getString(KEY_NOTELP, null).toString())
         return polisi
+    }
+
+    fun getSpktDetails(): HashMap<String, String> {
+        var spkt : Map<String, String> = HashMap()
+        (spkt as HashMap).put(KEY_ID, pref.getString(KEY_ID, null).toString())
+        spkt.put(KEY_PASSWORD, pref.getString(KEY_PASSWORD, null).toString())
+        spkt.put(KEY_SATWIL, pref.getString(KEY_SATWIL, null).toString())
+        spkt.put(KEY_NAMA, pref.getString(KEY_NAMA, null).toString())
+        spkt.put(KEY_NOTELP, pref.getString(KEY_NOTELP, null).toString())
+        return spkt
     }
 
     fun logoutUser() {

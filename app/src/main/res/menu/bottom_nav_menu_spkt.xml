@@ -2,17 +2,18 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
 
     <item
-        android:id="@+id/navigation_beranda"
+        android:id="@+id/navigation_beranda_spkt"
         android:icon="@drawable/ic_home_black_24dp"
         android:title="@string/title_beranda" />
 
     <item
-        android:id="@+id/navigation_pengaduan"
+        android:id="@+id/navigation_pengaduan_spkt"
         android:icon="@drawable/ic_baseline_announcement_24"
         android:title="@string/title_pengaduan" />
 
     <item
-        android:id="@+id/navigation_akun"
+        android:id="@+id/navigation_akun_spkt"
         android:icon="@drawable/ic_baseline_person_24"
         android:title="@string/title_akun" />
+
 </menu>

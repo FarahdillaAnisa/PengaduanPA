@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/spkt_navigation"
+    app:startDestination="@+id/navigation_beranda_spkt">
+
+    <fragment
+        android:id="@+id/navigation_beranda_spkt"
+        android:name="com.icha.layananpengaduanpa.ui.spktpolsek.beranda.BerandaFragment"
+        android:label="@string/title_beranda"
+        tools:layout="@layout/fragment_beranda_spkt" />
+
+    <fragment
+        android:id="@+id/navigation_pengaduan_spkt"
+        android:name="com.icha.layananpengaduanpa.ui.spktpolsek.pengaduan.PengaduanFragment"
+        android:label="@string/title_pengaduan"
+        tools:layout="@layout/fragment_pengaduan_spkt" />
+
+    <fragment
+        android:id="@+id/navigation_akun_spkt"
+        android:name="com.icha.layananpengaduanpa.ui.spktpolsek.akun.AkunFragment"
+        android:label="@string/title_akun"
+        tools:layout="@layout/fragment_akun_spkt" />
+</navigation>

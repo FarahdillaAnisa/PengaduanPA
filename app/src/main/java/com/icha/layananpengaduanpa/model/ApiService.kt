@@ -17,7 +17,7 @@ import retrofit2.http.*
 
      //get aduan by status & kec
      @GET("api/pengaduan/getaduanbykecamatan/")
-     fun getAduanStatus(
+     fun getAduanKec(
              @Query("status_aduan") status_aduan:String,
              @Query("kec_lokasi") kec_lokasi: String
      ): Call<ArrayList<ResponsePengaduan>>

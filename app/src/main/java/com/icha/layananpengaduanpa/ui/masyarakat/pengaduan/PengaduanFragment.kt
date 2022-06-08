@@ -11,13 +11,12 @@ import androidx.fragment.app.Fragment
 import androidx.viewpager.widget.ViewPager
 import com.google.android.material.tabs.TabLayout
 import com.icha.layananpengaduanpa.R
+import com.icha.layananpengaduanpa.databinding.FragmentPelaporanBinding
+import com.icha.layananpengaduanpa.databinding.FragmentPengaduanBinding
 import com.icha.layananpengaduanpa.ui.masyarakat.pengaduan.postaduan.PostAduanActivity
 
 class PengaduanFragment : Fragment(), View.OnClickListener {
-
-    private lateinit var viewPager: ViewPager
-    private lateinit var tabs: TabLayout
-
+    private lateinit var binding: FragmentPengaduanBinding
     companion object {
         @StringRes
         private val TAB_TITLES = intArrayOf(
@@ -31,16 +30,15 @@ class PengaduanFragment : Fragment(), View.OnClickListener {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        val view: View = inflater.inflate(R.layout.fragment_pengaduan, container, false)
-        val btn_post_aduan: Button = view.findViewById(R.id.fab_aduan)
-        viewPager = view.findViewById(R.id.view_pager)
-        tabs = view.findViewById(R.id.tabs)
+        binding = FragmentPengaduanBinding.inflate(inflater, container, false)
+        val view = binding.root
 
+//        btn_post_aduan.visibility = View.GONE
         val fragmentAdapter = SectionsPagerAdapter(childFragmentManager)
-        viewPager.adapter = fragmentAdapter
-        tabs.setupWithViewPager(viewPager)
+        binding.viewPager.adapter = fragmentAdapter
+        binding.tabs.setupWithViewPager(binding.viewPager)
 
-        btn_post_aduan.setOnClickListener(this)
+        binding.fabAduan.setOnClickListener(this)
         return view
     }
 
