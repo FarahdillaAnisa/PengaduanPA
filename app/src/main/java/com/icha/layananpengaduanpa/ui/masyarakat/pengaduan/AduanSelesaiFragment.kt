@@ -10,6 +10,8 @@ import android.widget.Toast
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.icha.layananpengaduanpa.R
+import com.icha.layananpengaduanpa.databinding.FragmentAduanProsesBinding
+import com.icha.layananpengaduanpa.databinding.FragmentAduanSelesaiBinding
 import com.icha.layananpengaduanpa.model.ApiConfig
 import com.icha.layananpengaduanpa.model.ResponsePengaduan
 import com.icha.layananpengaduanpa.session.SessionManager
@@ -21,6 +23,7 @@ import retrofit2.Response
 
 class AduanSelesaiFragment() : Fragment() {
     private lateinit var rvAduanSelesai: RecyclerView
+    private lateinit var binding: FragmentAduanSelesaiBinding
     private val listAduanSelesai = ArrayList<ResponsePengaduan>()
     lateinit var session: SessionManager
     private var role_user: String = ""
@@ -29,8 +32,9 @@ class AduanSelesaiFragment() : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_aduan_selesai, container, false)
+        binding = FragmentAduanSelesaiBinding.inflate(inflater, container, false)
+        val view = binding.root
+        return view
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -49,10 +53,30 @@ class AduanSelesaiFragment() : Fragment() {
         val satwil: String = user.get(SessionManager.KEY_SATWIL)!!
 
         if (role_user == "masyarakat") {
+            setHasOptionsMenu(false)
             getAduanMsy(id_user)
         } else if (role_user == "spkt") {
+            setHasOptionsMenu(false)
             getAduanSpkt(satwil)
+        } else if (role_user == "operator") {
+            setHasOptionsMenu(true)
+            getAduanOperator()
         }
+    }
+
+    private fun getAduanOperator() {
+        ApiConfig.instance.getAllAduan("selesai")
+                .enqueue(object : Callback<ArrayList<ResponsePengaduan>> {
+                    override fun onResponse(call: Call<ArrayList<ResponsePengaduan>>, response: Response<ArrayList<ResponsePengaduan>>) {
+                        response.body()?.let { listAduanSelesai.addAll(it) }
+                        showRecyclerListAduan()
+                    }
+
+                    override fun onFailure(call: Call<ArrayList<ResponsePengaduan>>, t: Throwable) {
+                        val responseCode = t.message
+                        Toast.makeText(getContext(), responseCode, Toast.LENGTH_SHORT).show()
+                    }
+                })
     }
 
     private fun getAduanSpkt(satwil: String) {

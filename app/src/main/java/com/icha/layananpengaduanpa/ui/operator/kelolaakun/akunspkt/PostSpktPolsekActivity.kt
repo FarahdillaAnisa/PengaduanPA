@@ -30,8 +30,8 @@ class PostSpktPolsekActivity : AppCompatActivity() {
         ApiConfig.instance.tambahAkunSpkt(
                 binding.edtNama.text.toString(),
                 binding.edtSatuanwilayah.text.toString(),
-                binding.edtNotelp.text.toString(),
-                binding.edtPassword.text.toString()
+                binding.edtPassword.text.toString(),
+                binding.edtNotelp.text.toString()
         ).enqueue(object : Callback<SpktModel> {
             override fun onResponse(call: Call<SpktModel>, response: Response<SpktModel>) {
                 Toast.makeText(this@PostSpktPolsekActivity, "SPKT ${binding.edtNama.text} berhasil didaftarkan", Toast.LENGTH_SHORT).show()

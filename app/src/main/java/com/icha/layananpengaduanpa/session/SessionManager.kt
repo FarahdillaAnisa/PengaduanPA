@@ -64,7 +64,7 @@ class SessionManager {
     fun createLoginOperatorSession(idOperator: String, unameOperator: String) {
         editor.putBoolean(IS_LOGIN, true)
         editor.putString(KEY_ID, idOperator)
-        editor.putString(KEY_NAMA, unameOperator)
+        editor.putString(KEY_USERNAME, unameOperator)
         editor.putString(ROLE_USER, "operator")
         editor.commit()
     }
@@ -104,14 +104,11 @@ class SessionManager {
         return polisi
     }
 
-    fun getSpktDetails(): HashMap<String, String> {
-        var spkt : Map<String, String> = HashMap()
-        (spkt as HashMap).put(KEY_ID, pref.getString(KEY_ID, null).toString())
-        spkt.put(KEY_PASSWORD, pref.getString(KEY_PASSWORD, null).toString())
-        spkt.put(KEY_SATWIL, pref.getString(KEY_SATWIL, null).toString())
-        spkt.put(KEY_NAMA, pref.getString(KEY_NAMA, null).toString())
-        spkt.put(KEY_NOTELP, pref.getString(KEY_NOTELP, null).toString())
-        return spkt
+    fun getOperatorDetails(): HashMap<String, String> {
+        var operator : Map<String, String> = HashMap()
+        (operator as HashMap).put(KEY_ID, pref.getString(KEY_ID, null).toString())
+        operator.put(KEY_USERNAME, pref.getString(KEY_USERNAME, null).toString())
+        return operator
     }
 
     fun logoutUser() {

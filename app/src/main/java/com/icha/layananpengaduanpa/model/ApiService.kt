@@ -4,6 +4,10 @@ import retrofit2.Call
 import retrofit2.http.*
 
  interface ApiService {
+    //getAllAduan
+     @GET("api/pengaduan/getAduan/{status_aduan}")
+     fun getAllAduan(@Query("status_aduan") status_aduan: String): Call<ArrayList<ResponsePengaduan>>
+
     //get aduan by id
     @GET("api/pengaduan/getaduanbyid/{kode_aduan}")
     fun getAduan(@Query("kode_aduan") kode_aduan : String): Call<ResponsePengaduan>

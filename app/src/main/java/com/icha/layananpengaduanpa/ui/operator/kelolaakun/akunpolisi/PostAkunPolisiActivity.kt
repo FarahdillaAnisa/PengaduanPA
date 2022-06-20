@@ -35,8 +35,8 @@ class PostAkunPolisiActivity : AppCompatActivity() {
         ).enqueue(object :Callback<PolisiModel> {
             override fun onResponse(call: Call<PolisiModel>, response: Response<PolisiModel>) {
                 Toast.makeText(this@PostAkunPolisiActivity, "Polisi ${binding.edtNama.text} berhasil didaftarkan", Toast.LENGTH_SHORT).show()
-                val intent = Intent(this@PostAkunPolisiActivity, LoginActivity::class.java)
-                startActivity(intent)
+//                val intent = Intent(this@PostAkunPolisiActivity, LoginActivity::class.java)
+//                startActivity(intent)
             }
 
             override fun onFailure(call: Call<PolisiModel>, t: Throwable) {
