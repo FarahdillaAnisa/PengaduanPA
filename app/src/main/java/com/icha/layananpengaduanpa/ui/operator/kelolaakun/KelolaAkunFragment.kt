@@ -17,19 +17,14 @@ class KelolaAkunFragment : Fragment() {
                               savedInstanceState: Bundle?): View? {
         binding = FragmentKelolaAkunBinding.inflate(inflater, container, false)
         val view = binding.root
-        return view
-    }
 
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
-        binding.kelolapolisiBtn.setOnClickListener {
+        val fragmentAdapter = AkunPagerAdapter(childFragmentManager)
+        binding.viewPager.adapter = fragmentAdapter
+        binding.tabs.setupWithViewPager(binding.viewPager)
+        binding.fabAkun.setOnClickListener {
             val intent = Intent(activity, PostAkunPolisiActivity::class.java)
             startActivity(intent)
         }
-
-        binding.kelolaspktBtn.setOnClickListener {
-            val intent = Intent(activity, PostSpktPolsekActivity::class.java)
-            startActivity(intent)
-        }
+        return view
     }
 }

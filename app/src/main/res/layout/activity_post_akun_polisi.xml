@@ -132,5 +132,14 @@
             android:text="Tambah akun"
             android:textSize="16sp"
             android:textStyle="bold" />
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btn_deletepolisi"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Hapus akun"
+            android:textSize="16sp"
+            android:textStyle="bold"
+            android:visibility="gone"/>
     </LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

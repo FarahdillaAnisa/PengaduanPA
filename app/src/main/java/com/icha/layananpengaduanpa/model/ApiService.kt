@@ -57,7 +57,13 @@ import retrofit2.http.*
             @Query("pass_user") pass_msy: String
     ): Call<MasyarakatModel>
 
-     //Signup-User
+    //get Akun Polisi
+    @GET("api/polisi")
+    fun getAkunPolisi(
+            @Query("id_polisi") id_polisi: String? = null
+    ): Call<ArrayList<PolisiModel>>
+
+     //Tambah Akun Polisi
      @FormUrlEncoded
      @POST("api/polisi")
      fun tambahAkunPolisi(
@@ -68,11 +74,43 @@ import retrofit2.http.*
          @Field("pass_polisi") pass_polisi: String
      ): Call<PolisiModel>
 
+     @DELETE("api/polisi/")
+     fun deleteAkunPolisi(@Query("id_polisi") id_polisi: String) : Call<PolisiModel>
+
+     //Edit Akun Polisi
+     @FormUrlEncoded
+     @PUT("api/polisi")
+     fun editAkunPolisi(
+             @Field("id_polisi") id_polisi: String,
+             @Field("nama_polisi") nama_polisi: String,
+             @Field("satuan_wilayah") satuan_wilayah: String,
+             @Field("notelp_polisi") notelp_polisi: String,
+             @Field("pass_polisi") pass_polisi: String
+     ): Call<PolisiModel>
+
+     //get Akun Polisi
+     @GET("api/spktpolsek")
+     fun getAkunSpkt(@Query("id_spkt") id_spkt: String? = null): Call<SpktModel>
+
      //tambah akun spkt
      @FormUrlEncoded
      @POST("api/spktpolsek/tambahspkt")
      fun tambahAkunSpkt(
 //             @Field("id_spkt") id_spkt: String,
+             @Field("uname_spkt") uname_spkt: String,
+             @Field("satuan_wilayah") satuan_wilayah: String,
+             @Field("pass_spkt") pass_spkt: String,
+             @Field("notelp_spkt") notelp_spkt: String
+     ): Call<SpktModel>
+
+     @DELETE("api/spktpolsek/")
+     fun deleteAkunSpkt(@Query("id_spkt") id_spkt: String) : Call<SpktModel>
+
+     //edit akun Spkt
+     @FormUrlEncoded
+     @PUT("api/spktpolsek")
+     fun editAkunSpkt(
+             @Field("id_spkt") id_spkt: String,
              @Field("uname_spkt") uname_spkt: String,
              @Field("satuan_wilayah") satuan_wilayah: String,
              @Field("pass_spkt") pass_spkt: String,

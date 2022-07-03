@@ -13,7 +13,7 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.LayananPengaduanPA">
-        <activity android:name=".MenuOperator"></activity>
+        <activity android:name=".MenuOperator" />
         <activity android:name=".ui.spktpolsek.pengaduan.DetailAduanSpktActivity" />
         <activity android:name=".ui.operator.kelolaakun.akunspkt.PostSpktPolsekActivity" />
         <activity android:name=".ui.polisi.pelaporan.postlaporan.DetailLaporanActivity" /> <!-- masyarakat -->
@@ -38,7 +38,6 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-
     </application>
 
 </manifest>
