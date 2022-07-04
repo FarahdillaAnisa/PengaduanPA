@@ -7,18 +7,20 @@ import android.widget.Toast
 import com.icha.layananpengaduanpa.databinding.ActivityPostAkunPolisiBinding
 import com.icha.layananpengaduanpa.model.ApiConfig
 import com.icha.layananpengaduanpa.model.PolisiModel
+import com.icha.layananpengaduanpa.ui.masyarakat.pengaduan.postaduan.DetailAduanActivity
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
 class PostAkunPolisiActivity : AppCompatActivity() {
     companion object {
-        const val EXTRA_POLISI = "extra_polisi"
+//        const val EXTRA_POLISI = "extra_polisi"
+        const val EXTRA_ID = "extra_id"
     }
 
     private lateinit var binding : ActivityPostAkunPolisiBinding
     private var isEdit = false
-    private var aPolisi: PolisiModel? = null
+//    private var aPolisi: PolisiModel? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -26,19 +28,16 @@ class PostAkunPolisiActivity : AppCompatActivity() {
         setContentView(binding.root)
 
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
-        aPolisi = intent.getParcelableExtra(EXTRA_POLISI)
-        if (aPolisi != null) {
-            isEdit = true
-            binding.btnDeletepolisi.visibility = View.VISIBLE
-            binding.btnPostpolisi.setText("Perbaharui Akun")
-            supportActionBar?.title = "Edit Data Akun Polisi"
+//        aPolisi = intent.getParcelableExtra(EXTRA_POLISI)
+        val bundle : Bundle? = intent.extras
+        if (bundle?.containsKey(EXTRA_ID)!!) {
+            val aPolisi = intent.getStringExtra(EXTRA_ID)
             if (aPolisi != null) {
-                aPolisi?.let { dataPolisi ->
-                    binding.edtIdpolisi.setText(dataPolisi.idPolisi)
-                    binding.edtNama.setText(dataPolisi.namaPolisi)
-                    binding.edtNotelp.setText(dataPolisi.notelpPolisi)
-                    binding.edtSatuanwilayah.setText(dataPolisi.satuanWilayah)
-                }
+                isEdit = true
+                binding.btnDeletepolisi.visibility = View.VISIBLE
+                binding.btnPostpolisi.setText("Perbaharui Akun")
+                supportActionBar?.title = "Edit Data Akun Polisi"
+                getAkunPolisi(aPolisi)
             }
         }
 
@@ -54,6 +53,34 @@ class PostAkunPolisiActivity : AppCompatActivity() {
             }
 
         }
+    }
+
+    private fun getAkunPolisi(id: String) {
+        ApiConfig.instance.getAkunPolisiById(id)
+                .enqueue(object: Callback<PolisiModel> {
+                    override fun onResponse(call: Call<PolisiModel>, response: Response<PolisiModel>) {
+                        if (response.isSuccessful) {
+                            val dataAkun = response.body()
+                            dataAkun?.let {data->
+                                binding.edtIdpolisi.setText(data.idPolisi)
+                                binding.edtNama.setText(data.namaPolisi)
+                                binding.edtNotelp.setText(data.notelpPolisi)
+                                binding.edtSatuanwilayah.setText(data.satuanWilayah)
+                                //PASSWORD
+                            }
+                        }
+                        else{
+                            Toast.makeText(this@PostAkunPolisiActivity, "Gagal Mengambil Data", Toast.LENGTH_SHORT).show()
+                        }
+                    }
+
+                    override fun onFailure(call: Call<PolisiModel>, t: Throwable) {
+                        Toast.makeText(this@PostAkunPolisiActivity, "Kode : $id", Toast.LENGTH_SHORT).show()
+                        val responseCode = t.message
+                        Toast.makeText(this@PostAkunPolisiActivity, responseCode, Toast.LENGTH_SHORT).show()
+                    }
+
+                })
     }
 
     private fun deleteAkunPolisi() {
@@ -76,8 +103,8 @@ class PostAkunPolisiActivity : AppCompatActivity() {
             binding.edtIdpolisi.text.toString(),
             binding.edtNama.text.toString(),
             binding.edtSatuanwilayah.text.toString(),
-            binding.edtNotelp.text.toString(),
-            binding.edtPassword.text.toString()
+            binding.edtNotelp.text.toString()
+//            binding.edtPassword.text.toString()
         ).enqueue(object : Callback<PolisiModel> {
             override fun onResponse(call: Call<PolisiModel>, response: Response<PolisiModel>) {
                 Toast.makeText(this@PostAkunPolisiActivity, "Polisi ${binding.edtNama.text} berhasil diperbaharui", Toast.LENGTH_SHORT).show()

@@ -63,6 +63,12 @@ import retrofit2.http.*
             @Query("id_polisi") id_polisi: String? = null
     ): Call<ArrayList<PolisiModel>>
 
+     //get Akun Polisi by id
+     @GET("api/polisi")
+     fun getAkunPolisiById(
+             @Query("id_polisi") id_polisi: String? = null
+     ): Call<PolisiModel>
+
      //Tambah Akun Polisi
      @FormUrlEncoded
      @POST("api/polisi")
@@ -84,8 +90,8 @@ import retrofit2.http.*
              @Field("id_polisi") id_polisi: String,
              @Field("nama_polisi") nama_polisi: String,
              @Field("satuan_wilayah") satuan_wilayah: String,
-             @Field("notelp_polisi") notelp_polisi: String,
-             @Field("pass_polisi") pass_polisi: String
+             @Field("notelp_polisi") notelp_polisi: String
+//             @Field("pass_polisi") pass_polisi: String
      ): Call<PolisiModel>
 
      //get Akun Polisi

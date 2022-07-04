@@ -2,6 +2,7 @@ package com.icha.layananpengaduanpa.ui.operator.kelolaakun
 
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -21,7 +22,6 @@ import retrofit2.Response
 
 class AkunPolisiListFragment : Fragment() {
     private lateinit var binding: FragmentAkunPolisiListBinding
-    private lateinit var rvAkunPolisi: RecyclerView
     private val listAkun = ArrayList<PolisiModel>()
 
     override fun onCreateView(
@@ -35,7 +35,7 @@ class AkunPolisiListFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        rvAkunPolisi = view.findViewById(R.id.rv_polisi)
+        binding.rvPolisi.setHasFixedSize(true)
 
         getListAkunPolisi()
     }
@@ -44,7 +44,11 @@ class AkunPolisiListFragment : Fragment() {
         ApiConfig.instance.getAkunPolisi()
                 .enqueue(object: Callback<ArrayList<PolisiModel>> {
                     override fun onResponse(call: Call<ArrayList<PolisiModel>>, response: Response<ArrayList<PolisiModel>>) {
-                        response.body()?.let { listAkun.addAll(it) }
+
+                        response.body()?.let {
+                            listAkun.addAll(it)
+                            Log.d("POLISI", listAkun.toString())
+                        }
                         showRecyclerListAkun()
                     }
 
@@ -56,22 +60,24 @@ class AkunPolisiListFragment : Fragment() {
     }
 
     private fun showRecyclerListAkun() {
-        rvAkunPolisi.layoutManager = LinearLayoutManager(requireContext())
+
+        binding.rvPolisi.layoutManager = LinearLayoutManager(requireContext())
+        binding.rvPolisi.setHasFixedSize(true)
         val akunAdapter = KelolaAkunAdapter(listAkun)
-        rvAkunPolisi.adapter = akunAdapter
+        binding.rvPolisi.adapter = akunAdapter
 
         akunAdapter.setOnItemClickCallback(object : KelolaAkunAdapter.OnItemClickCallback {
             override fun onItemClicked(data: PolisiModel) {
                 showSelectedAkun(data)
             }
-
         })
+
+        Log.d("RV", "sudah di rlistAkun")
     }
 
     private fun showSelectedAkun(data: PolisiModel) {
         val intent = Intent(context, PostAkunPolisiActivity::class.java)
-//        intent.putExtra()
+        intent.putExtra(PostAkunPolisiActivity.EXTRA_ID, data.idPolisi)
+        startActivity(intent)
     }
-
-
 }
