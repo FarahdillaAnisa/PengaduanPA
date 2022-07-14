@@ -86,6 +86,12 @@
         </com.google.android.material.textfield.TextInputLayout>
 
         <TextView
+            android:id="@+id/statusUname"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Status Username : "/>
+
+        <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="Password"/>

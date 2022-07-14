@@ -44,6 +44,26 @@
             />
     </com.google.android.material.textfield.TextInputLayout>
 
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Kecamatan"
+        android:layout_marginStart="10dp"/>
+
+    <Spinner
+        android:id="@+id/opsiKecamatan"
+        android:paddingStart="5dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:entries="@array/subdistrict_array"
+        android:layout_marginBottom="10dp"
+        android:layout_margin="10dp"
+        android:padding="15dp"
+        android:elevation="@dimen/cardview_default_elevation"
+        app:boxStrokeWidth="1dp"
+        app:boxStrokeColor="@color/maroon_main_theme"
+        />
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

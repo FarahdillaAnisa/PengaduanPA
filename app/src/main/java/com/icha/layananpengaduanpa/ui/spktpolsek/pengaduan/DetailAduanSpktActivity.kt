@@ -7,6 +7,7 @@ import android.util.Log
 import android.widget.Toast
 import com.icha.layananpengaduanpa.R
 import com.icha.layananpengaduanpa.databinding.ActivityDetailAduanSpktBinding
+import com.icha.layananpengaduanpa.helper.Helper
 import com.icha.layananpengaduanpa.model.ApiConfig
 import com.icha.layananpengaduanpa.model.ResponsePengaduan
 import com.icha.layananpengaduanpa.ui.masyarakat.pengaduan.postaduan.DetailAduanActivity
@@ -41,10 +42,11 @@ class DetailAduanSpktActivity : AppCompatActivity() {
                         if (response.isSuccessful) {
                             Log.d("Data Aduan : " , response.body().toString())
                             val dataAduan = response.body()
+                            val helper = Helper()
                             dataAduan?.let {
                                 binding.kodeAduanTxt.setText(kodeAduan)
                                 binding.kecTxt.setText(dataAduan.kecLokasi)
-                                binding.tgladuanTxt.setText(dataAduan.tglAduan.toString())
+                                binding.tgladuanTxt.setText(helper.displayDate(dataAduan.tglAduan.toString()))
                                 binding.txtNamaPelapor.setText("Nama Pelapor : ${dataAduan.idMsyFk}")
                                 binding.tvIsiAduan.setText(dataAduan.isiAduan)
 

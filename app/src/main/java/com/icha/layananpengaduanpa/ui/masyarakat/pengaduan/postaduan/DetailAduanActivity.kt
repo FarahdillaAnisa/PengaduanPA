@@ -6,6 +6,7 @@ import android.os.Bundle
 import android.util.Log
 import android.widget.Toast
 import com.icha.layananpengaduanpa.databinding.ActivityDetailAduanBinding
+import com.icha.layananpengaduanpa.helper.Helper
 import com.icha.layananpengaduanpa.model.ApiConfig
 import com.icha.layananpengaduanpa.model.ResponsePengaduan
 import retrofit2.Call
@@ -39,12 +40,16 @@ class DetailAduanActivity : AppCompatActivity() {
                 ApiConfig.instance.getAduan(kodeAduan).enqueue(object : Callback<ResponsePengaduan> {
                     override fun onResponse(call: Call<ResponsePengaduan>, response: Response<ResponsePengaduan>) {
                         if (response.isSuccessful) {
+                            val helper = Helper()
                             Log.d("Data Aduan : " , response.body().toString())
                             val dataAduan = response.body()
                             dataAduan?.let {
                                 binding.kodeAduanTxt.setText(kodeAduan)
                                 binding.kecTxt.setText(dataAduan.kecLokasi)
-                                binding.tgladuanTxt.setText(dataAduan.tglAduan.toString())
+
+                                //getCurrentDate
+                                val tanggalAduan = helper.displayDate(dataAduan.tglAduan.toString())
+                                binding.tgladuanTxt.setText(tanggalAduan)
                                 binding.tvIsiAduan.setText(dataAduan.isiAduan)
 
                                 val statusAduan = dataAduan.statusAduan

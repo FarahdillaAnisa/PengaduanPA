@@ -7,6 +7,7 @@ import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.icha.layananpengaduanpa.R
+import com.icha.layananpengaduanpa.helper.Helper
 import com.icha.layananpengaduanpa.model.ResponsePengaduan
 import com.icha.layananpengaduanpa.ui.masyarakat.pengaduan.postaduan.DetailAduanActivity
 import kotlin.collections.ArrayList
@@ -39,9 +40,11 @@ class PengaduanAdapter(private val listAduan: ArrayList<ResponsePengaduan>): Rec
 ////        val formatter= SimpleDateFormat("yyyy-MM-dd", Locale.ENGLISH)
 ////        val tanggal_aduan = formatter.parse(tglAduan.toString())
         val dataAduan = listAduan[position]
+        val helper = Helper()
+        val tglAduan = helper.displayDate(dataAduan.tglAduan.toString())
 //        holder.bind(dataAduan)
         holder.kodetxt.text = dataAduan.kodeAduan
-        holder.tgladuantxt.text = dataAduan.tglAduan.toString()
+        holder.tgladuantxt.text = tglAduan
         holder.itemView.setOnClickListener{
             onItemClickCallback.onItemClicked(listAduan[holder.adapterPosition])
             val intent = Intent(holder.itemView.context, DetailAduanActivity::class.java)

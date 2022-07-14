@@ -3,6 +3,8 @@ package com.icha.layananpengaduanpa.ui.polisi.pelaporan.postlaporan
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.view.View
+import android.widget.AdapterView
 import android.widget.Toast
 import com.icha.layananpengaduanpa.R
 import com.icha.layananpengaduanpa.databinding.ActivityCariPengaduanBinding
@@ -20,6 +22,7 @@ class CariPengaduanActivity : AppCompatActivity() {
     var longitude : Double = 0.0
     var status: Boolean = false
     var kode_aduan : String = ""
+    private var opsiKecamatan: String = ""
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -28,12 +31,28 @@ class CariPengaduanActivity : AppCompatActivity() {
         setContentView(binding.root)
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
 
+        spinnerOpsiKecamatan()
+
         binding.btnCariAduan.setOnClickListener {
             cariAduan()
         }
 
         binding.btnTambahLaporan.setOnClickListener {
             tambahLaporan(kode_aduan)
+        }
+    }
+
+    private fun spinnerOpsiKecamatan() {
+        val kecamatan = resources.getStringArray(R.array.subdistrict_array)
+        binding.opsiKecamatan.onItemSelectedListener = object :
+                AdapterView.OnItemSelectedListener {
+            override fun onItemSelected(p0: AdapterView<*>?, view: View?, position: Int, id: Long) {
+                opsiKecamatan = kecamatan[position].toString()
+            }
+
+            override fun onNothingSelected(p0: AdapterView<*>?) {
+                TODO("Not yet implemented")
+            }
         }
     }
 
@@ -49,7 +68,7 @@ class CariPengaduanActivity : AppCompatActivity() {
 
     private fun cariAduan() {
         kode_aduan = binding.txtKodeAduan.text.toString()
-        ApiConfig.instance.cariAduan(kode_aduan).enqueue(object : Callback<ResponsePengaduan> {
+        ApiConfig.instance.cariAduan(kode_aduan, opsiKecamatan).enqueue(object : Callback<ResponsePengaduan> {
             override fun onResponse(
                 call: Call<ResponsePengaduan>,
                 response: Response<ResponsePengaduan>

@@ -15,6 +15,7 @@ import com.google.android.gms.location.FusedLocationProviderClient
 import com.google.android.gms.location.LocationServices
 import com.google.android.gms.tasks.Task
 import com.icha.layananpengaduanpa.databinding.ActivityPostPelaporanBinding
+import com.icha.layananpengaduanpa.helper.Helper
 import com.icha.layananpengaduanpa.model.ApiConfig
 import com.icha.layananpengaduanpa.model.ResponsePengaduan
 import com.icha.layananpengaduanpa.session.SessionManager
@@ -64,12 +65,13 @@ class PostPelaporanActivity : AppCompatActivity() {
 
     @RequiresApi(Build.VERSION_CODES.O)
     private fun tambahLaporan(kodeAduan: String) {
-        val tanggalLaporan = LocalDate.now()
+        val helper = Helper()
+//        val tanggalLaporan = LocalDate.now()
         ApiConfig.instance.tambahLaporan(
                 kodeAduan,
                 id_polisi,
                 binding.txtIsiLaporan.text.toString(),
-                tanggalLaporan.toString()
+                helper.saveCurrentDate()
         ).enqueue(object : Callback<ResponsePengaduan> {
             override fun onResponse(call: Call<ResponsePengaduan>, response: Response<ResponsePengaduan>) {
                 Toast.makeText(applicationContext, "Laporan ${kodeAduan} telah berhasil disimpan!", Toast.LENGTH_SHORT).show()

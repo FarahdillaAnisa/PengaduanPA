@@ -7,6 +7,7 @@ import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.icha.layananpengaduanpa.R
+import com.icha.layananpengaduanpa.helper.Helper
 import com.icha.layananpengaduanpa.model.ResponsePengaduan
 import com.icha.layananpengaduanpa.ui.masyarakat.pengaduan.PengaduanAdapter
 import com.icha.layananpengaduanpa.ui.polisi.pelaporan.postlaporan.DetailLaporanActivity
@@ -32,8 +33,9 @@ class PelaporanAdapter(private val listLaporan: ArrayList<ResponsePengaduan>) :
 
     override fun onBindViewHolder(holder: LaporanViewHolder, position: Int) {
         val dataLaporan = listLaporan[position]
+        val helper = Helper()
         holder.kodetxt.text = dataLaporan.kodeAduan
-        holder.tgladuantxt.text = dataLaporan.tglAduan.toString()
+        holder.tgladuantxt.text = helper.displayDate(dataLaporan.tglAduan.toString())
         holder.itemView.setOnClickListener {
             onItemClickCallback.onItemClicked(listLaporan[holder.adapterPosition])
             val intent = Intent(holder.itemView.context, DetailLaporanActivity::class.java)

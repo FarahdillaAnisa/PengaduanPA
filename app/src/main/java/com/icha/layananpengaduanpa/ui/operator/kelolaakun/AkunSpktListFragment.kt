@@ -6,8 +6,12 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.icha.layananpengaduanpa.R
+import com.icha.layananpengaduanpa.databinding.FragmentAkunPolisiListBinding
+import com.icha.layananpengaduanpa.model.PolisiModel
 
 class AkunSpktListFragment : Fragment() {
+    private lateinit var binding: FragmentAkunPolisiListBinding
+    private val listAkun = ArrayList<PolisiModel>()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,

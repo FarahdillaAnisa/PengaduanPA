@@ -43,6 +43,7 @@ import retrofit2.http.*
     @FormUrlEncoded
     @POST("auth/registration")
     fun signupUser(
+         @Field("id_msy") id_msy: String,
          @Field("nama_msy") nama_msy: String,
          @Field("notelp_msy") notelp_msy: String,
          @Field("uname_msy") uname_msy: String,
@@ -56,6 +57,12 @@ import retrofit2.http.*
             @Query("role_user") role_user: String,
             @Query("pass_user") pass_msy: String
     ): Call<MasyarakatModel>
+
+    //getAkunMsy
+    @GET("api/masyarakat")
+    fun getAkunMsy(
+            @Query("id_msy") id_msy: String
+    ): Call<MasyarakatUnameCheck>
 
     //get Akun Polisi
     @GET("api/polisi")
@@ -80,12 +87,13 @@ import retrofit2.http.*
          @Field("pass_polisi") pass_polisi: String
      ): Call<PolisiModel>
 
+     @FormUrlEncoded
      @DELETE("api/polisi/")
-     fun deleteAkunPolisi(@Query("id_polisi") id_polisi: String) : Call<PolisiModel>
+     fun deleteAkunPolisi(@Field("id_polisi") id_polisi: String) : Call<PolisiModel>
 
      //Edit Akun Polisi
      @FormUrlEncoded
-     @PUT("api/polisi")
+     @PUT("api/polisi/")
      fun editAkunPolisi(
              @Field("id_polisi") id_polisi: String,
              @Field("nama_polisi") nama_polisi: String,
@@ -94,15 +102,19 @@ import retrofit2.http.*
 //             @Field("pass_polisi") pass_polisi: String
      ): Call<PolisiModel>
 
-     //get Akun Polisi
+     //get Akun Spkt
      @GET("api/spktpolsek")
-     fun getAkunSpkt(@Query("id_spkt") id_spkt: String? = null): Call<SpktModel>
+     fun getAkunSpkt(@Query("id_spkt") id_spkt: String? = null): Call<ArrayList<SpktModel>>
+
+     //get Akun Spkt
+     @GET("api/spktpolsek")
+     fun getAkunSpktById(@Query("id_spkt") id_spkt: String? = null): Call<SpktModel>
 
      //tambah akun spkt
      @FormUrlEncoded
      @POST("api/spktpolsek/tambahspkt")
      fun tambahAkunSpkt(
-//             @Field("id_spkt") id_spkt: String,
+             @Field("id_spkt") id_spkt: String,
              @Field("uname_spkt") uname_spkt: String,
              @Field("satuan_wilayah") satuan_wilayah: String,
              @Field("pass_spkt") pass_spkt: String,
@@ -110,7 +122,7 @@ import retrofit2.http.*
      ): Call<SpktModel>
 
      @DELETE("api/spktpolsek/")
-     fun deleteAkunSpkt(@Query("id_spkt") id_spkt: String) : Call<SpktModel>
+     fun deleteAkunSpkt(@Field("id_spkt") id_spkt: String) : Call<SpktModel>
 
      //edit akun Spkt
      @FormUrlEncoded
@@ -119,7 +131,7 @@ import retrofit2.http.*
              @Field("id_spkt") id_spkt: String,
              @Field("uname_spkt") uname_spkt: String,
              @Field("satuan_wilayah") satuan_wilayah: String,
-             @Field("pass_spkt") pass_spkt: String,
+//             @Field("pass_spkt") pass_spkt: String,
              @Field("notelp_spkt") notelp_spkt: String
      ): Call<SpktModel>
 
@@ -150,7 +162,8 @@ import retrofit2.http.*
     //cari aduan - polisi
     @GET("api/pelaporan/cariaduan/{kode_aduan}")
     fun cariAduan(
-        @Query("kode_aduan") kode_aduan : String
+        @Query("kode_aduan") kode_aduan : String,
+        @Query("kec_lokasi") kec_lokasi : String
     ): Call<ResponsePengaduan>
 
     //post laporan

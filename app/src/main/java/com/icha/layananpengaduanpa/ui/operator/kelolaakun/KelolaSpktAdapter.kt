@@ -9,11 +9,10 @@ import android.widget.ImageButton
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.icha.layananpengaduanpa.R
-import com.icha.layananpengaduanpa.model.PolisiModel
 import com.icha.layananpengaduanpa.model.SpktModel
 import com.icha.layananpengaduanpa.ui.operator.kelolaakun.akunpolisi.PostAkunPolisiActivity
 
-class KelolaAkunAdapter(private val listAkun : ArrayList<PolisiModel>): RecyclerView.Adapter<KelolaAkunAdapter.AkunViewHolder>() {
+class KelolaSpktAdapter(private val listSpkt : ArrayList<SpktModel>): RecyclerView.Adapter<KelolaSpktAdapter.AkunViewHolder>()  {
     private lateinit var onItemClickCallback: OnItemClickCallback
 
     fun setOnItemClickCallback(onItemClickCallback: OnItemClickCallback) {
@@ -32,27 +31,28 @@ class KelolaAkunAdapter(private val listAkun : ArrayList<PolisiModel>): Recycler
     }
 
     override fun onBindViewHolder(holder: AkunViewHolder, position: Int) {
-        val dataAkun = listAkun[position]
-        holder.idnamatxt.text = dataAkun.namaPolisi
-        holder.satwiltxt.text = dataAkun.satuanWilayah
+        val dataSpkt = listSpkt[position]
+        holder.idnamatxt.text = dataSpkt.unameSpkt
+        holder.satwiltxt.text = dataSpkt.satuanWilayah
         holder.dialBtn.setOnClickListener {
-            val intent = Intent(Intent.ACTION_DIAL, Uri.parse("tel:" + Uri.encode(dataAkun.notelpPolisi)))
+            val intent = Intent(Intent.ACTION_DIAL, Uri.parse("tel:" + Uri.encode(dataSpkt.notelpSpkt)))
             holder.itemView.context.startActivity(intent)
         }
         holder.itemView.setOnClickListener {
-            onItemClickCallback.onItemClicked(listAkun[holder.adapterPosition])
+            onItemClickCallback.onItemClicked(listSpkt[holder.adapterPosition])
             val intent = Intent(holder.itemView.context, PostAkunPolisiActivity::class.java)
 //            intent.putExtra("id_akun", listAkun[position].idPolisi)
-            intent.putExtra(PostAkunPolisiActivity.EXTRA_ID, dataAkun.idPolisi)
+            intent.putExtra(PostAkunPolisiActivity.EXTRA_ID, dataSpkt.idSpkt)
             holder.itemView.context.startActivity(intent)
         }
     }
 
     override fun getItemCount(): Int {
-          return listAkun.size
+        return listSpkt.size
     }
 
     interface OnItemClickCallback {
-        fun onItemClicked(data: PolisiModel)
+        fun onItemClicked(data: SpktModel)
     }
+
 }

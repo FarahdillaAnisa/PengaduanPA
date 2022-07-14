@@ -61,8 +61,8 @@ class PostSpktPolsekActivity : AppCompatActivity() {
                 binding.edtIdspkt.text.toString(),
                 binding.edtNama.text.toString(),
                 binding.edtSatuanwilayah.text.toString(),
-                binding.edtNotelp.text.toString(),
-                binding.edtPassword.text.toString()
+                binding.edtNotelp.text.toString()
+//                binding.edtPassword.text.toString()
         ).enqueue(object : Callback<SpktModel> {
             override fun onResponse(call: Call<SpktModel>, response: Response<SpktModel>) {
                 Toast.makeText(this@PostSpktPolsekActivity, "Spkt ${binding.edtNama.text} berhasil diperbaharui", Toast.LENGTH_SHORT).show()
@@ -93,6 +93,7 @@ class PostSpktPolsekActivity : AppCompatActivity() {
 
     private fun tambahAkunSpkt() {
         ApiConfig.instance.tambahAkunSpkt(
+                "id_spkt",
                 binding.edtNama.text.toString(),
                 binding.edtSatuanwilayah.text.toString(),
                 binding.edtPassword.text.toString(),
@@ -108,7 +109,6 @@ class PostSpktPolsekActivity : AppCompatActivity() {
                 Toast.makeText(this@PostSpktPolsekActivity, "Data SPKT gagal disimpan!", Toast.LENGTH_SHORT).show()
                 Toast.makeText(this@PostSpktPolsekActivity, "Message : ${t.message}", Toast.LENGTH_SHORT).show()
             }
-
         })
     }
 

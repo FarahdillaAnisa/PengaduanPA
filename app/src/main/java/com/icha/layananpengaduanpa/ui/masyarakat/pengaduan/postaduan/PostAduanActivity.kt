@@ -20,6 +20,7 @@ import com.google.android.gms.location.LocationServices
 import com.google.android.gms.tasks.Task
 import com.icha.layananpengaduanpa.R
 import com.icha.layananpengaduanpa.databinding.ActivityPostAduanBinding
+import com.icha.layananpengaduanpa.helper.Helper
 import com.icha.layananpengaduanpa.model.ApiConfig
 import com.icha.layananpengaduanpa.model.ResponsePengaduan
 import com.icha.layananpengaduanpa.session.SessionManager
@@ -163,15 +164,18 @@ class PostAduanActivity : AppCompatActivity(), LocationListener {
 //            }
 //        }
 
-        val tanggalAduan = LocalDate.now()
+
+        val helper = Helper()
+        val currentDate = helper.saveCurrentDate()
+        val id_aduan = helper.getRandomId(5, "pengaduan")
 
         ApiConfig.instance.createNewAduan(
-                "ADUAN_SKJD6",
+                id_aduan,
                 latitude,
                 longitude,
                 subdistrict,
                 binding.txtIsiAduan.text.toString(),
-                tanggalAduan.toString(),
+                currentDate,
                 id_msy
         ).enqueue(object : Callback<ResponsePengaduan>{
             override fun onResponse(call: Call<ResponsePengaduan>, response: Response<ResponsePengaduan>) {

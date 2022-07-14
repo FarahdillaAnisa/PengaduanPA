@@ -7,6 +7,7 @@ import android.util.Log
 import android.widget.Toast
 import com.icha.layananpengaduanpa.R
 import com.icha.layananpengaduanpa.databinding.ActivityDetailLaporanBinding
+import com.icha.layananpengaduanpa.helper.Helper
 import com.icha.layananpengaduanpa.model.ApiConfig
 import com.icha.layananpengaduanpa.model.ResponsePengaduan
 import com.icha.layananpengaduanpa.ui.masyarakat.pengaduan.postaduan.DetailAduanActivity
@@ -49,11 +50,12 @@ class DetailLaporanActivity : AppCompatActivity() {
                     override fun onResponse(call: Call<ResponsePengaduan>, response: Response<ResponsePengaduan>) {
                         if (response.isSuccessful) {
                             Log.d("Data Aduan : " , response.body().toString())
+                            val helper = Helper()
                             val dataAduan = response.body()
                             dataAduan?.let {
                                 binding.kodeAduanTxt.setText(kodeAduan)
                                 binding.kecTxt.setText(dataAduan.kecLokasi)
-                                binding.tgladuanTxt.setText(dataAduan.tglAduan.toString())
+                                binding.tgladuanTxt.setText(helper.displayDate(dataAduan.tglAduan.toString()))
                                 binding.tvIsiAduan.setText(dataAduan.isiAduan)
                                 binding.tvKetLaporan.setText(dataAduan.isiLaporanpolisi)
                                 latitude = dataAduan.latLokasi

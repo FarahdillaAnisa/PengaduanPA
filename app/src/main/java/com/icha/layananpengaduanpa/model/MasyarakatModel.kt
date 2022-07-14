@@ -4,7 +4,7 @@ import com.google.gson.annotations.SerializedName
 
 data class MasyarakatModel(
 	@field:SerializedName("id_msy")
-	val idMsy: Int,
+	val idMsy: String,
 
 	@field:SerializedName("nama_msy")
 	val namaMsy: String,
@@ -23,4 +23,9 @@ data class MasyarakatModel(
 
 	@field:SerializedName("date_created")
 	val dateCreated: String
+)
+
+data class MasyarakatUnameCheck(
+	@field:SerializedName("result")
+	val unameMsyJumlah: Int? = null
 )

@@ -8,7 +8,6 @@ import android.view.View
 import android.view.ViewGroup
 import com.icha.layananpengaduanpa.databinding.FragmentKelolaAkunBinding
 import com.icha.layananpengaduanpa.ui.operator.kelolaakun.akunpolisi.PostAkunPolisiActivity
-import com.icha.layananpengaduanpa.ui.operator.kelolaakun.akunspkt.PostSpktPolsekActivity
 
 class KelolaAkunFragment : Fragment() {
     private lateinit var binding: FragmentKelolaAkunBinding
