@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView
+<FrameLayout
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -8,7 +8,6 @@
     xmlns:android="http://schemas.android.com/apk/res/android">
 
     <LinearLayout
-        android:layout_marginTop="30dp"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical"
@@ -30,15 +29,15 @@
         <com.google.android.material.textfield.TextInputLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="20dp"
+            android:layout_marginBottom="10dp"
             app:boxStrokeWidth="1dp"
             app:boxStrokeColor="@color/maroon_main_theme">
 
             <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/edt_uname"
+                android:id="@+id/edt_id"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:hint="Username"
+                android:hint="ID Pengguna"
                 android:inputType="text"
 
                 />
@@ -52,7 +51,7 @@
         <com.google.android.material.textfield.TextInputLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="20dp"
+            android:layout_marginBottom="10dp"
             app:boxStrokeWidth="1dp"
             app:boxStrokeColor="@color/maroon_main_theme">
 
@@ -90,7 +89,15 @@
             android:text="Login"
             android:textSize="16sp"
             android:textStyle="bold"
-            android:layout_marginTop="20dp"
             />
     </LinearLayout>
-</ScrollView>
+
+    <ProgressBar
+        android:id="@+id/progressBar"
+        style="?android:attr/progressBarStyle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:visibility="invisible"
+        />
+</FrameLayout>

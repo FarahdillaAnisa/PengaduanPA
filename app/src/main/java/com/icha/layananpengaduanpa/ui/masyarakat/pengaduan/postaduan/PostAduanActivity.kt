@@ -27,7 +27,6 @@ import com.icha.layananpengaduanpa.session.SessionManager
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
-import java.time.LocalDate
 import java.util.*
 import kotlin.collections.HashMap
 
@@ -97,7 +96,8 @@ class PostAduanActivity : AppCompatActivity(), LocationListener {
         binding.notelpTxt.setText(notelp)
 
         binding.btnAddAduan.setOnClickListener{
-            createNewAduan(id.toInt())
+            binding.progressBar.visibility = View.VISIBLE
+            createNewAduan(id)
         }
     }
 
@@ -149,7 +149,7 @@ class PostAduanActivity : AppCompatActivity(), LocationListener {
 //    }
 
     @RequiresApi(Build.VERSION_CODES.O)
-    private fun createNewAduan(id_msy : Int) {
+    private fun createNewAduan(id_msy : String) {
 //        val subdistrictArray = resources.getStringArray(R.array.subdistrict_array)
 //        binding.subdistrictSpinner.onItemSelectedListener = object :
 //            AdapterView.OnItemSelectedListener {
@@ -179,6 +179,7 @@ class PostAduanActivity : AppCompatActivity(), LocationListener {
                 id_msy
         ).enqueue(object : Callback<ResponsePengaduan>{
             override fun onResponse(call: Call<ResponsePengaduan>, response: Response<ResponsePengaduan>) {
+                binding.progressBar.visibility = View.GONE
                 Toast.makeText(applicationContext, "Data telah berhasil disimpan!", Toast.LENGTH_SHORT).show()
             }
 

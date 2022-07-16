@@ -36,8 +36,8 @@ class AkunFragment : Fragment() {
     session.checkLogin()
 
     val user: HashMap<String, String> = session.getUserDetails()
-    val username: String = user.get(SessionManager.KEY_NAMA)!!
-    binding.unameTxt.setText(username)
+    val nama: String = user.get(SessionManager.KEY_NAMA)!!
+    binding.unameTxt.setText(nama)
 
     binding.logoutBtn.setOnClickListener {
       session.logoutUser()

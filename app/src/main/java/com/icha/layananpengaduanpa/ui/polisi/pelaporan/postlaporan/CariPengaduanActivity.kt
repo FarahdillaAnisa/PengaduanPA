@@ -1,6 +1,7 @@
 package com.icha.layananpengaduanpa.ui.polisi.pelaporan.postlaporan
 
 import android.content.Intent
+import android.net.Uri
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
@@ -9,6 +10,7 @@ import android.widget.Toast
 import com.icha.layananpengaduanpa.R
 import com.icha.layananpengaduanpa.databinding.ActivityCariPengaduanBinding
 import com.icha.layananpengaduanpa.model.ApiConfig
+import com.icha.layananpengaduanpa.model.MasyarakatModel
 import com.icha.layananpengaduanpa.model.ResponsePengaduan
 import com.icha.layananpengaduanpa.ui.masyarakat.pengaduan.postaduan.DetailAduanActivity
 import com.icha.layananpengaduanpa.ui.masyarakat.pengaduan.postaduan.MapsActivity
@@ -34,6 +36,7 @@ class CariPengaduanActivity : AppCompatActivity() {
         spinnerOpsiKecamatan()
 
         binding.btnCariAduan.setOnClickListener {
+            binding.progressBar.visibility = View.VISIBLE
             cariAduan()
         }
 
@@ -73,11 +76,12 @@ class CariPengaduanActivity : AppCompatActivity() {
                 call: Call<ResponsePengaduan>,
                 response: Response<ResponsePengaduan>
             ) {
+                binding.progressBar.visibility = View.GONE
                 if (response.isSuccessful) {
                     val dataAduan = response.body()
                     if (dataAduan?.statusAduan == "proses") {
                         dataAduan.let {
-                            binding.tvDataNamaPelapor.setText(dataAduan.idMsyFk.toString())
+                            getDataMsy(dataAduan.idMsyFk)
                             binding.tvKetAduan.setText(dataAduan.isiAduan)
 
                             latitude = dataAduan.latLokasi
@@ -107,6 +111,28 @@ class CariPengaduanActivity : AppCompatActivity() {
             intent.putExtra(DetailAduanActivity.EXTRA_LOCATION_LONGITUDE, longitude)
             startActivity(intent)
         }
+    }
+
+    private fun getDataMsy(idMsyFk: String) {
+        ApiConfig.instance.getAkunMsy(idMsyFk)
+                .enqueue(object : Callback<MasyarakatModel> {
+                    override fun onResponse(call: Call<MasyarakatModel>, response: Response<MasyarakatModel>) {
+                        if (response.isSuccessful) {
+                            val dataAkun = response.body()
+                            dataAkun?.let { data ->
+                                binding.tvDataNamaPelapor.setText("$idMsyFk - ${data.namaMsy}" )
+                                binding.tvNotelpPelapor.setText(data.notelpMsy)
+                                binding.btnKontakPelapor.setOnClickListener {
+                                    val intent = Intent(Intent.ACTION_DIAL, Uri.parse("tel:" + Uri.encode(data.notelpMsy)))
+                                    startActivity(intent)
+                                }
+                            }
+                        }
+                    }
+
+                    override fun onFailure(call: Call<MasyarakatModel>, t: Throwable) {
+                    }
+                })
     }
 
     override fun onSupportNavigateUp(): Boolean {

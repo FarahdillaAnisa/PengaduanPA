@@ -35,6 +35,7 @@ class AkunPolisiListFragment(val role_user : String) : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         binding.rvPolisi.setHasFixedSize(true)
+        binding.progressBar.visibility = View.VISIBLE
 
         if (role_user == "polisi") {
             getListAkunPolisi()
@@ -47,6 +48,7 @@ class AkunPolisiListFragment(val role_user : String) : Fragment() {
         ApiConfig.instance.getAkunSpkt()
                 .enqueue(object : Callback<ArrayList<SpktModel>> {
                     override fun onResponse(call: Call<ArrayList<SpktModel>>, response: Response<ArrayList<SpktModel>>) {
+                        binding.progressBar.visibility = View.GONE
                         response.body()?.let {
                             listSpkt.addAll(it)
                             Log.d("SPKT", listSpkt.toString())
@@ -75,7 +77,7 @@ class AkunPolisiListFragment(val role_user : String) : Fragment() {
         ApiConfig.instance.getAkunPolisi()
                 .enqueue(object: Callback<ArrayList<PolisiModel>> {
                     override fun onResponse(call: Call<ArrayList<PolisiModel>>, response: Response<ArrayList<PolisiModel>>) {
-
+                        binding.progressBar.visibility = View.GONE
                         response.body()?.let {
                             listPolisi.addAll(it)
                             Log.d("POLISI", listPolisi.toString())

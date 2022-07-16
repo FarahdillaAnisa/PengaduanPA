@@ -1,13 +1,13 @@
 package com.icha.layananpengaduanpa.ui.polisi.pelaporan.postlaporan
 
 import android.Manifest
-import android.content.Intent
 import android.content.pm.PackageManager
 import android.location.Location
 import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
+import android.view.View
 import android.widget.Toast
 import androidx.annotation.RequiresApi
 import androidx.core.app.ActivityCompat
@@ -19,12 +19,9 @@ import com.icha.layananpengaduanpa.helper.Helper
 import com.icha.layananpengaduanpa.model.ApiConfig
 import com.icha.layananpengaduanpa.model.ResponsePengaduan
 import com.icha.layananpengaduanpa.session.SessionManager
-import com.icha.layananpengaduanpa.ui.masyarakat.pengaduan.postaduan.DetailAduanActivity
-import com.icha.layananpengaduanpa.ui.polisi.pelaporan.PelaporanFragment
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
-import java.time.LocalDate
 
 class PostPelaporanActivity : AppCompatActivity() {
     private lateinit var binding : ActivityPostPelaporanBinding
@@ -50,12 +47,13 @@ class PostPelaporanActivity : AppCompatActivity() {
         getLokasi()
 
         binding.btnAddLaporan.setOnClickListener {
+            binding.progressBar.visibility = View.VISIBLE
             val bundle : Bundle? = intent.extras
             if (bundle?.containsKey(EXTRA_KODE_ADUAN)!!) {
                 val kodeAduan = intent.getStringExtra(EXTRA_KODE_ADUAN)
                 if (kodeAduan != null) {
                     Log.d("kode_aduan : ", "${kodeAduan}")
-                    tambahLaporan(kodeAduan)
+                    tambahLaporan(kodeAduan, id_polisi)
                 }
             }
         }
@@ -64,17 +62,21 @@ class PostPelaporanActivity : AppCompatActivity() {
     }
 
     @RequiresApi(Build.VERSION_CODES.O)
-    private fun tambahLaporan(kodeAduan: String) {
+    private fun tambahLaporan(kodeAduan: String, idPolisi: String) {
         val helper = Helper()
 //        val tanggalLaporan = LocalDate.now()
         ApiConfig.instance.tambahLaporan(
                 kodeAduan,
-                id_polisi,
+                idPolisi,
                 binding.txtIsiLaporan.text.toString(),
+                latitude,
+                longitude,
                 helper.saveCurrentDate()
         ).enqueue(object : Callback<ResponsePengaduan> {
             override fun onResponse(call: Call<ResponsePengaduan>, response: Response<ResponsePengaduan>) {
-                Toast.makeText(applicationContext, "Laporan ${kodeAduan} telah berhasil disimpan!", Toast.LENGTH_SHORT).show()
+                binding.progressBar.visibility = View.GONE
+                Toast.makeText(applicationContext, "Laporan $kodeAduan : $idPolisi - ${binding.txtIsiLaporan.text.toString()}" +
+                        "${helper.saveCurrentDate()} telah berhasil disimpan!", Toast.LENGTH_SHORT).show()
 //                val intent  = Intent(this@PostPelaporanActivity, PelaporanFragment::class.java)
 //                startActivity(intent)
             }

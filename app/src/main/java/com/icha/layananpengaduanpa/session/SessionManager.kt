@@ -29,9 +29,8 @@ class SessionManager {
         val ROLE_USER: String = "roleuser"
     }
 
-    fun createLoginSession(uname: String, pass: String, id: String, nama: String, notelp: String) {
+    fun createLoginSession(pass: String, id: String, nama: String, notelp: String) {
         editor.putBoolean(IS_LOGIN, true)
-        editor.putString(KEY_USERNAME, uname)
         editor.putString(KEY_PASSWORD, pass)
         editor.putString(KEY_ID, id)
         editor.putString(KEY_NAMA, nama)
@@ -84,9 +83,8 @@ class SessionManager {
 
     fun getUserDetails(): HashMap<String, String> {
         var user : Map<String, String> = HashMap()
-        (user as HashMap).put(KEY_USERNAME, pref.getString(KEY_USERNAME, null).toString())
+        (user as HashMap).put(KEY_ID, pref.getString(KEY_ID, null).toString())
         user.put(KEY_PASSWORD, pref.getString(KEY_PASSWORD, null).toString())
-        user.put(KEY_ID, pref.getString(KEY_ID, null).toString())
         user.put(KEY_NAMA, pref.getString(KEY_NAMA, null).toString())
         user.put(KEY_NOTELP, pref.getString(KEY_NOTELP, null).toString())
         user.put(KEY_SATWIL, pref.getString(KEY_SATWIL, null).toString())
@@ -119,8 +117,4 @@ class SessionManager {
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK)
         context.startActivity(intent)
     }
-
-
-
-
 }

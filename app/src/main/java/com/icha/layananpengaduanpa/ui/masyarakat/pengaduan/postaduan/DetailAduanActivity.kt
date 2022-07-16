@@ -1,6 +1,7 @@
 package com.icha.layananpengaduanpa.ui.masyarakat.pengaduan.postaduan
 
 import android.content.Intent
+import android.net.Uri
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
@@ -8,6 +9,7 @@ import android.widget.Toast
 import com.icha.layananpengaduanpa.databinding.ActivityDetailAduanBinding
 import com.icha.layananpengaduanpa.helper.Helper
 import com.icha.layananpengaduanpa.model.ApiConfig
+import com.icha.layananpengaduanpa.model.PolisiModel
 import com.icha.layananpengaduanpa.model.ResponsePengaduan
 import retrofit2.Call
 import retrofit2.Callback
@@ -31,7 +33,7 @@ class DetailAduanActivity : AppCompatActivity() {
         binding = ActivityDetailAduanBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-//        supportActionBar?.setDisplayHomeAsUpEnabled(true)
+        supportActionBar?.setDisplayHomeAsUpEnabled(true)
 
         val bundle : Bundle? = intent.extras
         if (bundle?.containsKey(EXTRA_KODE_ADUAN)!!) {
@@ -57,7 +59,7 @@ class DetailAduanActivity : AppCompatActivity() {
                                     binding.statusAduan.text = "Belum Diproses"
                                 } else {
                                     binding.statusAduan.text = "Selesai"
-                                    binding.tvDataNamaPetugas.setText(dataAduan.idPolisi)
+                                    getDataPolisi(dataAduan.idPolisi!!)
                                     binding.tvKetAduan.setText(dataAduan.isiLaporanpolisi)
                                 }
 
@@ -94,8 +96,32 @@ class DetailAduanActivity : AppCompatActivity() {
         }
     }
 
-//    override fun onSupportNavigateUp(): Boolean {
-//        onBackPressed()
-//        return super.onSupportNavigateUp()
-//    }
+    private fun getDataPolisi(idPolisi: String) {
+        ApiConfig.instance.getAkunPolisiById(idPolisi)
+                .enqueue(object : Callback<PolisiModel> {
+                    override fun onResponse(call: Call<PolisiModel>, response: Response<PolisiModel>) {
+                        if (response.isSuccessful) {
+                            val dataAkun = response.body()
+                            dataAkun?.let { data ->
+                                binding.tvDataNamaPetugas.setText("${data.idPolisi} - ${data.namaPolisi}" )
+                                binding.tvSatwil?.setText(data.satuanWilayah)
+                                binding.btnKontakPetugas.setOnClickListener {
+                                    val intent = Intent(Intent.ACTION_DIAL, Uri.parse("tel:" + Uri.encode(data.notelpPolisi)))
+                                    startActivity(intent)
+                                }
+                            }
+                        }
+                    }
+
+                    override fun onFailure(call: Call<PolisiModel>, t: Throwable) {
+                    }
+
+                })
+
+    }
+
+    override fun onSupportNavigateUp(): Boolean {
+        onBackPressed()
+        return super.onSupportNavigateUp()
+    }
 }

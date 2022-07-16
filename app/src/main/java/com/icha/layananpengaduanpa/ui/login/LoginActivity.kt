@@ -43,6 +43,7 @@ class LoginActivity : AppCompatActivity() {
 
         binding.loginbtn.setOnClickListener {
 //            sharedPreferences = getSharedPreferences(LOGPREFERENCES, Context.MODE_PRIVATE)
+            binding.progressBar.visibility = View.VISIBLE
             userLogin(opsiLogin)
         }
     }
@@ -75,11 +76,12 @@ class LoginActivity : AppCompatActivity() {
 
     private fun loginOperator(opsi : String) {
         ApiConfig.instance.loginOperator(
-                binding.edtUname.text.toString().trim(),
+                binding.edtId.text.toString().trim(),
                 opsi,
                 binding.edtPass.text.toString().trim()
         ).enqueue(object : Callback<OperatorModel> {
             override fun onResponse(call: Call<OperatorModel>, response: Response<OperatorModel>) {
+                binding.progressBar.visibility = View.GONE
                 Toast.makeText(this@LoginActivity, "User ${response.body()?.unameOperator} berhasil login!", Toast.LENGTH_SHORT).show()
                 val operator = response.body()
                 if (operator != null) {
@@ -103,11 +105,12 @@ class LoginActivity : AppCompatActivity() {
 
     private fun loginSpkt(opsi: String) {
         ApiConfig.instance.loginSpkt(
-                binding.edtUname.text.toString().trim(),
+                binding.edtId.text.toString().trim(),
                 opsi,
                 binding.edtPass.text.toString().trim()
         ).enqueue(object : Callback<SpktModel> {
             override fun onResponse(call: Call<SpktModel>, response: Response<SpktModel>) {
+                binding.progressBar.visibility = View.GONE
                 Toast.makeText(this@LoginActivity, "User ${response.body()?.unameSpkt} berhasil login!", Toast.LENGTH_SHORT).show()
                 val spkt = response.body()
                 if (spkt != null) {
@@ -130,11 +133,12 @@ class LoginActivity : AppCompatActivity() {
 
     private fun loginPolisi(opsi: String) {
         ApiConfig.instance.loginPolisi(
-                binding.edtUname.text.toString().trim(),
+                binding.edtId.text.toString().trim(),
                 opsi,
                 binding.edtPass.text.toString().trim()
         ).enqueue(object : Callback<PolisiModel> {
             override fun onResponse(call: Call<PolisiModel>, response: Response<PolisiModel>) {
+                binding.progressBar.visibility = View.GONE
                 Toast.makeText(this@LoginActivity, "User ${response.body()?.namaPolisi} berhasil login!", Toast.LENGTH_SHORT).show()
                 val polisi = response.body()
                 if (polisi != null) {
@@ -162,15 +166,16 @@ class LoginActivity : AppCompatActivity() {
 
     private fun loginMasyarakat(opsi: String) {
         ApiConfig.instance.loginMasyarakat(
-                binding.edtUname.text.toString().trim(),
+                binding.edtId.text.toString().trim(),
                 opsi,
                 binding.edtPass.text.toString().trim()
         ).enqueue(object : Callback<MasyarakatModel> {
             override fun onResponse(call: Call<MasyarakatModel>, response: Response<MasyarakatModel>) {
+                binding.progressBar.visibility = View.GONE
                 Toast.makeText(this@LoginActivity, "User berhasil login!", Toast.LENGTH_SHORT).show()
                 val user = response.body()
                 if (user != null) {
-                    session.createLoginSession(user.unameMsy, user.passMsy, user.idMsy.toString(), user.namaMsy, user.notelpMsy)
+                    session.createLoginSession(user.passMsy, user.idMsy, user.namaMsy, user.notelpMsy)
                     val intent = Intent(this@LoginActivity, MenuMasyarakat::class.java)
 //                    intent.putExtra(MainActivity.EXTRA_USERNAME, user.unameMsy)
 

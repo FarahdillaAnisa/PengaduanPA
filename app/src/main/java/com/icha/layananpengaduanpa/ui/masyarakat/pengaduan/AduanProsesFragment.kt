@@ -53,6 +53,7 @@ class AduanProsesFragment() : Fragment() {
         //add-cek role user
         role_user = user.get(SessionManager.ROLE_USER)!!
         val satwil: String = user.get(SessionManager.KEY_SATWIL)!!
+        binding.progressBar.visibility = View.VISIBLE
 
         if (role_user == "masyarakat") {
             setHasOptionsMenu(false)
@@ -70,6 +71,7 @@ class AduanProsesFragment() : Fragment() {
         ApiConfig.instance.getAllAduan("proses")
                 .enqueue(object : Callback<ArrayList<ResponsePengaduan>> {
                     override fun onResponse(call: Call<ArrayList<ResponsePengaduan>>, response: Response<ArrayList<ResponsePengaduan>>) {
+                        binding.progressBar.visibility = View.GONE
                         response.body()?.let { listAduan.addAll(it) }
                         showRecyclerListAduan()
                     }
@@ -85,6 +87,7 @@ class AduanProsesFragment() : Fragment() {
         ApiConfig.instance.getAduanKec("proses", satwil)
                 .enqueue(object : Callback<ArrayList<ResponsePengaduan>> {
                     override fun onResponse(call: Call<ArrayList<ResponsePengaduan>>, response: Response<ArrayList<ResponsePengaduan>>) {
+                        binding.progressBar.visibility = View.GONE
                         response.body()?.let { listAduan.addAll(it) }
                         showRecyclerListAduan()
                     }
@@ -97,9 +100,9 @@ class AduanProsesFragment() : Fragment() {
     }
 
     private fun getAduanMsy(idUser: String) {
-        ApiConfig.instance.getAduanStatus("proses", idUser.toInt()).enqueue(object : Callback<ArrayList<ResponsePengaduan>> {
+        ApiConfig.instance.getAduanStatus("proses", idUser).enqueue(object : Callback<ArrayList<ResponsePengaduan>> {
             override fun onResponse(call: Call<ArrayList<ResponsePengaduan>>, response: Response<ArrayList<ResponsePengaduan>>) {
-
+                binding.progressBar.visibility = View.GONE
                 response.body()?.let { listAduan.addAll(it) }
                 showRecyclerListAduan()
             }

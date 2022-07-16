@@ -16,7 +16,7 @@ import retrofit2.http.*
     @GET("api/pengaduan/getaduanbystatus/{status_aduan}")
     fun getAduanStatus(
             @Query("status_aduan") status_aduan:String,
-            @Query("id_msy_fk") id_msy_fk:Int
+            @Query("id_msy_fk") id_msy_fk: String
     ): Call<ArrayList<ResponsePengaduan>>
 
      //get aduan by status & kec
@@ -36,7 +36,7 @@ import retrofit2.http.*
          @Field("kec_lokasi") kec_lokasi: String,
          @Field("isi_aduan") isi_aduan: String,
          @Field("tgl_aduan") tgl_aduan: String,
-         @Field("id_msy_fk") id_msy_fk: Int
+         @Field("id_msy_fk") id_msy_fk: String
     ): Call<ResponsePengaduan>
 
     //Signup-User
@@ -46,14 +46,14 @@ import retrofit2.http.*
          @Field("id_msy") id_msy: String,
          @Field("nama_msy") nama_msy: String,
          @Field("notelp_msy") notelp_msy: String,
-         @Field("uname_msy") uname_msy: String,
+//         @Field("uname_msy") uname_msy: String,
          @Field("pass_msy") pass_msy: String
     ): Call<MasyarakatModel>
 
     //login akun masyarakat
-    @GET("auth/{uname_user}")
+    @GET("auth/{id_msy}")
     fun loginMasyarakat(
-            @Query("uname_user") uname_msy: String,
+            @Query("id_msy") id_msy: String,
             @Query("role_user") role_user: String,
             @Query("pass_user") pass_msy: String
     ): Call<MasyarakatModel>
@@ -62,7 +62,7 @@ import retrofit2.http.*
     @GET("api/masyarakat")
     fun getAkunMsy(
             @Query("id_msy") id_msy: String
-    ): Call<MasyarakatUnameCheck>
+    ): Call<MasyarakatModel>
 
     //get Akun Polisi
     @GET("api/polisi")
@@ -170,9 +170,11 @@ import retrofit2.http.*
     @FormUrlEncoded
     @PUT("api/pelaporan/{kode_aduan}")
     fun tambahLaporan(
-            @Path("kode_aduan") kode_aduan : String,
+            @Field("kode_aduan") kode_aduan : String,
             @Field("id_polisi") id_polisi : String,
             @Field("isi_laporanpolisi") isi_laporanpolisi : String,
+            @Field("lat_laporan") lat_laporan : Double,
+            @Field("long_laporan") long_laporan : Double,
             @Field("tgl_laporan") tgl_laporan : String
     ) : Call<ResponsePengaduan>
 

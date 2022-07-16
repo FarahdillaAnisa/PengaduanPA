@@ -12,20 +12,6 @@ data class MasyarakatModel(
 	@field:SerializedName("notelp_msy")
 	val notelpMsy: String,
 
-	@field:SerializedName("uname_msy")
-	val unameMsy: String,
-
 	@field:SerializedName("pass_msy")
-	val passMsy: String,
-
-	@field:SerializedName("is_active")
-	val isActive: String? = null,
-
-	@field:SerializedName("date_created")
-	val dateCreated: String
-)
-
-data class MasyarakatUnameCheck(
-	@field:SerializedName("result")
-	val unameMsyJumlah: Int? = null
+	val passMsy: String
 )

@@ -10,7 +10,6 @@ import android.widget.Toast
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.icha.layananpengaduanpa.R
-import com.icha.layananpengaduanpa.databinding.FragmentAduanProsesBinding
 import com.icha.layananpengaduanpa.databinding.FragmentAduanSelesaiBinding
 import com.icha.layananpengaduanpa.model.ApiConfig
 import com.icha.layananpengaduanpa.model.ResponsePengaduan
@@ -52,6 +51,8 @@ class AduanSelesaiFragment() : Fragment() {
         role_user= user.get(SessionManager.ROLE_USER)!!
         val satwil: String = user.get(SessionManager.KEY_SATWIL)!!
 
+        binding.progressBar.visibility = View.VISIBLE
+
         if (role_user == "masyarakat") {
             setHasOptionsMenu(false)
             getAduanMsy(id_user)
@@ -68,6 +69,7 @@ class AduanSelesaiFragment() : Fragment() {
         ApiConfig.instance.getAllAduan("selesai")
                 .enqueue(object : Callback<ArrayList<ResponsePengaduan>> {
                     override fun onResponse(call: Call<ArrayList<ResponsePengaduan>>, response: Response<ArrayList<ResponsePengaduan>>) {
+                        binding.progressBar.visibility = View.GONE
                         response.body()?.let { listAduanSelesai.addAll(it) }
                         showRecyclerListAduan()
                     }
@@ -83,6 +85,7 @@ class AduanSelesaiFragment() : Fragment() {
         ApiConfig.instance.getAduanKec("selesai", satwil)
                 .enqueue(object : Callback<ArrayList<ResponsePengaduan>> {
                     override fun onResponse(call: Call<ArrayList<ResponsePengaduan>>, response: Response<ArrayList<ResponsePengaduan>>) {
+                        binding.progressBar.visibility = View.GONE
                         response.body()?.let { listAduanSelesai.addAll(it) }
                         showRecyclerListAduan()
                     }
@@ -95,9 +98,9 @@ class AduanSelesaiFragment() : Fragment() {
     }
 
     private fun getAduanMsy(idUser: String) {
-        ApiConfig.instance.getAduanStatus("selesai", idUser.toInt()).enqueue(object : Callback<ArrayList<ResponsePengaduan>> {
+        ApiConfig.instance.getAduanStatus("selesai", idUser).enqueue(object : Callback<ArrayList<ResponsePengaduan>> {
             override fun onResponse(call: Call<ArrayList<ResponsePengaduan>>, response: Response<ArrayList<ResponsePengaduan>>) {
-
+                binding.progressBar.visibility = View.GONE
                 response.body()?.let { listAduanSelesai.addAll(it) }
                 showRecyclerListAduan()
             }

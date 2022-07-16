@@ -65,6 +65,7 @@ class PostAkunPolisiActivity : AppCompatActivity() {
         }
 
         binding.btnPostpolisi.setOnClickListener {
+            binding.progressBar.visibility = View.VISIBLE
             if (role == "polisi") {
                 if (isEdit) {
                     editAkunPolisi()
@@ -93,6 +94,7 @@ class PostAkunPolisiActivity : AppCompatActivity() {
                 binding.edtNotelp.text.toString()
         ).enqueue(object : Callback<SpktModel> {
             override fun onResponse(call: Call<SpktModel>, response: Response<SpktModel>) {
+                binding.progressBar.visibility = View.GONE
                 Toast.makeText(this@PostAkunPolisiActivity, "SPKT ${binding.edtNama.text} berhasil didaftarkan", Toast.LENGTH_SHORT).show()
 //                val intent = Intent(this@PostAkunPolisiActivity, KelolaAkunFragment::class.java)
 //                startActivity(intent)
@@ -114,6 +116,7 @@ class PostAkunPolisiActivity : AppCompatActivity() {
                 binding.edtNotelp.text.toString()
         ).enqueue(object : Callback<SpktModel> {
             override fun onResponse(call: Call<SpktModel>, response: Response<SpktModel>) {
+                binding.progressBar.visibility = View.GONE
                 Toast.makeText(this@PostAkunPolisiActivity, "Spkt ${binding.edtNama.text} berhasil diperbaharui", Toast.LENGTH_SHORT).show()
 //                val intent = Intent(this@PostAkunPolisiActivity, KelolaAkunFragment::class.java)
 //                startActivity(intent)
@@ -132,6 +135,7 @@ class PostAkunPolisiActivity : AppCompatActivity() {
                 idAkun
         ).enqueue(object: Callback<SpktModel> {
             override fun onResponse(call: Call<SpktModel>, response: Response<SpktModel>) {
+                binding.progressBar.visibility = View.GONE
                 Toast.makeText(this@PostAkunPolisiActivity, "Akun Spkt ${binding.edtNama.text} berhasil dihapus", Toast.LENGTH_SHORT).show()
 //                val intent = Intent(this@PostAkunPolisiActivity, KelolaAkunFragment::class.java)
 //                startActivity(intent)
@@ -148,6 +152,7 @@ class PostAkunPolisiActivity : AppCompatActivity() {
         ApiConfig.instance.getAkunSpktById(idAkun)
                 .enqueue(object : Callback<SpktModel> {
                     override fun onResponse(call: Call<SpktModel>, response: Response<SpktModel>) {
+                        binding.progressBar.visibility = View.GONE
                         if (response.isSuccessful) {
                             val dataAkun = response.body()
                             dataAkun?.let { data ->
@@ -174,6 +179,7 @@ class PostAkunPolisiActivity : AppCompatActivity() {
         ApiConfig.instance.getAkunPolisiById(id)
                 .enqueue(object : Callback<PolisiModel> {
                     override fun onResponse(call: Call<PolisiModel>, response: Response<PolisiModel>) {
+                        binding.progressBar.visibility = View.GONE
                         if (response.isSuccessful) {
                             val dataAkun = response.body()
                             dataAkun?.let { data ->
@@ -201,6 +207,7 @@ class PostAkunPolisiActivity : AppCompatActivity() {
         ApiConfig.instance.deleteAkunPolisi(idAkun)
                 .enqueue(object : Callback<PolisiModel> {
             override fun onResponse(call: Call<PolisiModel>, response: Response<PolisiModel>) {
+                binding.progressBar.visibility = View.GONE
                 Toast.makeText(this@PostAkunPolisiActivity, "Akun Polisi ${binding.edtIdpolisi.text} berhasil dihapus", Toast.LENGTH_SHORT).show()
 //                val intent = Intent(this@PostAkunPolisiActivity, KelolaAkunFragment::class.java)
 //                startActivity(intent)
@@ -222,6 +229,7 @@ class PostAkunPolisiActivity : AppCompatActivity() {
 //            binding.edtPassword.text.toString()
         ).enqueue(object : Callback<PolisiModel> {
             override fun onResponse(call: Call<PolisiModel>, response: Response<PolisiModel>) {
+                binding.progressBar.visibility = View.GONE
                 Toast.makeText(this@PostAkunPolisiActivity, "Polisi ${binding.edtNama.text} berhasil diperbaharui", Toast.LENGTH_SHORT).show()
 //                val intent = Intent(this@PostAkunPolisiActivity, KelolaAkunFragment::class.java)
 //                startActivity(intent)
@@ -237,7 +245,7 @@ class PostAkunPolisiActivity : AppCompatActivity() {
 
     private fun tambahAkunPolisi() {
         val getIdRandom = Helper()
-        val id_polisi = getIdRandom.getRandomId(3, "polisi")
+        val id_polisi = getIdRandom.getRandomId(3, "polisi", )
         binding.edtIdpolisi.setText(id_polisi)
 
         //yes/no dialog box
@@ -250,6 +258,7 @@ class PostAkunPolisiActivity : AppCompatActivity() {
                 binding.edtPassword.text.toString()
         ).enqueue(object : Callback<PolisiModel> {
             override fun onResponse(call: Call<PolisiModel>, response: Response<PolisiModel>) {
+                binding.progressBar.visibility = View.GONE
                 Toast.makeText(this@PostAkunPolisiActivity, "Polisi ${binding.edtNama.text} berhasil didaftarkan", Toast.LENGTH_SHORT).show()
 //                val intent = Intent(this@PostAkunPolisiActivity, KelolaAkunFragment::class.java)
 //                startActivity(intent)

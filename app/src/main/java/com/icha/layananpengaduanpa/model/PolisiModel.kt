@@ -16,13 +16,7 @@ data class PolisiModel(
 		val notelpPolisi: String,
 
 		@field:SerializedName("pass_polisi")
-		val passPolisi: String,
-
-		@field:SerializedName("is_active")
-		val isActive: String? = null,
-
-		@field:SerializedName("date_created")
-		val dateCreated: String
+		val passPolisi: String
 )
 
 

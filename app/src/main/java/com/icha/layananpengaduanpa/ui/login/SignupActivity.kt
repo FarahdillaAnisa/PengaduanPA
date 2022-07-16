@@ -11,47 +11,64 @@ import com.icha.layananpengaduanpa.model.MasyarakatModel
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
+import android.view.View
 
 class SignupActivity : AppCompatActivity() {
     private lateinit var binding : ActivitySignupBinding
     val helper = Helper()
+
+    @Override
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivitySignupBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
-        val statusUname = helper.checkUniqueIdUsername(binding.edtUname.text.toString())
-        if (statusUname == false) {
-            binding.statusUname.setText("Username sudah digunakan")
-        }
+        val id_msy = helper.getRandomId(3, "masyarakat")
+        binding.edtId.setText(id_msy)
         binding.btnSignup.setOnClickListener {
-            userSignup(statusUname)
+            binding.progressBar.visibility = View.VISIBLE
+            if (validasiPassword() == true){
+                userSignup(id_msy)
+            }
         }
     }
 
-    private fun userSignup(statusUname: Boolean) {
-        val id_msy = helper.getRandomId(3, "masyarakat")
-        if (statusUname ==  true) {
-            ApiConfig.instance.signupUser(
-                    id_msy,
-                    binding.edtNama.text.toString(),
-                    binding.edtNotelp.text.toString(),
-                    binding.edtUname.text.toString(),
-                    binding.edtPassword.text.toString()
-            ).enqueue(object : Callback<MasyarakatModel> {
-                override fun onResponse(call: Call<MasyarakatModel>, response: Response<MasyarakatModel>) {
-                    Toast.makeText(this@SignupActivity, "User ${binding.edtNama.text} berhasil didaftarkan", Toast.LENGTH_SHORT).show()
-                    val intent = Intent(this@SignupActivity, LoginActivity::class.java)
-                    startActivity(intent)
-                }
-
-                override fun onFailure(call: Call<MasyarakatModel>, t: Throwable) {
-                    Toast.makeText(this@SignupActivity, "Data user gagal disimpan!", Toast.LENGTH_SHORT).show()
-                    Toast.makeText(this@SignupActivity, "Message : ${t.message}", Toast.LENGTH_SHORT).show()
-                }
-            })
+    private fun validasiPassword() : Boolean {
+        var check: Boolean
+        val passwordInput = binding.edtPassword.text.toString().trim()
+        val passwordConfirm = binding.edtPasswordConfirm.text.toString().trim()
+        if (passwordConfirm.equals(passwordInput)) {
+            binding.checkPass.text = "Konfirmasi Password Cocok"
+            check = true
+        } else {
+            binding.checkPass.text = "Harap sesuaikan Konfirmasi Password dengan isi password"
+            check = false
         }
+        return check
+    }
+
+
+    private fun userSignup(id_msy: String) {
+        ApiConfig.instance.signupUser(
+                id_msy,
+                binding.edtNama.text.toString(),
+                binding.edtNotelp.text.toString(),
+//                    binding.edtUname.text.toString(),
+                binding.edtPassword.text.toString()
+        ).enqueue(object : Callback<MasyarakatModel> {
+            override fun onResponse(call: Call<MasyarakatModel>, response: Response<MasyarakatModel>) {
+                binding.progressBar.visibility = View.GONE
+                Toast.makeText(this@SignupActivity, "User ${binding.edtNama.text} berhasil didaftarkan", Toast.LENGTH_SHORT).show()
+                val intent = Intent(this@SignupActivity, LoginActivity::class.java)
+                startActivity(intent)
+            }
+
+            override fun onFailure(call: Call<MasyarakatModel>, t: Throwable) {
+                Toast.makeText(this@SignupActivity, "Data user gagal disimpan!", Toast.LENGTH_SHORT).show()
+                Toast.makeText(this@SignupActivity, "Message : ${t.message}", Toast.LENGTH_SHORT).show()
+            }
+        })
     }
 
     override fun onSupportNavigateUp(): Boolean {

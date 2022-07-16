@@ -8,8 +8,10 @@ import retrofit2.converter.gson.GsonConverterFactory
 object ApiConfig {
 
 //        private const val BASE_URL = "http://localhost/projectpa/projectpengaduan/"
-        private const val BASE_URL = "http://192.168.42.49/projectpa/projectpengaduan/"
-//        private const val BASE_URL = "http://10.0.2.2/projectpa/projectpengaduan/"
+//        private const val BASE_URL = "http://192.168.42.17/projectpa/projectpengaduan/"
+//        private const val BASE_URL = "https://layananpengaduanpolrestapku.000webhostapp.com/projectpengaduan/"
+    private const val BASE_URL = "https://pengaduanpolrestapku.pocari.id/projectpengaduan/"
+
         val instance: ApiService by lazy {
             val retrofit = Retrofit.Builder()
                     .baseUrl(BASE_URL)

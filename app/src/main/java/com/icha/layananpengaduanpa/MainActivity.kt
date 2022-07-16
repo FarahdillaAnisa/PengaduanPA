@@ -28,7 +28,7 @@ class MainActivity : Activity() {
 
         val user: HashMap<String, String> = session.getUserDetails()
 
-        val username: String = user.get(SessionManager.KEY_USERNAME)!!
+        val username: String = user.get(SessionManager.KEY_ID)!!
 //        val password: String = user.get(SessionManager.KEY_PASSWORD)!!
 
         binding.unameTxt.setText(username)

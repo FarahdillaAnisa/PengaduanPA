@@ -1,6 +1,7 @@
 package com.icha.layananpengaduanpa.ui.spktpolsek.pengaduan
 
 import android.content.Intent
+import android.net.Uri
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
@@ -9,6 +10,8 @@ import com.icha.layananpengaduanpa.R
 import com.icha.layananpengaduanpa.databinding.ActivityDetailAduanSpktBinding
 import com.icha.layananpengaduanpa.helper.Helper
 import com.icha.layananpengaduanpa.model.ApiConfig
+import com.icha.layananpengaduanpa.model.MasyarakatModel
+import com.icha.layananpengaduanpa.model.PolisiModel
 import com.icha.layananpengaduanpa.model.ResponsePengaduan
 import com.icha.layananpengaduanpa.ui.masyarakat.pengaduan.postaduan.DetailAduanActivity
 import com.icha.layananpengaduanpa.ui.masyarakat.pengaduan.postaduan.MapsActivity
@@ -47,7 +50,7 @@ class DetailAduanSpktActivity : AppCompatActivity() {
                                 binding.kodeAduanTxt.setText(kodeAduan)
                                 binding.kecTxt.setText(dataAduan.kecLokasi)
                                 binding.tgladuanTxt.setText(helper.displayDate(dataAduan.tglAduan.toString()))
-                                binding.txtNamaPelapor.setText("Nama Pelapor : ${dataAduan.idMsyFk}")
+                                getDataMsy(dataAduan.idMsyFk)
                                 binding.tvIsiAduan.setText(dataAduan.isiAduan)
 
                                 val statusAduan = dataAduan.statusAduan
@@ -55,7 +58,7 @@ class DetailAduanSpktActivity : AppCompatActivity() {
                                     binding.statusAduan.text = "Belum Diproses"
                                 } else {
                                     binding.statusAduan.text = "Selesai"
-                                    binding.tvDataNamaPetugas.setText(dataAduan.idPolisi)
+                                    getDataPolisi(dataAduan.idPolisi)
                                     binding.tvKetAduan.setText(dataAduan.isiLaporanpolisi)
                                 }
 
@@ -84,6 +87,48 @@ class DetailAduanSpktActivity : AppCompatActivity() {
             startActivity(intent)
         }
 
+    }
+
+    private fun getDataPolisi(idPolisi: String?) {
+        ApiConfig.instance.getAkunPolisiById(idPolisi)
+                .enqueue(object : Callback<PolisiModel> {
+                    override fun onResponse(call: Call<PolisiModel>, response: Response<PolisiModel>) {
+                        if (response.isSuccessful) {
+                            val dataAkun = response.body()
+                            dataAkun?.let { data ->
+                                binding.tvDataNamaPetugas.setText("${data.idPolisi} - ${data.namaPolisi}" )
+                                binding.btnKontakPetugas.setOnClickListener {
+                                    val intent = Intent(Intent.ACTION_DIAL, Uri.parse("tel:" + Uri.encode(data.notelpPolisi)))
+                                    startActivity(intent)
+                                }
+                            }
+                        }
+                    }
+
+                    override fun onFailure(call: Call<PolisiModel>, t: Throwable) {
+                    }
+                })
+    }
+
+    private fun getDataMsy(idMsyFk: String) {
+        ApiConfig.instance.getAkunMsy(idMsyFk)
+                .enqueue(object : Callback<MasyarakatModel> {
+                    override fun onResponse(call: Call<MasyarakatModel>, response: Response<MasyarakatModel>) {
+                        if (response.isSuccessful) {
+                            val dataAkun = response.body()
+                            dataAkun?.let { data ->
+                                binding.txtNamaPelapor.setText("Nama Pelapor : $idMsyFk - ${data.namaMsy}")
+                                binding.kontakMsyBtn.setOnClickListener {
+                                    val intent = Intent(Intent.ACTION_DIAL, Uri.parse("tel:" + Uri.encode(data.notelpMsy)))
+                                    startActivity(intent)
+                                }
+                            }
+                        }
+                    }
+
+                    override fun onFailure(call: Call<MasyarakatModel>, t: Throwable) {
+                    }
+                })
     }
 
     override fun onSupportNavigateUp(): Boolean {

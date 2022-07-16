@@ -1,5 +1,6 @@
 package com.icha.layananpengaduanpa.ui.masyarakat.pengaduan.postaduan
 
+import android.annotation.SuppressLint
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.webkit.WebView
@@ -13,6 +14,7 @@ class MapsActivity : AppCompatActivity() {
         const val EXTRA_LOCATION_LONGITUDE = "long_loc"
     }
 
+    @SuppressLint("SetJavaScriptEnabled")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_maps)

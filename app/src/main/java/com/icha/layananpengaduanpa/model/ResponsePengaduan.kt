@@ -34,5 +34,11 @@ data class ResponsePengaduan(
         val statusAduan: String,
 
         @field:SerializedName("id_msy_fk")
-        val idMsyFk: Int
+        val idMsyFk: String,
+
+        @field:SerializedName("lat_laporan")
+        val latLaporan: Double,
+
+        @field:SerializedName("long_laporan")
+        val longLaporan: Double
 )
