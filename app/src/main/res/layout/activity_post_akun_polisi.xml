@@ -24,6 +24,24 @@
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:text="Jenis Akun (Polisi / SPKT)" />
+
+        <Spinner
+            android:id="@+id/opsiLogin"
+            android:paddingStart="5dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:entries="@array/opsi_login"
+            android:layout_marginBottom="10dp"
+            android:padding="15dp"
+            android:elevation="@dimen/cardview_default_elevation"
+            app:boxStrokeWidth="1dp"
+            app:boxStrokeColor="@color/maroon_main_theme"
+            />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
             android:text="ID Polisi" />
 
         <com.google.android.material.textfield.TextInputLayout
@@ -134,7 +152,8 @@
             android:layout_height="wrap_content"
             android:layout_marginBottom="20dp"
             app:boxStrokeColor="@color/maroon_main_theme"
-            app:boxStrokeWidth="1dp">
+            app:boxStrokeWidth="1dp"
+            app:passwordToggleEnabled="true">
 
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/edt_password"
@@ -151,15 +170,6 @@
             android:text="Tambah akun"
             android:textSize="16sp"
             android:textStyle="bold" />
-
-        <com.google.android.material.button.MaterialButton
-            android:id="@+id/btn_deletepolisi"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Hapus akun"
-            android:textSize="16sp"
-            android:textStyle="bold"
-            android:visibility="gone"/>
     </LinearLayout>
 
     <ProgressBar

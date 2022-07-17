@@ -29,7 +29,7 @@ class BerandaOperatorFragment : Fragment() {
         session = SessionManager(view.context)
 //        session.checkLogin()
 
-        val operator: HashMap<String, String> = session.getOperatorDetails()
+        val operator: HashMap<String, String> = session.getUserDetails()
         val unameOperator: String = operator.get(SessionManager.KEY_USERNAME)!!
         val idOperator: String = operator.get(SessionManager.KEY_ID)!!
         Log.d("USERNAME" , "$unameOperator dan id : $idOperator ")

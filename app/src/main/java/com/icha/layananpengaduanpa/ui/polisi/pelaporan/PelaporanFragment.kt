@@ -47,8 +47,7 @@ class PelaporanFragment : Fragment(), View.OnClickListener {
         super.onViewCreated(view, savedInstanceState)
         //session
         session = SessionManager(view.context)
-        session.checkLogin()
-        val polisi: HashMap<String, String> = session.getPolisiDetails()
+        val polisi: HashMap<String, String> = session.getUserDetails()
         val id_polisi: String = polisi.get(SessionManager.KEY_ID)!!
 
         binding.rvLaporan.setHasFixedSize(true)
@@ -87,9 +86,9 @@ class PelaporanFragment : Fragment(), View.OnClickListener {
 
     private fun showSelectedLaporan(laporan: ResponsePengaduan) {
         Toast.makeText(context, "Data Laporan : ${laporan.kodeAduan}", Toast.LENGTH_SHORT).show()
-        val intent = Intent(context, DetailLaporanActivity::class.java)
-        intent.putExtra(DetailLaporanActivity.EXTRA_KODE_ADUAN, laporan.kodeAduan)
-        startActivity(intent)
+//        val intent = Intent(context, DetailLaporanActivity::class.java)
+//        intent.putExtra(DetailLaporanActivity.EXTRA_KODE_ADUAN, laporan.kodeAduan)
+//        startActivity(intent)
     }
 
     override fun onClick(p0: View) {

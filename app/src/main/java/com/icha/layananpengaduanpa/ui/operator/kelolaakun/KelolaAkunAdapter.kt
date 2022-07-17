@@ -41,10 +41,10 @@ class KelolaAkunAdapter(private val listAkun : ArrayList<PolisiModel>): Recycler
         }
         holder.itemView.setOnClickListener {
             onItemClickCallback.onItemClicked(listAkun[holder.adapterPosition])
-            val intent = Intent(holder.itemView.context, PostAkunPolisiActivity::class.java)
-//            intent.putExtra("id_akun", listAkun[position].idPolisi)
-            intent.putExtra(PostAkunPolisiActivity.EXTRA_ID, dataAkun.idPolisi)
-            holder.itemView.context.startActivity(intent)
+//            val intent = Intent(holder.itemView.context, PostAkunPolisiActivity::class.java)
+////            intent.putExtra("id_akun", listAkun[position].idPolisi)
+//            intent.putExtra(PostAkunPolisiActivity.EXTRA_ID, dataAkun.idPolisi)
+//            holder.itemView.context.startActivity(intent)
         }
     }
 

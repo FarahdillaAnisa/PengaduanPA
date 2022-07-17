@@ -1,5 +1,7 @@
 package com.icha.layananpengaduanpa.ui.login
 
+import android.app.Activity
+import android.content.DialogInterface
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
@@ -7,6 +9,7 @@ import android.view.View
 import android.widget.AdapterView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.icha.layananpengaduanpa.*
 import com.icha.layananpengaduanpa.databinding.ActivityLoginBinding
 import com.icha.layananpengaduanpa.model.*
@@ -19,32 +22,64 @@ class LoginActivity : AppCompatActivity() {
     private lateinit var binding : ActivityLoginBinding
     lateinit var session: SessionManager
     private var opsiLogin : String = ""
-//    var LOGPREFERENCES : String = "LogPrefs"
-//    private var Username : String = "UnameKey"
-//    lateinit var sharedPreferences: SharedPreferences
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityLoginBinding.inflate(layoutInflater)
         setContentView(binding.root)
-
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
 
         session = SessionManager(applicationContext)
-        if (session.isLoggedIn()) {
-            val intent = Intent(applicationContext, MenuMasyarakat::class.java)
-            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
-            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK)
-            startActivity(intent)
-            finish()
-        }
+        val user: HashMap<String, String> = session.getUserDetails()
+        val role_user: String = user.get(SessionManager.ROLE_USER).toString()
+        checkLogin(role_user)
+
+        MaterialAlertDialogBuilder(this)
+            .setTitle("Perhatian!")
+            .setMessage("Apakah anda sudah memiliki akun?")
+            .setNeutralButton("Sudah", object : DialogInterface.OnClickListener{
+                override fun onClick(p0: DialogInterface?, p1: Int) {
+                }
+            })
+            .setNegativeButton("Belum", object : DialogInterface.OnClickListener {
+                override fun onClick(p0: DialogInterface?, p1: Int) {
+                    val intent = Intent(this@LoginActivity, SignupActivity::class.java)
+                    startActivity(intent)
+                }
+            })
+            .show()
 
         spinnerOpsiLogin()
 
         binding.loginbtn.setOnClickListener {
-//            sharedPreferences = getSharedPreferences(LOGPREFERENCES, Context.MODE_PRIVATE)
             binding.progressBar.visibility = View.VISIBLE
             userLogin(opsiLogin)
+        }
+    }
+
+    private fun checkLogin(role_user : String) {
+        if (session.isLoggedIn()) {
+            if (role_user == "masyarakat") {
+                val intent = Intent(this, MenuMasyarakat::class.java)
+                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
+                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK)
+                startActivity(intent)
+            } else if (role_user == "polisi") {
+                val intent = Intent(this, MenuPolisi::class.java)
+                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
+                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK)
+                startActivity(intent)
+            } else if (role_user == "spkt") {
+                val intent = Intent(this, MenuSpkt::class.java)
+                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
+                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK)
+                startActivity(intent)
+            } else if (role_user == "operator") {
+                val intent = Intent(this, MenuOperator::class.java)
+                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
+                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK)
+                startActivity(intent)
+            }
         }
     }
 
@@ -149,11 +184,6 @@ class LoginActivity : AppCompatActivity() {
                 } else {
                     Toast.makeText(applicationContext, "Login gagal", Toast.LENGTH_SHORT).show()
                 }
-
-//                //Menyimpan data login di SharedPreferences
-//                val editor: SharedPreferences.Editor = sharedPreferences.edit()
-//                editor.putString(Username, user?.unameMsy)
-//                editor.commit();
             }
 
             override fun onFailure(call: Call<PolisiModel>, t: Throwable) {
@@ -177,8 +207,6 @@ class LoginActivity : AppCompatActivity() {
                 if (user != null) {
                     session.createLoginSession(user.passMsy, user.idMsy, user.namaMsy, user.notelpMsy)
                     val intent = Intent(this@LoginActivity, MenuMasyarakat::class.java)
-//                    intent.putExtra(MainActivity.EXTRA_USERNAME, user.unameMsy)
-
                     startActivity(intent)
                     finish()
                 } else {

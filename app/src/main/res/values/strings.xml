@@ -15,6 +15,12 @@
         <item>Operator</item>
     </string-array>
 
+    <string-array name="opsi_tambah_akun">
+        <item>SPKT Polsek</item>
+        <item>Polisi</item>
+        <item>Operator</item>
+    </string-array>
+
     <string-array name="subdistrict_array">
         <item>Bukit Raya</item>
         <item>Kawasan Pelabuhan</item>

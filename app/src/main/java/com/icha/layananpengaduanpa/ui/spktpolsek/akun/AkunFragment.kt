@@ -33,8 +33,6 @@ class AkunFragment : Fragment() {
   override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
     super.onViewCreated(view, savedInstanceState)
     session = SessionManager(view.context)
-    session.checkLogin()
-
     val user: HashMap<String, String> = session.getUserDetails()
     val nama: String = user.get(SessionManager.KEY_NAMA)!!
     binding.unameTxt.setText(nama)

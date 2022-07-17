@@ -1,9 +1,13 @@
 package com.icha.layananpengaduanpa.session
 
+import android.app.Activity
 import android.content.Context
 import android.content.Intent
 import android.content.SharedPreferences
-import com.icha.layananpengaduanpa.MainActivity
+import com.icha.layananpengaduanpa.MenuMasyarakat
+import com.icha.layananpengaduanpa.MenuOperator
+import com.icha.layananpengaduanpa.MenuPolisi
+import com.icha.layananpengaduanpa.MenuSpkt
 import com.icha.layananpengaduanpa.ui.login.LoginActivity
 
 class SessionManager {
@@ -72,15 +76,6 @@ class SessionManager {
         return pref.getBoolean(IS_LOGIN, false)
     }
 
-    fun checkLogin() {
-        if (!this.isLoggedIn()) {
-            val intent = Intent(context, MainActivity::class.java)
-            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
-            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK)
-            context.startActivity(intent)
-        }
-    }
-
     fun getUserDetails(): HashMap<String, String> {
         var user : Map<String, String> = HashMap()
         (user as HashMap).put(KEY_ID, pref.getString(KEY_ID, null).toString())
@@ -89,24 +84,8 @@ class SessionManager {
         user.put(KEY_NOTELP, pref.getString(KEY_NOTELP, null).toString())
         user.put(KEY_SATWIL, pref.getString(KEY_SATWIL, null).toString())
         user.put(ROLE_USER, pref.getString(ROLE_USER, null).toString())
+        user.put(KEY_USERNAME, pref.getString(KEY_USERNAME, null).toString())
         return user
-    }
-
-    fun getPolisiDetails(): HashMap<String, String> {
-        var polisi : Map<String, String> = HashMap()
-        (polisi as HashMap).put(KEY_ID, pref.getString(KEY_ID, null).toString())
-        polisi.put(KEY_PASSWORD, pref.getString(KEY_PASSWORD, null).toString())
-        polisi.put(KEY_SATWIL, pref.getString(KEY_SATWIL, null).toString())
-        polisi.put(KEY_NAMA, pref.getString(KEY_NAMA, null).toString())
-        polisi.put(KEY_NOTELP, pref.getString(KEY_NOTELP, null).toString())
-        return polisi
-    }
-
-    fun getOperatorDetails(): HashMap<String, String> {
-        var operator : Map<String, String> = HashMap()
-        (operator as HashMap).put(KEY_ID, pref.getString(KEY_ID, null).toString())
-        operator.put(KEY_USERNAME, pref.getString(KEY_USERNAME, null).toString())
-        return operator
     }
 
     fun logoutUser() {

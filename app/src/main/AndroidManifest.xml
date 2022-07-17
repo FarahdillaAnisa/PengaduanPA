@@ -28,7 +28,6 @@
         <activity android:name=".ui.polisi.pelaporan.postlaporan.PostPelaporanActivity" />
         <activity android:name=".ui.polisi.pelaporan.postlaporan.CariPengaduanActivity" /> <!-- operator -->
         <activity android:name=".ui.operator.kelolaakun.akunpolisi.PostAkunPolisiActivity" />
-        <activity android:name=".MainActivity" />
         <activity android:name=".ui.login.SignupActivity" />
         <activity android:name=".ui.login.LoginActivity" />
         <activity android:name=".ui.login.SplashScreenActivity">

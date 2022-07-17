@@ -1,8 +1,12 @@
 package com.icha.layananpengaduanpa.ui.polisi.pelaporan.postlaporan
 
 import android.Manifest
+import android.annotation.SuppressLint
+import android.content.DialogInterface
 import android.content.pm.PackageManager
 import android.location.Location
+import android.location.LocationListener
+import android.location.LocationManager
 import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
@@ -14,6 +18,7 @@ import androidx.core.app.ActivityCompat
 import com.google.android.gms.location.FusedLocationProviderClient
 import com.google.android.gms.location.LocationServices
 import com.google.android.gms.tasks.Task
+import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.icha.layananpengaduanpa.databinding.ActivityPostPelaporanBinding
 import com.icha.layananpengaduanpa.helper.Helper
 import com.icha.layananpengaduanpa.model.ApiConfig
@@ -23,7 +28,7 @@ import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
-class PostPelaporanActivity : AppCompatActivity() {
+class PostPelaporanActivity : AppCompatActivity(), LocationListener {
     private lateinit var binding : ActivityPostPelaporanBinding
     lateinit var session: SessionManager
     private var latitude : Double = 0.0
@@ -31,6 +36,7 @@ class PostPelaporanActivity : AppCompatActivity() {
     private var id_polisi: String = ""
     //location-fusedprovider
     lateinit var fusedLocationProviderClient: FusedLocationProviderClient
+    private val locationPermissionCode = 2
 
     companion object {
         const val EXTRA_KODE_ADUAN = "kode_aduan"
@@ -46,6 +52,17 @@ class PostPelaporanActivity : AppCompatActivity() {
 //        getLocations()
         getLokasi()
 
+        MaterialAlertDialogBuilder(this)
+            .setTitle("Perhatian!")
+            .setMessage("Jika koordinat tidak muncul" +
+                    " silahkan swipe kebawah untuk refresh halaman")
+            .setNeutralButton("Lanjutkan", object : DialogInterface.OnClickListener{
+                override fun onClick(p0: DialogInterface?, p1: Int) {
+                }
+            })
+            .show()
+        refreshPage()
+
         binding.btnAddLaporan.setOnClickListener {
             binding.progressBar.visibility = View.VISIBLE
             val bundle : Bundle? = intent.extras
@@ -59,6 +76,13 @@ class PostPelaporanActivity : AppCompatActivity() {
         }
 
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
+    }
+
+    private fun refreshPage() {
+        binding.swipeToRefresh.setOnRefreshListener {
+            getLokasi()
+            binding.swipeToRefresh.isRefreshing = false
+        }
     }
 
     @RequiresApi(Build.VERSION_CODES.O)
@@ -101,15 +125,33 @@ class PostPelaporanActivity : AppCompatActivity() {
             if (it != null) {
                 latitude = it.latitude
                 longitude = it.longitude
-                binding.koordinatTxt.text = "Latitude : $latitude , Longitude : $longitude"
+                binding.koordinatTxt.text = "Lintang : $latitude , Bujur : $longitude"
+            }
+        }
+    }
+
+    override fun onLocationChanged(location: Location) {
+        latitude = location.latitude
+        longitude = location.longitude
+
+        binding.koordinatTxt.text = "Lintang : $latitude , Bujur : $longitude"
+    }
+
+    @SuppressLint("MissingSuperCall")
+    override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<out String>, grantResults: IntArray) {
+        if (requestCode == locationPermissionCode) {
+            if (grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                Toast.makeText(this, "Permission Granted", Toast.LENGTH_SHORT).show()
+            }
+            else {
+                Toast.makeText(this, "Permission Denied", Toast.LENGTH_SHORT).show()
             }
         }
     }
 
     private fun cekLoginId() {
         session = SessionManager(applicationContext)
-        session.checkLogin()
-        val polisi: HashMap<String, String> = session.getPolisiDetails()
+        val polisi: HashMap<String, String> = session.getUserDetails()
         val id: String = polisi.get(SessionManager.KEY_ID)!!
         val nama: String = polisi.get(SessionManager.KEY_NAMA)!!
         val notelp: String = polisi.get(SessionManager.KEY_NOTELP)!!

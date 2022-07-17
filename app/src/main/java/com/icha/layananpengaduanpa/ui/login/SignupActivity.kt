@@ -1,5 +1,6 @@
 package com.icha.layananpengaduanpa.ui.login
 
+import android.content.DialogInterface
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
@@ -12,6 +13,8 @@ import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 import android.view.View
+import androidx.appcompat.app.AlertDialog
+import com.google.android.material.dialog.MaterialAlertDialogBuilder
 
 class SignupActivity : AppCompatActivity() {
     private lateinit var binding : ActivitySignupBinding
@@ -22,8 +25,19 @@ class SignupActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = ActivitySignupBinding.inflate(layoutInflater)
         setContentView(binding.root)
-
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
+
+        MaterialAlertDialogBuilder(this)
+                .setTitle("Perhatian!")
+                .setMessage("Halaman Signup ini hanya diperuntukkan" +
+                        "bagi masyarakat untuk mendaftarkan" +
+                        "akun baru")
+                .setNeutralButton("Lanjutkan", object : DialogInterface.OnClickListener{
+                    override fun onClick(p0: DialogInterface?, p1: Int) {
+                    }
+                })
+                .show()
+
         val id_msy = helper.getRandomId(3, "masyarakat")
         binding.edtId.setText(id_msy)
         binding.btnSignup.setOnClickListener {
@@ -75,4 +89,6 @@ class SignupActivity : AppCompatActivity() {
         onBackPressed()
         return super.onSupportNavigateUp()
     }
+
+
 }

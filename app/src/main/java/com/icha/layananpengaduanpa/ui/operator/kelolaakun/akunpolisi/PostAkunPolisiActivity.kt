@@ -1,9 +1,11 @@
 package com.icha.layananpengaduanpa.ui.operator.kelolaakun.akunpolisi
 
+import android.content.DialogInterface
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
 import android.widget.Toast
+import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.icha.layananpengaduanpa.databinding.ActivityPostAkunPolisiBinding
 import com.icha.layananpengaduanpa.helper.Helper
 import com.icha.layananpengaduanpa.model.ApiConfig
@@ -30,9 +32,20 @@ class PostAkunPolisiActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = ActivityPostAkunPolisiBinding.inflate(layoutInflater)
         setContentView(binding.root)
-
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
 //        aPolisi = intent.getParcelableExtra(EXTRA_POLISI)
+
+        MaterialAlertDialogBuilder(this)
+            .setTitle("Perhatian!")
+            .setMessage("Pilih salah satu diantara opsi akun Polisi" +
+                    "atau SPKT di kolom “Jenis Akun (Polisi / SPKT)“ " +
+                    "terlebih dahulu")
+            .setNeutralButton("Lanjutkan", object : DialogInterface.OnClickListener{
+                override fun onClick(p0: DialogInterface?, p1: Int) {
+                }
+            })
+            .show()
+
         val bundle: Bundle? = intent.extras
         if (bundle?.containsKey(EXTRA_ID)!! && bundle.containsKey(EXTRA_ROLE)) {
             role = intent.getStringExtra(EXTRA_ROLE)
@@ -40,7 +53,7 @@ class PostAkunPolisiActivity : AppCompatActivity() {
             if (role == "polisi") {
                 if (id_akun != null) {
                     isEdit = true
-                    binding.btnDeletepolisi.visibility = View.VISIBLE
+//                    binding.btnDeletepolisi.visibility = View.VISIBLE
                     binding.btnPostpolisi.setText("Perbaharui Akun")
                     supportActionBar?.title = "Edit Data Akun Polisi"
                     getAkunPolisi(id_akun!!)
@@ -48,7 +61,7 @@ class PostAkunPolisiActivity : AppCompatActivity() {
             } else if (role == "spkt") {
                 if (id_akun != null) {
                     isEdit = true
-                    binding.btnDeletepolisi.visibility = View.VISIBLE
+//                    binding.btnDeletepolisi.visibility = View.VISIBLE
                     binding.btnPostpolisi.setText("Perbaharui Akun")
                     supportActionBar?.title = "Edit Data Akun Spkt"
                     getAkunSpkt(id_akun!!)
@@ -56,13 +69,13 @@ class PostAkunPolisiActivity : AppCompatActivity() {
             }
         }
 
-        binding.btnDeletepolisi.setOnClickListener {
-            if (role == "polisi" && isEdit) {
-                deleteAkunPolisi(id_akun!!)
-            } else if (role == "spkt" && isEdit){
-                deleteAkunSpkt(id_akun!!)
-            }
-        }
+//        binding.btnDeletepolisi.setOnClickListener {
+//            if (role == "polisi" && isEdit) {
+//                deleteAkunPolisi(id_akun!!)
+//            } else if (role == "spkt" && isEdit){
+//                deleteAkunSpkt(id_akun!!)
+//            }
+//        }
 
         binding.btnPostpolisi.setOnClickListener {
             binding.progressBar.visibility = View.VISIBLE

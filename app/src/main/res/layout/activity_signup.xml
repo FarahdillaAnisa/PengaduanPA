@@ -100,6 +100,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="10dp"
+            app:passwordToggleEnabled="true"
             app:boxStrokeColor="@color/maroon_main_theme"
             app:boxStrokeWidth="1dp">
 
@@ -119,7 +120,7 @@
         <com.google.android.material.textfield.TextInputLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-
+            app:passwordToggleEnabled="true"
             app:boxStrokeColor="@color/maroon_main_theme"
             app:boxStrokeWidth="1dp">
 
@@ -127,7 +128,7 @@
                 android:id="@+id/edt_passwordConfirm"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:hint="Password"
+                android:hint="Konfirmasi Password"
                 android:inputType="textPassword" />
         </com.google.android.material.textfield.TextInputLayout>
 

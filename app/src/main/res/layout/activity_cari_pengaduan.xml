@@ -71,6 +71,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
+            android:gravity="center"
             >
 
             <com.google.android.material.button.MaterialButton
@@ -79,8 +80,7 @@
                 android:layout_height="wrap_content"
                 android:backgroundTint="#367A59"
                 android:text="Cari Aduan"
-                android:layout_marginEnd="10dp"
-                android:layout_marginStart="20dp"/>
+                android:layout_marginEnd="10dp"/>
 
             <com.google.android.material.button.MaterialButton
                 android:id="@+id/btn_tambah_laporan"
@@ -214,7 +214,8 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal">
+            android:orientation="horizontal"
+            android:gravity="center">
 
             <com.google.android.material.button.MaterialButton
                 android:id="@+id/btn_lokasi_aduan"
@@ -222,7 +223,6 @@
                 android:layout_height="wrap_content"
                 android:backgroundTint="#367A59"
                 android:text="Lokasi"
-                android:layout_marginStart="50dp"
                 android:layout_marginEnd="20dp"/>
 
             <com.google.android.material.button.MaterialButton

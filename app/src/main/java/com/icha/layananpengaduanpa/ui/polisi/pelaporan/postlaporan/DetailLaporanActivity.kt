@@ -58,6 +58,7 @@ class DetailLaporanActivity : AppCompatActivity() {
                                 binding.tgladuanTxt.setText(helper.displayDate(dataAduan.tglAduan.toString()))
                                 binding.tvIsiAduan.setText(dataAduan.isiAduan)
                                 binding.tvKetLaporan.setText(dataAduan.isiLaporanpolisi)
+                                binding.statusAduan.setText(dataAduan.statusAduan)
                                 latitude = dataAduan.latLokasi
                                 longitude = dataAduan.longLokasi
                             }

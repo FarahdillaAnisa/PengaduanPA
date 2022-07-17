@@ -90,6 +90,8 @@ class CariPengaduanActivity : AppCompatActivity() {
                         }
                     } else {
                         Toast.makeText(this@CariPengaduanActivity, "Data Aduan : ${kode_aduan} sudah ditindaklanjuti", Toast.LENGTH_SHORT).show()
+                        binding.btnTambahLaporan.isEnabled = false
+                        status = false
                     }
                 }
                 else {

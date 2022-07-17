@@ -43,7 +43,6 @@ class AduanSelesaiFragment() : Fragment() {
 
         //session
         session = SessionManager(view.context)
-        session.checkLogin()
         val user: HashMap<String, String> = session.getUserDetails()
         val id_user: String = user.get(SessionManager.KEY_ID)!!
 
@@ -130,7 +129,7 @@ class AduanSelesaiFragment() : Fragment() {
             val intent = Intent(context, DetailAduanActivity::class.java)
             intent.putExtra(DetailAduanActivity.EXTRA_KODE_ADUAN, aduan.kodeAduan)
             startActivity(intent)
-        }else if (role_user == "spkt") {
+        }else if (role_user == "spkt" || role_user == "operator") {
             val intent = Intent(context, DetailAduanSpktActivity::class.java)
             intent.putExtra(DetailAduanSpktActivity.EXTRA_KODE_ADUAN, aduan.kodeAduan)
             startActivity(intent)

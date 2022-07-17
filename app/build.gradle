@@ -37,7 +37,6 @@ android {
 }
 
 dependencies {
-
     implementation "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
     implementation 'androidx.core:core-ktx:1.7.0'
     implementation 'androidx.appcompat:appcompat:1.4.1'
@@ -65,7 +64,10 @@ dependencies {
 
     //recycler view
     implementation 'androidx.recyclerview:recyclerview:1.1.0'
+    implementation "androidx.swiperefreshlayout:swiperefreshlayout:1.0.0"
 
     //location
     implementation 'com.google.android.gms:play-services-location:18.0.0'
+
+
 }

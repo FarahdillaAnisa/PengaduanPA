@@ -30,9 +30,8 @@ class AkunPolisiFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         session = SessionManager(view.context)
-        session.checkLogin()
 
-        val polisi: HashMap<String, String> = session.getPolisiDetails()
+        val polisi: HashMap<String, String> = session.getUserDetails()
         val idPolisi: String = polisi.get(SessionManager.KEY_ID)!!
         binding.idTxt.setText(idPolisi)
 

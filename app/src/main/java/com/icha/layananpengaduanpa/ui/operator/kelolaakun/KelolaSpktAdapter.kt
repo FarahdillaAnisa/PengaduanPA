@@ -40,10 +40,9 @@ class KelolaSpktAdapter(private val listSpkt : ArrayList<SpktModel>): RecyclerVi
         }
         holder.itemView.setOnClickListener {
             onItemClickCallback.onItemClicked(listSpkt[holder.adapterPosition])
-            val intent = Intent(holder.itemView.context, PostAkunPolisiActivity::class.java)
-//            intent.putExtra("id_akun", listAkun[position].idPolisi)
-            intent.putExtra(PostAkunPolisiActivity.EXTRA_ID, dataSpkt.idSpkt)
-            holder.itemView.context.startActivity(intent)
+//            val intent = Intent(holder.itemView.context, PostAkunPolisiActivity::class.java)
+//            intent.putExtra(PostAkunPolisiActivity.EXTRA_ID, dataSpkt.idSpkt)
+//            holder.itemView.context.startActivity(intent)
         }
     }
 

@@ -1,6 +1,9 @@
 package com.icha.layananpengaduanpa.ui.masyarakat.pengaduan.postaduan
 
 import android.Manifest
+import android.annotation.SuppressLint
+import android.content.Context
+import android.content.DialogInterface
 import android.content.pm.PackageManager
 import android.location.LocationManager
 import android.location.Location
@@ -15,9 +18,11 @@ import android.widget.ArrayAdapter
 import android.widget.Toast
 import androidx.annotation.RequiresApi
 import androidx.core.app.ActivityCompat
+import androidx.core.content.ContextCompat
 import com.google.android.gms.location.FusedLocationProviderClient
 import com.google.android.gms.location.LocationServices
 import com.google.android.gms.tasks.Task
+import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.icha.layananpengaduanpa.R
 import com.icha.layananpengaduanpa.databinding.ActivityPostAduanBinding
 import com.icha.layananpengaduanpa.helper.Helper
@@ -35,8 +40,6 @@ class PostAduanActivity : AppCompatActivity(), LocationListener {
     private lateinit var locationManager: LocationManager
     private val locationPermissionCode = 2
     private var subdistrict : String = ""
-//    val subdistrictArray = resources.getStringArray(R.array.subdistrict_array)
-
     private var latitude : Double = 0.0
     private var longitude : Double = 0.0
 
@@ -57,8 +60,18 @@ class PostAduanActivity : AppCompatActivity(), LocationListener {
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
 
         fusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(this)
-//        getLocations()
         getLokasi()
+//        getLocations()
+        MaterialAlertDialogBuilder(this)
+            .setTitle("Perhatian!")
+            .setMessage("Jika koordinat tidak muncul" +
+                    " silahkan swipe kebawah untuk refresh halaman")
+            .setNeutralButton("Lanjutkan", object : DialogInterface.OnClickListener{
+                override fun onClick(p0: DialogInterface?, p1: Int) {
+                }
+            })
+            .show()
+        refreshPage()
 
         ArrayAdapter.createFromResource(
                 this,
@@ -86,7 +99,6 @@ class PostAduanActivity : AppCompatActivity(), LocationListener {
 
         //get id_msy
         session = SessionManager(applicationContext)
-        session.checkLogin()
         val user: HashMap<String, String> = session.getUserDetails()
         val id: String = user.get(SessionManager.KEY_ID)!!
         val nama: String = user.get(SessionManager.KEY_NAMA)!!
@@ -98,6 +110,13 @@ class PostAduanActivity : AppCompatActivity(), LocationListener {
         binding.btnAddAduan.setOnClickListener{
             binding.progressBar.visibility = View.VISIBLE
             createNewAduan(id)
+        }
+    }
+
+    private fun refreshPage() {
+        binding.swipeToRefresh.setOnRefreshListener {
+            getLokasi()
+            binding.swipeToRefresh.isRefreshing = false
         }
     }
 
@@ -114,57 +133,50 @@ class PostAduanActivity : AppCompatActivity(), LocationListener {
             if (it != null) {
                 latitude = it.latitude
                 longitude = it.longitude
-                binding.koordinatTxt.text = "Latitude : $latitude , Longitude : $longitude"
+                binding.koordinatTxt.text = "Lintang : $latitude , Bujur : $longitude"
             }
         }
     }
-
-//    private fun getLocations() {
-//        locationManager = getSystemService(Context.LOCATION_SERVICE) as LocationManager
-//        if ((ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED)){
-//            ActivityCompat.requestPermissions(this, arrayOf(Manifest.permission.ACCESS_FINE_LOCATION), locationPermissionCode)
-//        }
-////        locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 1000, 0, this)
-//    }
-
 
     override fun onLocationChanged(location: Location) {
         latitude = location.latitude
         longitude = location.longitude
 
-        binding.koordinatTxt.text = "$latitude , $longitude"
-
+        binding.koordinatTxt.text = "Lintang : $latitude , Bujur : $longitude"
     }
 
-//    @SuppressLint("MissingSuperCall")
-//    override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<out String>, grantResults: IntArray) {
-//        if (requestCode == locationPermissionCode) {
-//            if (grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-//                Toast.makeText(this, "Permission Granted", Toast.LENGTH_SHORT).show()
-//            }
-//            else {
-//                Toast.makeText(this, "Permission Denied", Toast.LENGTH_SHORT).show()
-//            }
-//        }
-//    }
+    private fun getLocations() {
+        locationManager = getSystemService(Context.LOCATION_SERVICE) as LocationManager
+        if ((ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED)){
+            ActivityCompat.requestPermissions(this, arrayOf(Manifest.permission.ACCESS_FINE_LOCATION), locationPermissionCode)
+        }
+        locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 1000, 5f, this)
+//        locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 1000, 0, this)
+    }
+
+    @SuppressLint("MissingSuperCall")
+    override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<out String>, grantResults: IntArray) {
+        if (requestCode == locationPermissionCode) {
+            if (grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                Toast.makeText(this, "Permission Granted", Toast.LENGTH_SHORT).show()
+            }
+            else {
+                Toast.makeText(this, "Permission Denied", Toast.LENGTH_SHORT).show()
+            }
+        }
+    }
+
+    override fun onProviderEnabled(provider: String) {
+    }
+
+    override fun onProviderDisabled(provider: String) {
+    }
+
+    override fun onStatusChanged(provider: String?, status: Int, extras: Bundle?) {
+    }
 
     @RequiresApi(Build.VERSION_CODES.O)
     private fun createNewAduan(id_msy : String) {
-//        val subdistrictArray = resources.getStringArray(R.array.subdistrict_array)
-//        binding.subdistrictSpinner.onItemSelectedListener = object :
-//            AdapterView.OnItemSelectedListener {
-//            override fun onItemSelected(parent: AdapterView<*>, view: View, position: Int, id: Long) {
-//                Toast.makeText(this@PostAduanActivity, subdistrictArray[position], Toast.LENGTH_SHORT).show()
-//                subdistrict = subdistrictArray[position].toString()
-//                Log.d("kecamatan" , subdistrict)
-//            }
-//
-//            override fun onNothingSelected(parent: AdapterView<*>) {
-//                // write code to perform some action
-//            }
-//        }
-
-
         val helper = Helper()
         val currentDate = helper.saveCurrentDate()
         val id_aduan = helper.getRandomId(5, "pengaduan")

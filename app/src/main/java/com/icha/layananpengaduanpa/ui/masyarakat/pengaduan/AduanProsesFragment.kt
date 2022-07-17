@@ -46,7 +46,6 @@ class AduanProsesFragment() : Fragment() {
 
         //session
         session = SessionManager(view.context)
-        session.checkLogin()
 
         val user: HashMap<String, String> = session.getUserDetails()
         val id_user: String = user.get(SessionManager.KEY_ID)!!
