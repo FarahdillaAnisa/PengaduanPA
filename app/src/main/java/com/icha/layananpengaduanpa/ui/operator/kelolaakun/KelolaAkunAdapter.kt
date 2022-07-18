@@ -1,6 +1,7 @@
 package com.icha.layananpengaduanpa.ui.operator.kelolaakun
 
 import android.content.Intent
+import android.media.Image
 import android.net.Uri
 import android.view.LayoutInflater
 import android.view.View
@@ -24,6 +25,7 @@ class KelolaAkunAdapter(private val listAkun : ArrayList<PolisiModel>): Recycler
         var idnamatxt: TextView = itemView.findViewById(R.id.tv_nama_petugas)
         var satwiltxt: TextView = itemView.findViewById(R.id.tv_satwil)
         var dialBtn: ImageButton = itemView.findViewById(R.id.dialBtn)
+        var shareBtn: ImageButton = itemView.findViewById(R.id.shareBtn)
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): AkunViewHolder {
@@ -38,6 +40,12 @@ class KelolaAkunAdapter(private val listAkun : ArrayList<PolisiModel>): Recycler
         holder.dialBtn.setOnClickListener {
             val intent = Intent(Intent.ACTION_DIAL, Uri.parse("tel:" + Uri.encode(dataAkun.notelpPolisi)))
             holder.itemView.context.startActivity(intent)
+        }
+        holder.shareBtn.setOnClickListener {
+            val intent = Intent(Intent.ACTION_SEND)
+            intent.putExtra("Share", "ID Akun : ${dataAkun.idPolisi}, Nama : ${dataAkun.namaPolisi}, Satuan Wilayah : ${dataAkun.satuanWilayah}, No. Telp : ${dataAkun.notelpPolisi}, Password Awal : ${dataAkun.passPolisi} }")
+            intent.setType("text/plain")
+            holder.itemView.context.startActivity(Intent.createChooser(intent, "Bagikan Melalui : "))
         }
         holder.itemView.setOnClickListener {
             onItemClickCallback.onItemClicked(listAkun[holder.adapterPosition])

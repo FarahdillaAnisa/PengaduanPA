@@ -39,4 +39,21 @@
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="title_activity_menu_polisi">Menu Polisi</string>
     <string name="title_activity_menu_spkt">MainActivity</string>
+    <string name="tambahLaporan">Tambah Data Pelaporan</string>
+    <string name="kode_pengaduan">Kode Pengaduan</string>
+    <string name="kecamatan">Kecamatan</string>
+    <string name="cari_aduan">Cari Aduan</string>
+    <string name="tambah_laporan">Tambah Laporan</string>
+    <string name="nama_pelapor">Nama Pelapor</string>
+    <string name="tidak_ada">Tidak Ada</string>
+    <string name="nomor_telepon">Nomor Telepon</string>
+    <string name="pelaporan">Pelaporan</string>
+    <string name="lokasi">Lokasi Pelapor</string>
+    <string name="kontak_pelapor">kontak pelapor</string>
+    <string name="belum_diproses">BELUM DIPROSES</string>
+    <string name="keterangan_penanganan">Keterangan Penanganan</string>
+    <string name="nama_petugas">Nama Petugas</string>
+    <string name="satuan_wilayah">Satuan Wilayah</string>
+    <string name="keterangan_penanganan_oleh_kepolisian">Keterangan Penanganan oleh Kepolisian</string>
+    <string name="share">Share</string>
 </resources>

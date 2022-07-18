@@ -37,7 +37,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="20dp"
                 app:boxStrokeWidth="1dp"
-                app:boxStrokeColor="@color/maroon_main_theme">
+                app:boxStrokeColor="@color/primaryColor">
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/txt_nama"
@@ -58,7 +58,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="20dp"
                 app:boxStrokeWidth="1dp"
-                app:boxStrokeColor="@color/maroon_main_theme">
+                app:boxStrokeColor="@color/primaryColor">
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/notelp_txt"
@@ -93,7 +93,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="20dp"
                 app:boxStrokeWidth="1dp"
-                app:boxStrokeColor="@color/maroon_main_theme">
+                app:boxStrokeColor="@color/primaryColor">
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/txt_isi_aduan"

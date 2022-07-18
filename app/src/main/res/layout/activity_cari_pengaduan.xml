@@ -10,61 +10,44 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical">
-        <TextView
-            android:id="@+id/txtidaduan"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Tambah Data Pelaporan"
-            android:textSize="18dp"
-            android:textStyle="bold"
-            android:textColor="@color/black"
-            android:layout_gravity="center"
-            android:layout_marginTop="20dp"
-            android:layout_marginBottom="20dp"
-            android:layout_margin="10dp"/>
 
         <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Kode Pengaduan"
-            android:layout_marginStart="10dp"
+            android:id="@+id/txtidaduan"
+            android:text="@string/tambahLaporan"
+            style="@style/TextContent.TitlePage"
+            />
+
+        <TextView
+            android:text="@string/kode_pengaduan"
+            style="@style/TextContent.HintField.withMargin"
             />
 
         <com.google.android.material.textfield.TextInputLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="20dp"
             android:layout_margin="10dp"
-            app:boxStrokeWidth="1dp"
-            app:boxStrokeColor="@color/maroon_main_theme">
+            app:boxStrokeColor="@color/primaryColor">
 
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/txt_kode_aduan"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:hint="Kode Pengaduan"
+                android:hint="@string/kode_pengaduan"
                 android:inputType="text"
                 />
         </com.google.android.material.textfield.TextInputLayout>
 
         <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Kecamatan"
-            android:layout_marginStart="10dp"/>
+            android:text="@string/kecamatan"
+            style="@style/TextContent.HintField.withMargin"/>
 
         <Spinner
             android:id="@+id/opsiKecamatan"
-            android:paddingStart="5dp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:entries="@array/subdistrict_array"
-            android:layout_marginBottom="10dp"
             android:layout_margin="10dp"
             android:padding="15dp"
-            android:elevation="@dimen/cardview_default_elevation"
-            app:boxStrokeWidth="5dp"
-            app:boxStrokeColor="@color/maroon_main_theme"
             />
 
         <LinearLayout
@@ -72,22 +55,17 @@
             android:layout_height="wrap_content"
             android:orientation="horizontal"
             android:gravity="center"
-            >
+            android:weightSum="1">
 
             <com.google.android.material.button.MaterialButton
                 android:id="@+id/btn_cari_aduan"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:backgroundTint="#367A59"
-                android:text="Cari Aduan"
-                android:layout_marginEnd="10dp"/>
+                android:text="@string/cari_aduan"
+                style="@style/Button.ButtonDivide"/>
 
             <com.google.android.material.button.MaterialButton
                 android:id="@+id/btn_tambah_laporan"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:backgroundTint="#367A59"
-                android:text="Tambah Laporan" />
+                style="@style/Button.ButtonDivide"
+                android:text="@string/tambah_laporan"/>
         </LinearLayout>
 
         <androidx.cardview.widget.CardView
@@ -95,7 +73,6 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             app:layout_constraintTop_toBottomOf="@id/aduancv2"
-            android:layout_margin="10dp"
             android:elevation="8dp">
 
             <androidx.constraintlayout.widget.ConstraintLayout
@@ -105,11 +82,12 @@
 
                 <TextView
                     android:id="@+id/tv_keterangan"
+                    style="@style/TextContent.HintField"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="Data Aduan"
-                    android:textSize="14sp"
-                    android:textColor="@color/black"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
 
                 <ImageView
@@ -119,27 +97,20 @@
                     android:layout_marginTop="20dp"
                     android:src="@drawable/ic_baseline_person_24"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/tv_keterangan"/>
+                    app:layout_constraintTop_toBottomOf="@+id/tv_keterangan"
+                    android:contentDescription="TODO" />
 
                 <TextView
                     android:id="@+id/tv_nama_pelapor"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Nama Pelapor"
-                    android:layout_marginStart="10dp"
-                    android:textColor="@color/black"
-                    android:textSize="12sp"
+                    android:text="@string/nama_pelapor"
+                    style="@style/TextContent.contentTitle"
                     app:layout_constraintStart_toEndOf="@+id/img_pelapor"
                     app:layout_constraintTop_toTopOf="@+id/img_pelapor" />
 
                 <TextView
                     android:id="@+id/tv_data_nama_pelapor"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="10dp"
-                    android:text="Tidak Ada"
-                    android:textColor="#616161"
-                    android:textSize="12sp"
+                    style="@style/TextContent.content.withMargin"
+                    android:text="@string/tidak_ada"
                     app:layout_constraintStart_toEndOf="@+id/img_pelapor"
                     app:layout_constraintTop_toBottomOf="@+id/tv_nama_pelapor" />
 
@@ -148,49 +119,39 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="10dp"
-                    android:src="@drawable/ic_baseline_person_24"
+                    android:src="@drawable/ic_baseline_call_24"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/tv_data_nama_pelapor" />
+                    app:layout_constraintTop_toBottomOf="@+id/tv_data_nama_pelapor"
+                    android:contentDescription="TODO" />
 
                 <TextView
-                    android:id="@+id/tv_satuan_wilayah"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="10dp"
-                    android:text="Nomor Telepon"
-                    android:textColor="@color/black"
-                    android:textSize="12sp"
+                    android:id="@+id/tv_notelp"
+                    android:text="@string/nomor_telepon"
+                    style="@style/TextContent.contentTitle"
                     app:layout_constraintStart_toEndOf="@+id/img_pelapor"
                     app:layout_constraintTop_toTopOf="@+id/img_satwil" />
 
                 <TextView
                     android:id="@+id/tv_notelp_pelapor"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="10dp"
-                    android:text="Tidak Ada"
-                    android:textColor="#616161"
-                    android:textSize="12sp"
+                    android:text="@string/tidak_ada"
+                    style="@style/TextContent.content.withMargin"
                     app:layout_constraintStart_toEndOf="@+id/img_satwil"
-                    app:layout_constraintTop_toBottomOf="@+id/tv_satuan_wilayah" />
+                    app:layout_constraintTop_toBottomOf="@+id/tv_notelp" />
 
                 <ImageView
                     android:id="@+id/img_laporan"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="10dp"
-                    android:src="@drawable/ic_baseline_person_24"
+                    android:src="@drawable/report"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/tv_notelp_pelapor" />
+                    app:layout_constraintTop_toBottomOf="@+id/tv_notelp_pelapor"
+                    android:contentDescription="TODO" />
 
                 <TextView
                     android:id="@+id/tv_laporan"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="10dp"
                     android:text="Isi Pengaduan"
-                    android:textColor="@color/black"
-                    android:textSize="12sp"
+                    style="@style/TextContent.contentTitle"
                     app:layout_constraintStart_toEndOf="@+id/img_laporan"
                     app:layout_constraintTop_toTopOf="@+id/img_laporan" />
 
@@ -198,12 +159,10 @@
                     android:id="@+id/tv_ket_aduan"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="10dp"
-                    android:lines="8"
-                    android:text="Pelaporan"
-                    android:textColor="#616161"
-                    android:textSize="12sp"
+                    android:lines="6"
+                    android:text="@string/pelaporan"
                     android:background="#F8F8F8"
+                    style="@style/TextContent.content.withMargin"
                     app:layout_constraintEnd_toEndOf="@+id/tv_keterangan"
                     app:layout_constraintStart_toEndOf="@+id/img_laporan"
                     app:layout_constraintTop_toBottomOf="@+id/tv_laporan" />
@@ -219,27 +178,19 @@
 
             <com.google.android.material.button.MaterialButton
                 android:id="@+id/btn_lokasi_aduan"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:backgroundTint="#367A59"
-                android:text="Lokasi"
-                android:layout_marginEnd="20dp"/>
+                android:text="@string/lokasi"
+                style="@style/Button.ButtonDivide"
+                android:backgroundTint="@color/info"/>
 
             <com.google.android.material.button.MaterialButton
                 android:id="@+id/btn_kontak_pelapor"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:backgroundTint="#367A59"
-                android:text="kontak pelapor" />
+                android:text="@string/kontak_pelapor"
+                style="@style/Button.ButtonDivide"
+                android:backgroundTint="@color/danger"/>
         </LinearLayout>
     </LinearLayout>
 
     <ProgressBar
         android:id="@+id/progressBar"
-        style="?android:attr/progressBarStyle"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:visibility="invisible"
-        />
+        style="@style/progressBar"/>
 </FrameLayout>

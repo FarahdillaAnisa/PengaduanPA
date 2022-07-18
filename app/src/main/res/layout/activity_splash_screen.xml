@@ -73,13 +73,13 @@
         android:paddingStart="30dp"
         android:paddingEnd="30dp"
         android:text="daftar"
-        android:textColor="@color/maroon_main_theme"
+        android:textColor="@color/primaryColor"
         android:textSize="16sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/loginbtn"
         app:layout_constraintTop_toBottomOf="@+id/app_name2"
-        app:strokeColor="@color/maroon_main_theme"
+        app:strokeColor="@color/primaryColor"
         app:strokeWidth="1dp" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

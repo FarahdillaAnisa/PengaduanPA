@@ -63,7 +63,7 @@ class Helper {
 
     fun getRandomPassword() : String {
         val charset = "ABCDEFGHIJKLMNOPQRSTUVWXTZabcdefghiklmnopqrstuvwxyz0123456789*$#+-"
-        return (1..10)
+        return (1..7)
                 .map { charset.random() }
                 .joinToString("")
     }

@@ -12,6 +12,7 @@
         android:layout_height="wrap_content"
         app:layout_constraintTop_toTopOf="parent"
         android:layout_margin="10dp"
+        android:padding="20dp"
         android:elevation="8dp"
         app:cardCornerRadius="10dp">
 
@@ -24,44 +25,36 @@
                 android:id="@+id/kode_aduan_txt"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
                 tools:text="KODE ADUAN"
                 android:textColor="@color/black"
                 android:textSize="20sp"
                 android:textStyle="bold"
+                android:layout_marginStart="10dp"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="@+id/status_aduan" />
 
             <TextView
                 android:id="@+id/kec_txt"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
                 tools:text="KECAMATAN"
-                android:textColor="@color/black"
-                android:textSize="14sp"
-                android:textStyle="bold"
+                style="@style/TextContent.contentTitle"
                 app:layout_constraintBottom_toTopOf="@+id/tgladuan_txt"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/kode_aduan_txt" />
 
             <TextView
                 android:id="@+id/tgladuan_txt"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
                 android:layout_marginBottom="10dp"
                 tools:text="Tgl Pengaduan : 02/05/2022"
-                android:textColor="@color/black"
-                android:textSize="14sp"
+                style="@style/TextContent.content.withMargin"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="parent" />
 
             <Button
                 android:id="@+id/status_aduan"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
                 android:clickable="false"
-                android:text="BELUM DIPROSES"
-                android:textSize="11sp"
+                style="@style/Button"
+                android:text="@string/belum_diproses"
                 android:backgroundTint="#EEB4B0"
                 android:textColor="#BD251C"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -70,13 +63,12 @@
             <Button
                 android:id="@+id/lokasi_btn"
                 android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:text="LOKASI"
-                android:textSize="11sp"
+                android:text="@string/lokasi"
+                style="@style/Button"
                 app:layout_constraintEnd_toEndOf="@+id/status_aduan"
                 app:layout_constraintStart_toStartOf="@+id/status_aduan"
                 app:layout_constraintTop_toBottomOf="@+id/status_aduan"
-                android:backgroundTint="#11317D"/>
+                android:backgroundTint="@color/info"/>
         </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.cardview.widget.CardView>
 
@@ -92,24 +84,19 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:padding="20dp"
-            android:orientation="vertical">
+            android:orientation="vertical"
+            android:padding="10dp">
 
             <TextView
                 android:id="@+id/text_aduan"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="10dp"
                 android:text="Isi Pengaduan"
-                android:textColor="@color/black"
-                android:textSize="14sp" />
+                style="@style/TextContent.content" />
 
             <TextView
                 android:id="@+id/tv_isi_aduan"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:lines="7"
-                android:elevation="10dp"
+                android:lines="5"
                 android:background="#F8F8F8"/>
         </LinearLayout>
     </androidx.cardview.widget.CardView>
@@ -125,15 +112,13 @@
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:padding="20dp">
+            android:padding="10dp">
 
             <TextView
                 android:id="@+id/tv_keterangan"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="Keterangan Penanganan"
-                android:textSize="14sp"
-                android:textColor="@color/black"
+                android:text="@string/keterangan_penanganan"
+                style="@style/TextContent.contentTitle"
                 app:layout_constraintTop_toTopOf="parent" />
 
             <ImageView
@@ -147,12 +132,8 @@
 
             <TextView
                 android:id="@+id/tv_nama_petugas"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Nama Petugas"
-                android:layout_marginStart="10dp"
-                android:textColor="@color/black"
-                android:textSize="12sp"
+                android:text="@string/nama_petugas"
+                style="@style/TextContent.contentTitle"
                 app:layout_constraintStart_toEndOf="@+id/img_petugas"
                 app:layout_constraintTop_toTopOf="@+id/img_petugas" />
 
@@ -178,12 +159,8 @@
 
             <TextView
                 android:id="@+id/tv_satuan_wilayah"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="10dp"
-                android:text="Satuan Wilayah"
-                android:textColor="@color/black"
-                android:textSize="12sp"
+                android:text="@string/satuan_wilayah"
+                style="@style/TextContent.contentTitle"
                 app:layout_constraintStart_toEndOf="@+id/img_petugas"
                 app:layout_constraintTop_toTopOf="@+id/img_satwil" />
 
@@ -209,12 +186,8 @@
 
             <TextView
                 android:id="@+id/tv_laporan"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="10dp"
-                android:text="Keterangan Penanganan oleh Kepolisian"
-                android:textColor="@color/black"
-                android:textSize="12sp"
+                style="@style/TextContent.contentTitle"
+                android:text="@string/keterangan_penanganan_oleh_kepolisian"
                 app:layout_constraintStart_toEndOf="@+id/img_laporan"
                 app:layout_constraintTop_toTopOf="@+id/img_laporan" />
 

@@ -23,6 +23,7 @@ class KelolaSpktAdapter(private val listSpkt : ArrayList<SpktModel>): RecyclerVi
         var idnamatxt: TextView = itemView.findViewById(R.id.tv_nama_petugas)
         var satwiltxt: TextView = itemView.findViewById(R.id.tv_satwil)
         var dialBtn: ImageButton = itemView.findViewById(R.id.dialBtn)
+        var shareBtn: ImageButton = itemView.findViewById(R.id.shareBtn)
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): AkunViewHolder {
@@ -37,6 +38,12 @@ class KelolaSpktAdapter(private val listSpkt : ArrayList<SpktModel>): RecyclerVi
         holder.dialBtn.setOnClickListener {
             val intent = Intent(Intent.ACTION_DIAL, Uri.parse("tel:" + Uri.encode(dataSpkt.notelpSpkt)))
             holder.itemView.context.startActivity(intent)
+        }
+        holder.shareBtn.setOnClickListener {
+            val intent = Intent(Intent.ACTION_SEND)
+            intent.putExtra("Share", "ID Akun : ${dataSpkt.idSpkt}, Nama : ${dataSpkt.unameSpkt}, Satuan Wilayah : ${dataSpkt.satuanWilayah}, No. Telp : ${dataSpkt.notelpSpkt}, Password Awal : ${dataSpkt.passSpkt} }")
+            intent.setType("text/plain")
+            holder.itemView.context.startActivity(Intent.createChooser(intent, "Bagikan Melalui : "))
         }
         holder.itemView.setOnClickListener {
             onItemClickCallback.onItemClicked(listSpkt[holder.adapterPosition])

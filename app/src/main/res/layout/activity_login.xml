@@ -31,7 +31,7 @@
             android:layout_height="wrap_content"
             android:layout_marginBottom="10dp"
             app:boxStrokeWidth="1dp"
-            app:boxStrokeColor="@color/maroon_main_theme">
+            app:boxStrokeColor="@color/primaryColor">
 
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/edt_id"
@@ -53,7 +53,7 @@
             android:layout_height="wrap_content"
             android:layout_marginBottom="10dp"
             app:boxStrokeWidth="1dp"
-            app:boxStrokeColor="@color/maroon_main_theme"
+            app:boxStrokeColor="@color/primaryColor"
             app:passwordToggleEnabled="true">
 
             <com.google.android.material.textfield.TextInputEditText
@@ -72,7 +72,6 @@
 
         <Spinner
             android:id="@+id/opsiLogin"
-            android:paddingStart="5dp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:entries="@array/opsi_login"
@@ -80,7 +79,7 @@
             android:padding="15dp"
             android:elevation="@dimen/cardview_default_elevation"
             app:boxStrokeWidth="1dp"
-            app:boxStrokeColor="@color/maroon_main_theme"
+            app:boxStrokeColor="@color/primaryColor"
             />
 
         <com.google.android.material.button.MaterialButton

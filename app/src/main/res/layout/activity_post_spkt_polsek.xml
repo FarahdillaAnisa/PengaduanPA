@@ -30,7 +30,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="20dp"
-            app:boxStrokeColor="@color/maroon_main_theme"
+            app:boxStrokeColor="@color/primaryColor"
             app:boxStrokeWidth="1dp">
 
             <com.google.android.material.textfield.TextInputEditText
@@ -50,7 +50,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="20dp"
-            app:boxStrokeColor="@color/maroon_main_theme"
+            app:boxStrokeColor="@color/primaryColor"
             app:boxStrokeWidth="1dp">
 
             <com.google.android.material.textfield.TextInputEditText
@@ -70,7 +70,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="20dp"
-            app:boxStrokeColor="@color/maroon_main_theme"
+            app:boxStrokeColor="@color/primaryColor"
             app:boxStrokeWidth="1dp">
 
             <com.google.android.material.textfield.TextInputEditText
@@ -92,7 +92,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="20dp"
-            app:boxStrokeColor="@color/maroon_main_theme"
+            app:boxStrokeColor="@color/primaryColor"
             app:boxStrokeWidth="1dp">
 
             <com.google.android.material.textfield.TextInputEditText
@@ -113,7 +113,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="20dp"
-            app:boxStrokeColor="@color/maroon_main_theme"
+            app:boxStrokeColor="@color/primaryColor"
             app:boxStrokeWidth="1dp"
             app:passwordToggleEnabled="true">
 

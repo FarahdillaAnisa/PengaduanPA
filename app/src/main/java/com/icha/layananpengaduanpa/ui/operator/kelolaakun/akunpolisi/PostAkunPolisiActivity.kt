@@ -17,7 +17,6 @@ import retrofit2.Response
 
 class PostAkunPolisiActivity : AppCompatActivity() {
     companion object {
-        //        const val EXTRA_POLISI = "extra_polisi"
         const val EXTRA_ID = "extra_id"
         const val EXTRA_ROLE = "role_user"
     }
@@ -26,14 +25,12 @@ class PostAkunPolisiActivity : AppCompatActivity() {
     private var isEdit = false
     private var role : String? = ""
     private var id_akun: String? = ""
-    //    private var aPolisi: PolisiModel? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityPostAkunPolisiBinding.inflate(layoutInflater)
         setContentView(binding.root)
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
-//        aPolisi = intent.getParcelableExtra(EXTRA_POLISI)
 
         MaterialAlertDialogBuilder(this)
             .setTitle("Perhatian!")
@@ -50,23 +47,23 @@ class PostAkunPolisiActivity : AppCompatActivity() {
         if (bundle?.containsKey(EXTRA_ID)!! && bundle.containsKey(EXTRA_ROLE)) {
             role = intent.getStringExtra(EXTRA_ROLE)
             id_akun = intent.getStringExtra(EXTRA_ID)
+            isEdit = true
+            binding.btnPostpolisi.setText("Perbaharui Akun")
             if (role == "polisi") {
                 if (id_akun != null) {
-                    isEdit = true
 //                    binding.btnDeletepolisi.visibility = View.VISIBLE
-                    binding.btnPostpolisi.setText("Perbaharui Akun")
                     supportActionBar?.title = "Edit Data Akun Polisi"
                     getAkunPolisi(id_akun!!)
                 }
             } else if (role == "spkt") {
                 if (id_akun != null) {
-                    isEdit = true
 //                    binding.btnDeletepolisi.visibility = View.VISIBLE
-                    binding.btnPostpolisi.setText("Perbaharui Akun")
                     supportActionBar?.title = "Edit Data Akun Spkt"
                     getAkunSpkt(id_akun!!)
                 }
             }
+        } else {
+            isEdit = false
         }
 
 //        binding.btnDeletepolisi.setOnClickListener {
@@ -96,15 +93,18 @@ class PostAkunPolisiActivity : AppCompatActivity() {
     }
 
     private fun tambahAkunSpkt() {
-        val getIdRandom = Helper()
-        val id_spkt = getIdRandom.getRandomId(3, "spkt")
+        val helper = Helper()
+        val id_spkt = helper.getRandomId(3, "spkt")
         binding.edtIdpolisi.setText(id_spkt)
+        val passRandom = helper.getRandomPassword()
+        binding.edtPassword.setText(passRandom)
+
         ApiConfig.instance.tambahAkunSpkt(
                 id_spkt,
                 binding.edtNama.text.toString(),
                 binding.edtSatuanwilayah.text.toString(),
                 binding.edtPassword.text.toString(),
-                binding.edtNotelp.text.toString()
+                passRandom
         ).enqueue(object : Callback<SpktModel> {
             override fun onResponse(call: Call<SpktModel>, response: Response<SpktModel>) {
                 binding.progressBar.visibility = View.GONE
@@ -257,10 +257,11 @@ class PostAkunPolisiActivity : AppCompatActivity() {
     }
 
     private fun tambahAkunPolisi() {
-        val getIdRandom = Helper()
-        val id_polisi = getIdRandom.getRandomId(3, "polisi", )
+        val helper = Helper()
+        val id_polisi = helper.getRandomId(3, "polisi", )
         binding.edtIdpolisi.setText(id_polisi)
-
+        val passRandom = helper.getRandomPassword()
+        binding.edtPassword.setText(passRandom)
         //yes/no dialog box
 
         ApiConfig.instance.tambahAkunPolisi(
@@ -268,7 +269,7 @@ class PostAkunPolisiActivity : AppCompatActivity() {
                 binding.edtNama.text.toString(),
                 binding.edtSatuanwilayah.text.toString(),
                 binding.edtNotelp.text.toString(),
-                binding.edtPassword.text.toString()
+                passRandom
         ).enqueue(object : Callback<PolisiModel> {
             override fun onResponse(call: Call<PolisiModel>, response: Response<PolisiModel>) {
                 binding.progressBar.visibility = View.GONE
