@@ -12,6 +12,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.icha.layananpengaduanpa.R
 import com.icha.layananpengaduanpa.databinding.FragmentAduanProsesBinding
+import com.icha.layananpengaduanpa.model.AduanCount
 import com.icha.layananpengaduanpa.model.ApiConfig
 import com.icha.layananpengaduanpa.model.ResponsePengaduan
 import com.icha.layananpengaduanpa.session.SessionManager

@@ -8,6 +8,24 @@ import retrofit2.http.*
      @GET("api/pengaduan/getAduan/{status_aduan}")
      fun getAllAduan(@Query("status_aduan") status_aduan: String): Call<ArrayList<ResponsePengaduan>>
 
+     //get count all aduan
+     @GET("api/pengaduan/getAduan/{status_aduan}")
+     fun countAllAduan(@Query("status_aduan") status_aduan: String): Call<AduanCount>
+
+     //get aduan by status & kec
+     @GET("api/pengaduan/getaduanbykecamatan/")
+     fun getAduanKec(
+             @Query("status_aduan") status_aduan:String,
+             @Query("kec_lokasi") kec_lokasi: String
+     ): Call<ArrayList<ResponsePengaduan>>
+
+     //get aduan by status & kec (count)
+     @GET("api/pengaduan/getaduanbykecamatan/")
+     fun countAduanKec(
+             @Query("status_aduan") status_aduan:String,
+             @Query("kec_lokasi") kec_lokasi: String
+     ): Call<AduanCount>
+
     //get aduan by id
     @GET("api/pengaduan/getaduanbyid/{kode_aduan}")
     fun getAduan(@Query("kode_aduan") kode_aduan : String): Call<ResponsePengaduan>
@@ -18,13 +36,6 @@ import retrofit2.http.*
             @Query("status_aduan") status_aduan:String,
             @Query("id_msy_fk") id_msy_fk: String
     ): Call<ArrayList<ResponsePengaduan>>
-
-     //get aduan by status & kec
-     @GET("api/pengaduan/getaduanbykecamatan/")
-     fun getAduanKec(
-             @Query("status_aduan") status_aduan:String,
-             @Query("kec_lokasi") kec_lokasi: String
-     ): Call<ArrayList<ResponsePengaduan>>
 
     //post new aduan using field x-www-form-urlencoded
     @FormUrlEncoded

@@ -42,3 +42,11 @@ data class ResponsePengaduan(
         @field:SerializedName("long_laporan")
         val longLaporan: Double
 )
+
+data class AduanCount(
+        @field:SerializedName("data")
+        val data: List<ResponsePengaduan?>? = null,
+
+        @field:SerializedName("jumlah")
+        val jumlah: Int? = null
+)
