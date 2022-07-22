@@ -3,6 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".ui.operator.beranda.BerandaOperatorFragment">
 
     <LinearLayout
@@ -28,70 +29,50 @@
             android:layout_marginTop="10dp"
             android:text="Logout" />
 
-        <TextView
-            android:id="@+id/bukitraya"
+        <Spinner
+            android:id="@+id/kecamatan"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            tools:text="Bukit Raya" />
+            android:entries="@array/kecamatan"
+            android:layout_marginBottom="10dp"
+            android:padding="15dp"
+            android:elevation="@dimen/cardview_default_elevation"
+            app:boxStrokeWidth="1dp"
+            app:boxStrokeColor="@color/primaryColor"
+            />
+
+        <Button
+            android:id="@+id/kecBtn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginTop="10dp"
+            android:text="Tampilkan Data" />
 
         <TextView
-            android:id="@+id/Pelabuhan"
+            android:id="@+id/dataTxt"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            tools:text="Pelabuhan" />
+            tools:text="Bukit Raya"
+            android:padding="10dp"/>
 
-        <TextView
-            android:id="@+id/LimaPuluh"
+        <androidx.appcompat.widget.SearchView
+            android:id="@+id/search"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            tools:text="LimaPuluh" />
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            android:queryHint="Pencarian Aduan Berdasarkan Nama Pelapor"/>
 
-        <TextView
-            android:id="@+id/PayungSekaki"
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rv_aduan"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            tools:text="PayungSekaki" />
-
-        <TextView
-            android:id="@+id/PekanbaruKota"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            tools:text="Pekanbaru Kota" />
-
-        <TextView
-            android:id="@+id/Rumbai"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            tools:text="Rumbai" />
-
-        <TextView
-            android:id="@+id/RumbaiPesisir"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            tools:text="Rumbai Pesisir" />
-
-        <TextView
-            android:id="@+id/Senapelan"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            tools:text="Senapelan" />
-
-        <TextView
-            android:id="@+id/Sukajadi"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            tools:text="Sukajadi" />
-
-        <TextView
-            android:id="@+id/Tampan"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            tools:text="Tampan" />
-
-        <TextView
-            android:id="@+id/TenayanRaya"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            tools:text="Tenayan Raya" />
+            android:layout_height="match_parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/search"
+            tools:listitem="@layout/item_row_aduan" />
     </LinearLayout>
 </RelativeLayout>

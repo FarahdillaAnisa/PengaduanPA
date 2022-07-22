@@ -36,6 +36,9 @@ data class ResponsePengaduan(
         @field:SerializedName("id_msy_fk")
         val idMsyFk: String,
 
+        @field:SerializedName("nama_msy")
+        val namaMsy: String,
+
         @field:SerializedName("lat_laporan")
         val latLaporan: Double,
 
@@ -45,7 +48,7 @@ data class ResponsePengaduan(
 
 data class AduanCount(
         @field:SerializedName("data")
-        val data: List<ResponsePengaduan?>? = null,
+        val data: List<ResponsePengaduan>,
 
         @field:SerializedName("jumlah")
         val jumlah: Int? = null

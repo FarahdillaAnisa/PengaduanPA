@@ -7,6 +7,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.appcompat.widget.SearchView
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.icha.layananpengaduanpa.R
@@ -19,6 +20,9 @@ import com.icha.layananpengaduanpa.ui.spktpolsek.pengaduan.DetailAduanSpktActivi
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
+import java.util.*
+import kotlin.collections.ArrayList
+import kotlin.collections.HashMap
 
 class AduanSelesaiFragment() : Fragment() {
     private lateinit var rvAduanSelesai: RecyclerView
@@ -53,15 +57,48 @@ class AduanSelesaiFragment() : Fragment() {
         binding.progressBar.visibility = View.VISIBLE
 
         if (role_user == "masyarakat") {
+            binding.searchfilter.visibility = View.GONE
             setHasOptionsMenu(false)
             getAduanMsy(id_user)
         } else if (role_user == "spkt") {
+            binding.searchfilter.visibility = View.VISIBLE
             setHasOptionsMenu(false)
             getAduanSpkt(satwil)
         } else if (role_user == "operator") {
+            binding.searchfilter.visibility = View.VISIBLE
             setHasOptionsMenu(true)
             getAduanOperator()
         }
+
+        //SEARCH VIEW
+        val searchView: SearchView = binding.actionSearch
+        searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
+            override fun onQueryTextSubmit(query: String?): Boolean {
+                return true
+            }
+
+            override fun onQueryTextChange(newText: String?): Boolean {
+                if(newText!!.isNotEmpty()) {
+                    listAduanSelesai.clear()
+                    val namaKeyword = newText.toLowerCase(Locale.getDefault())
+                    if (role_user == "operator") {
+                        cariAduan(namaKeyword, null)
+                    } else if (role_user == "spkt") {
+                        cariAduan(namaKeyword, satwil)
+                    }
+                    rvAduanSelesai.adapter!!.notifyDataSetChanged()
+                } else {
+                    listAduanSelesai.clear()
+                    if (role_user == "operator") {
+                        getAduanOperator()
+                    } else if (role_user == "spkt") {
+                        getAduanSpkt(satwil)
+                    }
+                    rvAduanSelesai.adapter!!.notifyDataSetChanged()
+                }
+                return true
+            }
+        })
     }
 
     private fun getAduanOperator() {
@@ -109,6 +146,23 @@ class AduanSelesaiFragment() : Fragment() {
                 Toast.makeText(getContext(), responseCode, Toast.LENGTH_SHORT).show()
             }
         })
+    }
+
+    private fun cariAduan(keyword_nama_msy: String, kecamatan : String?){
+        ApiConfig.instance.searchAduanByNama(nama_msy = keyword_nama_msy, kec_lokasi = kecamatan)
+                .enqueue(object : Callback<ArrayList<ResponsePengaduan>> {
+                    override fun onResponse(call: Call<ArrayList<ResponsePengaduan>>, response: Response<ArrayList<ResponsePengaduan>>) {
+                        if (response.isSuccessful) {
+                            response.body()?.let { listAduanSelesai.addAll(it) }
+                            showRecyclerListAduan()
+                        }
+                    }
+
+                    override fun onFailure(call: Call<ArrayList<ResponsePengaduan>>, t: Throwable) {
+                        val responseCode = t.message
+                        Toast.makeText(context, responseCode, Toast.LENGTH_SHORT).show()
+                    }
+                })
     }
 
     private fun showRecyclerListAduan() {

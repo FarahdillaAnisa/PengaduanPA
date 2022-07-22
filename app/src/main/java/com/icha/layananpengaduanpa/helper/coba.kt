@@ -10,41 +10,68 @@ import java.text.SimpleDateFormat
 import java.util.*
 import kotlin.collections.ArrayList
 
+var jumlahAduan : Int = 0
+
 fun main() {
+
     println(getCurrentDate())
     println(displayDate("2022-10-7"))
 
-    ApiConfig.instance.countAllAduan("proses")
-            .enqueue(object : Callback<AduanCount> {
-                override fun onResponse(call: Call<AduanCount>, response: Response<AduanCount>) {
-                    if (response.isSuccessful) {
-                        val data = response.body()?.data
-                        println(data)
+//    ApiConfig.instance.countAllAduan("proses")
+//            .enqueue(object : Callback<AduanCount> {
+//                override fun onResponse(call: Call<AduanCount>, response: Response<AduanCount>) {
+//                    if (response.isSuccessful) {
+//                        val data = response.body()?.data
+//                        println(data)
+//
+//                        val jumlah = response.body()?.jumlah
+//                        println(jumlah)
+//                    }
+//                }
+//
+//                override fun onFailure(call: Call<AduanCount>, t: Throwable) {
+//                    println(t.message)
+//                }
+//            })
+//
+//    ApiConfig.instance.getAduanKec("selesai", "sukajadi")
+//            .enqueue(object: Callback<ArrayList<ResponsePengaduan>> {
+//                override fun onResponse(call: Call<ArrayList<ResponsePengaduan>>, response: Response<ArrayList<ResponsePengaduan>>) {
+//                    if (response.isSuccessful) {
+//                        val jumlah = response.body()!!.count()
+//                        println("jumlah : $jumlah")
+//                    }
+//                }
+//
+//                override fun onFailure(call: Call<ArrayList<ResponsePengaduan>>, t: Throwable) {
+//                    println(t.message)
+//                }
+//            })
 
-                        val jumlah = response.body()?.jumlah
-                        println(jumlah)
-                    }
-                }
+    getCountAduan("proses")
+    getCountAduan("selesai")
 
-                override fun onFailure(call: Call<AduanCount>, t: Throwable) {
-                    println(t.message)
-                }
+}
 
-            })
-
-    ApiConfig.instance.getAllAduan("proses")
+fun getCountAduan(status_aduan: String) {
+    var jumlah: Int = 0
+    ApiConfig.instance.getAllAduan(status_aduan)
             .enqueue(object : Callback<ArrayList<ResponsePengaduan>> {
                 override fun onResponse(call: Call<ArrayList<ResponsePengaduan>>, response: Response<ArrayList<ResponsePengaduan>>) {
                     if (response.isSuccessful) {
-                        val data = response.body()
-                        println(data)
+                        jumlah = response.body()!!.count()
+                        jumlahAduan = jumlah
+                        println(jumlahAduan)
+
+//                        println("data : $data")
+//                        jumlahAduan = data
                     }
                 }
 
                 override fun onFailure(call: Call<ArrayList<ResponsePengaduan>>, t: Throwable) {
                     println(t.message)
+                    jumlah = 0
                 }
-
             })
 }
 

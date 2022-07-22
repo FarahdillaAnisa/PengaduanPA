@@ -109,7 +109,7 @@ class PostAduanActivity : AppCompatActivity(), LocationListener {
 
         binding.btnAddAduan.setOnClickListener{
             binding.progressBar.visibility = View.VISIBLE
-            createNewAduan(id)
+            createNewAduan(id, nama)
         }
     }
 
@@ -176,7 +176,7 @@ class PostAduanActivity : AppCompatActivity(), LocationListener {
     }
 
     @RequiresApi(Build.VERSION_CODES.O)
-    private fun createNewAduan(id_msy : String) {
+    private fun createNewAduan(id_msy : String, nama_msy: String) {
         val helper = Helper()
         val currentDate = helper.saveCurrentDate()
         val id_aduan = helper.getRandomId(5, "pengaduan")
@@ -188,7 +188,8 @@ class PostAduanActivity : AppCompatActivity(), LocationListener {
                 subdistrict,
                 binding.txtIsiAduan.text.toString(),
                 currentDate,
-                id_msy
+                id_msy,
+                nama_msy
         ).enqueue(object : Callback<ResponsePengaduan>{
             override fun onResponse(call: Call<ResponsePengaduan>, response: Response<ResponsePengaduan>) {
                 binding.progressBar.visibility = View.GONE

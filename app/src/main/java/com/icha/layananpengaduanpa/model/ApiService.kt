@@ -30,6 +30,13 @@ import retrofit2.http.*
     @GET("api/pengaduan/getaduanbyid/{kode_aduan}")
     fun getAduan(@Query("kode_aduan") kode_aduan : String): Call<ResponsePengaduan>
 
+    //Search Aduan by Keyword Nama Pelapor- Operator
+    @GET("api/pengaduan/getAduanByName/{nama_msy}")
+    fun searchAduanByNama(
+            @Query("nama_msy") nama_msy : String,
+            @Query("kec_lokasi") kec_lokasi: String?
+    ): Call<ArrayList<ResponsePengaduan>>
+
     //get aduan by status
     @GET("api/pengaduan/getaduanbystatus/{status_aduan}")
     fun getAduanStatus(
@@ -47,7 +54,8 @@ import retrofit2.http.*
          @Field("kec_lokasi") kec_lokasi: String,
          @Field("isi_aduan") isi_aduan: String,
          @Field("tgl_aduan") tgl_aduan: String,
-         @Field("id_msy_fk") id_msy_fk: String
+         @Field("id_msy_fk") id_msy_fk: String,
+         @Field("nama_msy") nama_msy: String,
     ): Call<ResponsePengaduan>
 
     //Signup-User

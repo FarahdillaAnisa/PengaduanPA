@@ -1,26 +1,35 @@
 package com.icha.layananpengaduanpa.ui.masyarakat.pengaduan
 
+import android.app.Application
 import android.app.SearchManager
+import android.content.DialogInterface
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.view.*
+import android.widget.AdapterView
 import android.widget.Toast
+import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.widget.SearchView
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.icha.layananpengaduanpa.R
 import com.icha.layananpengaduanpa.databinding.FragmentAduanProsesBinding
 import com.icha.layananpengaduanpa.model.AduanCount
 import com.icha.layananpengaduanpa.model.ApiConfig
 import com.icha.layananpengaduanpa.model.ResponsePengaduan
 import com.icha.layananpengaduanpa.session.SessionManager
+import com.icha.layananpengaduanpa.ui.login.SignupActivity
 import com.icha.layananpengaduanpa.ui.masyarakat.pengaduan.postaduan.DetailAduanActivity
 import com.icha.layananpengaduanpa.ui.spktpolsek.pengaduan.DetailAduanSpktActivity
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
+import java.util.*
+import kotlin.collections.ArrayList
+import kotlin.collections.HashMap
 
 //@Suppress("DEPRECATION")
 class AduanProsesFragment() : Fragment() {
@@ -29,8 +38,8 @@ class AduanProsesFragment() : Fragment() {
     private val listAduan = ArrayList<ResponsePengaduan>()
     lateinit var session: SessionManager
     private var role_user: String = ""
-    private lateinit var searchManager: SearchManager
-    private lateinit var searchView: SearchView
+    private var opsiKecamatan: String = ""
+    private var filterKecamatan: String = ""
 
     override fun onCreateView(
             inflater: LayoutInflater, container: ViewGroup?,
@@ -56,16 +65,88 @@ class AduanProsesFragment() : Fragment() {
         binding.progressBar.visibility = View.VISIBLE
 
         if (role_user == "masyarakat") {
+            binding.searchfilter.visibility = View.GONE
             setHasOptionsMenu(false)
             getAduanMsy(id_user)
         } else if (role_user == "spkt") {
+            binding.searchfilter.visibility = View.VISIBLE
             setHasOptionsMenu(false)
             getAduanSpkt(satwil)
         } else if (role_user == "operator") {
+            binding.searchfilter.visibility = View.VISIBLE
             setHasOptionsMenu(true)
             getAduanOperator()
         }
+
+        //SEARCH VIEW
+        val searchView: SearchView = binding.actionSearch
+        searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
+            override fun onQueryTextSubmit(query: String?): Boolean {
+                return true
+            }
+
+            override fun onQueryTextChange(newText: String?): Boolean {
+                if(newText!!.isNotEmpty()) {
+                    listAduan.clear()
+                    val namaKeyword = newText.toLowerCase(Locale.getDefault())
+                    if (role_user == "operator") {
+                        cariAduan(namaKeyword, null)
+                    } else if (role_user == "spkt") {
+                        cariAduan(namaKeyword, satwil)
+                    }
+                    rvAduan.adapter!!.notifyDataSetChanged()
+                } else {
+                    listAduan.clear()
+                    if (role_user == "operator") {
+                        getAduanOperator()
+                    } else if (role_user == "spkt") {
+                        getAduanSpkt(satwil)
+                    }
+                    rvAduan.adapter!!.notifyDataSetChanged()
+                }
+                return true
+            }
+        })
+
+        //filter by kecamatan - operator ONLY
+        binding.actionFilter.setOnClickListener {
+            val kecamatan = arrayOf("Bukit Raya", "Pelabuhan", "Lima Puluh", "Payung Sekaki", "Pekanbaru Kota", "Rumbai", "Rumbai Pesisir", "Senapelan", "Sukajadi", "Tampan", "Tenayan Raya")
+            MaterialAlertDialogBuilder(requireContext())
+                    .setTitle("Sortir Aduan Berdasarkan Kecamatan")
+                    .setMessage("Silahkan Pilih Salah Satu Kecamatan")
+                    .setSingleChoiceItems(kecamatan, -1) {dialogInterface, i ->
+                        filterKecamatan = kecamatan[i]
+                        dialogInterface.dismiss()
+                    }
+                    .setPositiveButton("OK", object : DialogInterface.OnClickListener{
+                        override fun onClick(p0: DialogInterface?, p1: Int) {
+                            listAduan.clear()
+                            getAduanSpkt(filterKecamatan)
+                            rvAduan.adapter!!.notifyDataSetChanged()
+                        }
+                    })
+                    .setNeutralButton("BATAL", object : DialogInterface.OnClickListener {
+                        override fun onClick(p0: DialogInterface?, p1: Int) {
+                        }
+                    })
+                    .create()
+                    .show()
+        }
     }
+
+//    private fun spinnerOpsiKecamatan() {
+//        val kecamatan = resources.getStringArray(R.array.subdistrict_array)
+//        binding.opsiKecamatan.onItemSelectedListener = object :
+//                AdapterView.OnItemSelectedListener {
+//            override fun onItemSelected(p0: AdapterView<*>?, view: View?, position: Int, id: Long) {
+//                opsiKecamatan = kecamatan[position].toString()
+//            }
+//
+//            override fun onNothingSelected(p0: AdapterView<*>?) {
+//                TODO("Not yet implemented")
+//            }
+//        }
+//    }
 
     private fun getAduanOperator() {
         ApiConfig.instance.getAllAduan("proses")
@@ -88,6 +169,7 @@ class AduanProsesFragment() : Fragment() {
                 .enqueue(object : Callback<ArrayList<ResponsePengaduan>> {
                     override fun onResponse(call: Call<ArrayList<ResponsePengaduan>>, response: Response<ArrayList<ResponsePengaduan>>) {
                         binding.progressBar.visibility = View.GONE
+//                        val data = response.body().data
                         response.body()?.let { listAduan.addAll(it) }
                         showRecyclerListAduan()
                     }
@@ -112,6 +194,23 @@ class AduanProsesFragment() : Fragment() {
                 Toast.makeText(getContext(), responseCode, Toast.LENGTH_SHORT).show()
             }
         })
+    }
+
+    private fun cariAduan(keyword_nama_msy: String, kecamatan: String?){
+        ApiConfig.instance.searchAduanByNama(nama_msy = keyword_nama_msy, kec_lokasi = kecamatan)
+                .enqueue(object : Callback<ArrayList<ResponsePengaduan>> {
+                    override fun onResponse(call: Call<ArrayList<ResponsePengaduan>>, response: Response<ArrayList<ResponsePengaduan>>) {
+                        if (response.isSuccessful) {
+                            response.body()?.let { listAduan.addAll(it) }
+                            showRecyclerListAduan()
+                        }
+                    }
+
+                    override fun onFailure(call: Call<ArrayList<ResponsePengaduan>>, t: Throwable) {
+                        val responseCode = t.message
+                        Toast.makeText(context, responseCode, Toast.LENGTH_SHORT).show()
+                    }
+                })
     }
 
 
@@ -140,32 +239,5 @@ class AduanProsesFragment() : Fragment() {
             startActivity(intent)
         }
     }
-
-//    override fun onCreate(savedInstanceState: Bundle?) {
-//        setHasOptionsMenu(true)
-//        super.onCreate(savedInstanceState)
-//    }
-//
-//    override fun onCreateOptionsMenu(menu: Menu, menuinflater: MenuInflater) {
-//        menuinflater.inflate(R.menu.appbar_menu_aduan, menu)
-//        menu.findItem(R.id.action_search)
-//        searchManager = getSystemService(SEARCH_SERVICE) as SearchManager
-//        searchView = menu.findItem(R.id.action_search).actionView as SearchView
-//        return super.onCreateOptionsMenu(menu, menuinflater)
-//    }
-//
-//    override fun onOptionsItemSelected(item: MenuItem): Boolean {
-//        return when (item.itemId) {
-//            R.id.action_search -> {
-//                // navigate to settings screen
-//                true
-//            }
-//            R.id.action_filter -> {
-//                // save profile changes
-//                true
-//            }
-//            else -> super.onOptionsItemSelected(item)
-//        }
-//    }
 }
 

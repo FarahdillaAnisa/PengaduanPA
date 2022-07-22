@@ -23,7 +23,7 @@
 
     <string-array name="subdistrict_array">
         <item>Bukit Raya</item>
-        <item>Kawasan Pelabuhan</item>
+        <item>Pelabuhan</item>
         <item>Lima Puluh</item>
         <item>Payung Sekaki</item>
         <item>Pekanbaru Kota</item>
@@ -33,6 +33,21 @@
         <item>Sukajadi</item>
         <item>Tampan</item>
         <item>Tenayan Raya</item>
+    </string-array>
+
+    <string-array name="kecamatan">
+        <item>Bukit Raya</item>
+        <item>Pelabuhan</item>
+        <item>Lima Puluh</item>
+        <item>Payung Sekaki</item>
+        <item>Pekanbaru Kota</item>
+        <item>Rumbai</item>
+        <item>Rumbai Pesisir</item>
+        <item>Senapelan</item>
+        <item>Sukajadi</item>
+        <item>Tampan</item>
+        <item>Tenayan Raya</item>
+        <item>Data Semua Aduan</item>
     </string-array>
 
     <!-- TODO: Remove or change this placeholder text -->
@@ -56,4 +71,5 @@
     <string name="satuan_wilayah">Satuan Wilayah</string>
     <string name="keterangan_penanganan_oleh_kepolisian">Keterangan Penanganan oleh Kepolisian</string>
     <string name="share">Share</string>
+    <string name="filter">Filter</string>
 </resources>
