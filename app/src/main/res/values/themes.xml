@@ -66,4 +66,10 @@
         <item name="android:layout_gravity">center</item>
         <item name="android:visibility">invisible</item>
     </style>
+
+    <style name="rounded_button">
+        <item name="cornerFamily">rounded</item>
+        <item name="cornerSize">12dp</item>
+    </style>
+
 </resources>

@@ -215,8 +215,8 @@ class LoginActivity : AppCompatActivity() {
             }
 
             override fun onFailure(call: Call<MasyarakatModel>, t: Throwable) {
-                Toast.makeText(this@LoginActivity, "User gagal login!", Toast.LENGTH_SHORT).show()
-                Toast.makeText(this@LoginActivity, "Message : ${t.message}", Toast.LENGTH_SHORT).show()
+                Toast.makeText(this@LoginActivity, "User gagal login! Pastikan Id dan Password Sudah Sesuai", Toast.LENGTH_SHORT).show()
+//                Toast.makeText(this@LoginActivity, "Message : ${t.message}", Toast.LENGTH_SHORT).show()
                 Log.d("Gagal : ", t.message.toString())
             }
         })

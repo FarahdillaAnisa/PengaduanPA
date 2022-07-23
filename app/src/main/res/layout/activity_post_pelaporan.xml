@@ -43,9 +43,9 @@
                     android:id="@+id/txt_nama"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
+                    android:backgroundTint="@android:color/transparent"
                     android:hint="Nama Lengkap"
-                    android:inputType="text"
-                    />
+                    android:inputType="text" />
             </com.google.android.material.textfield.TextInputLayout>
 
             <TextView
@@ -64,9 +64,9 @@
                     android:id="@+id/notelp_txt"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
+                    android:backgroundTint="@android:color/transparent"
                     android:hint="Nomor Telepon / WA Aktif"
-                    android:inputType="text"
-                    />
+                    android:inputType="text" />
             </com.google.android.material.textfield.TextInputLayout>
 
             <TextView
@@ -85,9 +85,9 @@
                     android:id="@+id/satwil_txt"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
+                    android:backgroundTint="@android:color/transparent"
                     android:hint="Satuan Wilayah"
-                    android:inputType="text"
-                    />
+                    android:inputType="text" />
             </com.google.android.material.textfield.TextInputLayout>
 
             <TextView
@@ -120,6 +120,7 @@
                     android:id="@+id/txt_isi_laporan"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
+                    android:backgroundTint="@android:color/transparent"
                     android:hint="Isi Pelaporan"
                     android:maxLines="10" />
             </com.google.android.material.textfield.TextInputLayout>

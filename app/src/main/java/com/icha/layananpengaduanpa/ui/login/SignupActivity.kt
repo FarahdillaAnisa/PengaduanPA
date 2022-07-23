@@ -4,6 +4,7 @@ import android.content.ClipData
 import android.content.Context
 import android.content.DialogInterface
 import android.content.Intent
+import android.graphics.Color
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.text.ClipboardManager
@@ -18,6 +19,7 @@ import retrofit2.Response
 import android.view.View
 import androidx.appcompat.app.AlertDialog
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
+import com.icha.layananpengaduanpa.R
 
 class SignupActivity : AppCompatActivity() {
     private lateinit var binding : ActivitySignupBinding
@@ -61,9 +63,11 @@ class SignupActivity : AppCompatActivity() {
         val passwordConfirm = binding.edtPasswordConfirm.text.toString().trim()
         if (passwordConfirm.equals(passwordInput)) {
             binding.checkPass.text = "Konfirmasi Password Cocok"
+            binding.checkPass.setTextColor(Color.parseColor("#72a50b"))
             check = true
         } else {
             binding.checkPass.text = "Harap sesuaikan Konfirmasi Password dengan isi password"
+            binding.checkPass.setTextColor(Color.parseColor("#B72227"))
             check = false
         }
         return check

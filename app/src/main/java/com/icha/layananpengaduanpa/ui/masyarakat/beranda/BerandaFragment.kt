@@ -1,31 +1,115 @@
 package com.icha.layananpengaduanpa.ui.masyarakat.beranda
 
+import android.content.Intent
 import android.os.Bundle
+import android.text.style.ReplacementSpan
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import com.icha.layananpengaduanpa.R
+import com.icha.layananpengaduanpa.databinding.FragmentAkunBinding
+import com.icha.layananpengaduanpa.databinding.FragmentBerandaBinding
+import com.icha.layananpengaduanpa.helper.Helper
+import com.icha.layananpengaduanpa.helper.getCurrentDate
+import com.icha.layananpengaduanpa.model.ApiConfig
+import com.icha.layananpengaduanpa.model.MasyarakatModel
+import com.icha.layananpengaduanpa.model.ResponsePengaduan
+import com.icha.layananpengaduanpa.session.SessionManager
+import com.icha.layananpengaduanpa.ui.masyarakat.pengaduan.postaduan.PostAduanActivity
+import com.icha.layananpengaduanpa.ui.spktpolsek.beranda.BerandaViewModel
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
+import java.util.*
+import kotlin.collections.ArrayList
+import kotlin.collections.HashMap
 
 class BerandaFragment : Fragment() {
-
-    private lateinit var berandaViewModel: BerandaViewModel
-
+    lateinit var session: SessionManager
+    private lateinit var binding: FragmentBerandaBinding
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        berandaViewModel =
-            ViewModelProvider(this).get(BerandaViewModel::class.java)
-        val root = inflater.inflate(R.layout.fragment_beranda, container, false)
-        val textView: TextView = root.findViewById(R.id.text_home)
-        berandaViewModel.text.observe(viewLifecycleOwner, Observer {
-            textView.text = it
-        })
-        return root
+        binding = FragmentBerandaBinding.inflate(inflater, container, false)
+        val view = binding.root
+        return view
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        session = SessionManager(view.context)
+
+        val user: HashMap<String, String> = session.getUserDetails()
+        val id: String = user.get(SessionManager.KEY_ID)!!
+        binding.idMsytxt.setText(id)
+        getAkunDetail(id)
+        getAduanCount("proses", id)
+        getAduanCount("selesai", id)
+
+        binding.btnLogout.setOnClickListener {
+            session.logoutUser()
+            Toast.makeText(view.context, "Berhasil Logout", Toast.LENGTH_SHORT).show()
+        }
+
+        binding.btnTambahaduan.setOnClickListener {
+            val moveIntent = Intent(activity, PostAduanActivity::class.java)
+            activity?.startActivity(moveIntent)
+        }
+    }
+
+    private fun getAduanCount(status_aduan: String, id_msy: String) {
+        ApiConfig.instance.getAduanStatus(status_aduan, id_msy)
+            .enqueue(object: Callback<ArrayList<ResponsePengaduan>> {
+                override fun onResponse(
+                    call: Call<ArrayList<ResponsePengaduan>>,
+                    response: Response<ArrayList<ResponsePengaduan>>
+                ) {
+                    if (response.isSuccessful) {
+                        val data = response.body()!!.count()
+                        if (status_aduan == "proses") {
+                            binding.jumlahProses.setText(data.toString())
+                        } else if (status_aduan == "selesai") {
+                            binding.jumlahSelesai.setText(data.toString())
+                        }
+                    }
+                }
+
+                override fun onFailure(call: Call<ArrayList<ResponsePengaduan>>, t: Throwable) {
+                    println(t.message)
+                }
+            })
+    }
+
+    private fun getAkunDetail(id_msy: String) {
+        val helper = Helper()
+        val currentDate = helper.displayDateBeranda(getCurrentDate())
+        ApiConfig.instance.getAkunMsy(id_msy)
+            .enqueue(object: Callback<MasyarakatModel> {
+                override fun onResponse(
+                    call: Call<MasyarakatModel>,
+                    response: Response<MasyarakatModel>
+                ) {
+                    if (response.isSuccessful) {
+                        val dataAkun = response.body()
+                        if (dataAkun != null) {
+                            binding.idMsytxt.setText(dataAkun.idMsy)
+                            binding.namaTxt.setText(dataAkun.namaMsy)
+                            binding.tgltxt.setText(currentDate)
+                        }
+                    }
+                }
+
+                override fun onFailure(call: Call<MasyarakatModel>, t: Throwable) {
+                    val responseCode = t.message
+                    Toast.makeText(context, responseCode, Toast.LENGTH_SHORT).show()
+                }
+            })
     }
 }

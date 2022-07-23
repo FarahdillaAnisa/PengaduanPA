@@ -55,8 +55,9 @@
                 android:id="@+id/edt_idpolisi"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:hint="ID Polisi"
+                android:backgroundTint="@color/cardview_light_background"
                 android:editable="false"
+                android:hint="ID Polisi"
                 android:inputType="textPersonName" />
         </com.google.android.material.textfield.TextInputLayout>
 
@@ -95,6 +96,7 @@
                 android:id="@+id/edt_nama"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
+                android:backgroundTint="@color/cardview_light_background"
                 android:hint="Nama Lengkap"
                 android:inputType="textPersonName" />
         </com.google.android.material.textfield.TextInputLayout>
@@ -115,10 +117,10 @@
                 android:id="@+id/edt_satuanwilayah"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
+                android:backgroundTint="@color/cardview_light_background"
                 android:hint="Satuan Wilayah"
-                android:inputType="text"
 
-                />
+                android:inputType="text" />
         </com.google.android.material.textfield.TextInputLayout>
 
         <TextView
@@ -137,6 +139,7 @@
                 android:id="@+id/edt_notelp"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
+                android:backgroundTint="@color/cardview_light_background"
                 android:hint="Nomor Telepon / WA"
                 android:inputType="phone" />
         </com.google.android.material.textfield.TextInputLayout>
@@ -159,6 +162,7 @@
                 android:id="@+id/edt_password"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
+                android:backgroundTint="@color/cardview_light_background"
                 android:hint="Password"
                 android:inputType="textPassword" />
         </com.google.android.material.textfield.TextInputLayout>

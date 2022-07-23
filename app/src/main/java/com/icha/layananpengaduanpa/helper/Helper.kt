@@ -28,6 +28,13 @@ class Helper {
         return dateFormat.format(dateInput)
     }
 
+    fun displayDateBeranda(date: String): String {
+        val inputFormat = SimpleDateFormat("yyyy-MM-dd", Locale.ENGLISH)
+        val dateFormat = SimpleDateFormat("dd-MMMM-yyyy", Locale.ENGLISH)
+        val dateInput = inputFormat.parse(date)
+        return dateFormat.format(dateInput)
+    }
+
     fun getRandomId(length: Int, entity: String, nrp: String? = null) : String {
         val charset = "ABCDEFGHIJKLMNOPQRSTUVWXTZabcdefghiklmnopqrstuvwxyz0123456789"
         val output =  (1..length)

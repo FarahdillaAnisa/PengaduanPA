@@ -32,9 +32,9 @@
                 android:id="@+id/txt_kode_aduan"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
+                android:backgroundTint="@android:color/transparent"
                 android:hint="@string/kode_pengaduan"
-                android:inputType="text"
-                />
+                android:inputType="text" />
         </com.google.android.material.textfield.TextInputLayout>
 
         <TextView

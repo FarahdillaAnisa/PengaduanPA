@@ -6,18 +6,193 @@
     android:layout_height="match_parent"
     tools:context=".ui.masyarakat.beranda.BerandaFragment">
 
-    <TextView
-        android:id="@+id/text_home"
+    <com.google.android.material.card.MaterialCardView
+        android:id="@+id/cardView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="8dp"
-        android:textAlignment="center"
-        android:textSize="20sp"
-        android:text="Halaman Beranda"
-        app:layout_constraintBottom_toBottomOf="parent"
+        android:layout_margin="10dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:strokeColor="@color/primaryLightColor"
+        app:strokeWidth="2dp">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="15dp">
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/id_msytxt"
+                style="@style/rounded_button"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="10dp"
+                android:backgroundTint="@color/info"
+                android:clickable="false"
+                android:fontFamily="sans-serif-black"
+                android:insetTop="6dp"
+                android:insetBottom="6dp"
+                android:text="MSY-cdl"
+                android:textAlignment="center"
+                android:textAllCaps="false"
+                android:textSize="14sp"
+                android:typeface="normal"
+                app:icon="@drawable/ic_baseline_person_24"
+                app:iconSize="14dp" />
+
+            <TextView
+                android:id="@+id/nama_txt"
+                style="@style/TextContent.contentTitle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="20dp"
+                android:text="Halo, Farahdilla Anisa Putri"
+                android:textColor="@color/content"
+                android:textSize="20sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/tgltxt"
+                style="@style/TextContent.content.withMargin"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="10dp"
+                android:text="23 Juli 2022"
+                android:textColor="#919191" />
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/btn_logout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="KELUAR"
+                app:icon="@drawable/ic_baseline_logout_24"
+                app:iconTint="@color/primaryColor"
+                app:iconGravity="textStart"
+                android:layout_gravity="right"
+                android:textColor="@color/primaryColor"
+                app:strokeColor="@color/primaryColor"
+                app:strokeWidth="2dp"
+                android:backgroundTint="@color/white"/>
+
+        </LinearLayout>
+    </com.google.android.material.card.MaterialCardView>
+
+    <com.google.android.material.card.MaterialCardView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/cardView"
+        android:layout_margin="10dp"
+        app:strokeColor="@color/primaryColor"
+        app:strokeWidth="2dp">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="10dp">
+            <TextView
+                style="@style/TextContent.TitlePage"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/title_pengaduan"
+                android:textStyle="bold"
+                android:textColor="#3C3C3C"
+                />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:weightSum="1"
+                android:padding="10dp">
+
+                <androidx.cardview.widget.CardView
+                    android:layout_width="0dp"
+                    android:layout_height="100dp"
+                    android:layout_weight="0.5"
+                    app:cardElevation="4dp"
+                    android:layout_margin="5dp"
+                    app:contentPadding="5dp">
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:orientation="vertical"
+                        android:gravity="center">
+                        <TextView
+                            android:id="@+id/jumlah_proses"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="15"
+                            android:textSize="30sp"
+                            android:textAlignment="center"
+                            android:textAllCaps="true"
+                            android:textStyle="bold"
+                            android:textColor="@color/primaryColor"/>
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="bottom"
+                            android:text="@string/belum_diproses"
+                            android:textAllCaps="true"
+                            android:textSize="18dp"
+                            android:textStyle="bold"
+                            android:textAlignment="center"
+                            tools:ignore="RtlCompat"
+                            android:textColor="@color/primaryDarkColor"/>
+                    </LinearLayout>
+                </androidx.cardview.widget.CardView>
+
+                <androidx.cardview.widget.CardView
+                    android:layout_width="0dp"
+                    android:layout_height="100dp"
+                    android:layout_weight="0.5"
+                    app:cardElevation="4dp"
+                    android:layout_margin="5dp">
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:orientation="vertical"
+                        android:gravity="center">
+                        <TextView
+                            android:id="@+id/jumlah_selesai"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="20"
+                            android:textSize="30sp"
+                            android:textAlignment="center"
+                            android:textAllCaps="true"
+                            android:textStyle="bold"
+                            android:textColor="#496A07"/>
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="bottom"
+                            android:text="@string/tab_text_selesai"
+                            android:textAllCaps="true"
+                            android:textSize="18dp"
+                            android:textStyle="bold"
+                            android:textAlignment="center"
+                            tools:ignore="RtlCompat"
+                            android:textColor="#334A05"/>
+                    </LinearLayout>
+
+                </androidx.cardview.widget.CardView>
+            </LinearLayout>
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/btn_tambahaduan"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="BUAT PENGADUAN"
+                app:icon="@drawable/report"
+                app:iconGravity="textStart" />
+        </LinearLayout>
+
+
+    </com.google.android.material.card.MaterialCardView>
 </androidx.constraintlayout.widget.ConstraintLayout>
