@@ -5,6 +5,7 @@
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_BACKGROUND_LOCATION" />
 
     <application
         android:allowBackup="true"
@@ -13,29 +14,51 @@
         android:roundIcon="@mipmap/logo_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.LayananPengaduanPA">
-        <activity android:name=".MenuOperator" />
-        <activity android:name=".ui.spktpolsek.pengaduan.DetailAduanSpktActivity" />
-        <activity android:name=".ui.operator.kelolaakun.akunspkt.PostSpktPolsekActivity" />
-        <activity android:name=".ui.polisi.pelaporan.postlaporan.DetailLaporanActivity" /> <!-- masyarakat -->
-        <activity android:name=".MenuMasyarakat" />
-        <activity android:name=".ui.masyarakat.pengaduan.postaduan.MapsActivity" />
-        <activity android:name=".ui.masyarakat.pengaduan.postaduan.DetailAduanActivity" />
-        <activity android:name=".ui.masyarakat.pengaduan.postaduan.PostAduanActivity" /> <!-- polisi -->
+
+        <!-- spkt -->
+        <activity android:name=".MenuSpkt"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".ui.spktpolsek.pengaduan.DetailAduanSpktActivity"
+            android:screenOrientation="portrait"/>
+
+        <!-- masyarakat -->
+        <activity android:name=".MenuMasyarakat"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".ui.masyarakat.pengaduan.postaduan.MapsActivity"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".ui.masyarakat.pengaduan.postaduan.DetailAduanActivity"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".ui.masyarakat.pengaduan.postaduan.PostAduanActivity"
+            android:screenOrientation="portrait"/> <!-- polisi -->
         <activity
             android:name=".MenuPolisi"
-            android:label="@string/title_activity_menu_polisi" />
-        <activity android:name=".MenuSpkt" />
-        <activity android:name=".ui.polisi.pelaporan.postlaporan.PostPelaporanActivity" />
-        <activity android:name=".ui.polisi.pelaporan.postlaporan.CariPengaduanActivity" /> <!-- operator -->
-        <activity android:name=".ui.operator.kelolaakun.akunpolisi.PostAkunPolisiActivity" />
-        <activity android:name=".ui.login.SignupActivity" />
-        <activity android:name=".ui.login.LoginActivity" />
-        <activity android:name=".ui.login.SplashScreenActivity">
+            android:label="@string/title_activity_menu_polisi"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".ui.polisi.pelaporan.postlaporan.PostPelaporanActivity"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".ui.polisi.pelaporan.postlaporan.CariPengaduanActivity"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".ui.polisi.pelaporan.postlaporan.DetailLaporanActivity"
+            android:screenOrientation="portrait"/>
+
+        <!-- operator -->
+        <activity android:name=".MenuOperator"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".ui.operator.kelolaakun.akunspkt.PostSpktPolsekActivity"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".ui.operator.kelolaakun.akunpolisi.PostAkunPolisiActivity"
+            android:screenOrientation="portrait"/>
+
+        <activity android:name=".ui.login.SignupActivity"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".ui.login.LoginActivity"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".ui.login.SplashScreenActivity"
+            android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
     </application>
-
 </manifest>

@@ -1,5 +1,6 @@
 package com.icha.layananpengaduanpa.ui.masyarakat.pengaduan
 
+import android.content.DialogInterface
 import android.content.Intent
 import android.os.Bundle
 import androidx.fragment.app.Fragment
@@ -7,6 +8,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.widget.SearchView
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -30,6 +32,7 @@ class AduanSelesaiFragment() : Fragment() {
     private val listAduanSelesai = ArrayList<ResponsePengaduan>()
     lateinit var session: SessionManager
     private var role_user: String = ""
+    private var filterKecamatan: String = ""
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -62,6 +65,7 @@ class AduanSelesaiFragment() : Fragment() {
             getAduanMsy(id_user)
         } else if (role_user == "spkt") {
             binding.searchfilter.visibility = View.VISIBLE
+            binding.actionFilter.visibility = View.INVISIBLE
             setHasOptionsMenu(false)
             getAduanSpkt(satwil)
         } else if (role_user == "operator") {
@@ -99,6 +103,27 @@ class AduanSelesaiFragment() : Fragment() {
                 return true
             }
         })
+
+        //filter by kecamatan - operator ONLY
+        binding.actionFilter.setOnClickListener {
+            val kecamatan = arrayOf("Bukit Raya", "Pelabuhan", "Lima Puluh", "Payung Sekaki", "Pekanbaru Kota", "Rumbai", "Rumbai Pesisir", "Senapelan", "Sukajadi", "Tampan", "Tenayan Raya")
+            val mBuilder = AlertDialog.Builder(requireContext())
+            mBuilder.setTitle("Sortir Aduan Berdasarkan Kecamatan")
+            mBuilder.setSingleChoiceItems(kecamatan, -1) { dialogInterface, i ->
+                filterKecamatan = kecamatan[i]
+                listAduanSelesai.clear()
+                getAduanSpkt(filterKecamatan)
+                rvAduanSelesai.adapter!!.notifyDataSetChanged()
+                dialogInterface.dismiss()
+            }
+            mBuilder.setNeutralButton("TAMPILKAN SEMUA DATA", object : DialogInterface.OnClickListener {
+                override fun onClick(p0: DialogInterface?, p1: Int) {
+                    getAduanOperator()
+                }
+            })
+            val mDialog = mBuilder.create()
+            mDialog.show()
+        }
     }
 
     private fun getAduanOperator() {

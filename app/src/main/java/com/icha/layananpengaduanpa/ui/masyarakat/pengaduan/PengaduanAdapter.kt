@@ -1,5 +1,6 @@
 package com.icha.layananpengaduanpa.ui.masyarakat.pengaduan
 
+import android.content.Intent
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -8,6 +9,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.icha.layananpengaduanpa.R
 import com.icha.layananpengaduanpa.helper.Helper
 import com.icha.layananpengaduanpa.model.ResponsePengaduan
+import com.icha.layananpengaduanpa.ui.masyarakat.pengaduan.postaduan.DetailAduanActivity
 import kotlin.collections.ArrayList
 
 class PengaduanAdapter(private val listAduan: ArrayList<ResponsePengaduan>): RecyclerView.Adapter<PengaduanAdapter.AduanViewHolder>()  {

@@ -1,9 +1,12 @@
 package com.icha.layananpengaduanpa.ui.login
 
+import android.content.ClipData
+import android.content.Context
 import android.content.DialogInterface
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.text.ClipboardManager
 import android.widget.Toast
 import com.icha.layananpengaduanpa.databinding.ActivitySignupBinding
 import com.icha.layananpengaduanpa.helper.Helper
@@ -43,7 +46,11 @@ class SignupActivity : AppCompatActivity() {
         binding.btnSignup.setOnClickListener {
             binding.progressBar.visibility = View.VISIBLE
             if (validasiPassword() == true){
+                val clipboardManager = getSystemService(Context.CLIPBOARD_SERVICE) as android.content.ClipboardManager
+                val clipData = ClipData.newPlainText("text", id_msy)
+                clipboardManager.setPrimaryClip(clipData)
                 userSignup(id_msy)
+                Toast.makeText(this, "ID Pengguna sudah disalin, silahkan gunakan saat masuk/login", Toast.LENGTH_SHORT).show()
             }
         }
     }

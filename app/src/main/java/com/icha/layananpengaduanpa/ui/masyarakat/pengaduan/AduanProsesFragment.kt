@@ -111,42 +111,48 @@ class AduanProsesFragment() : Fragment() {
         //filter by kecamatan - operator ONLY
         binding.actionFilter.setOnClickListener {
             val kecamatan = arrayOf("Bukit Raya", "Pelabuhan", "Lima Puluh", "Payung Sekaki", "Pekanbaru Kota", "Rumbai", "Rumbai Pesisir", "Senapelan", "Sukajadi", "Tampan", "Tenayan Raya")
-            MaterialAlertDialogBuilder(requireContext())
-                    .setTitle("Sortir Aduan Berdasarkan Kecamatan")
-                    .setMessage("Silahkan Pilih Salah Satu Kecamatan")
-                    .setSingleChoiceItems(kecamatan, -1) {dialogInterface, i ->
-                        filterKecamatan = kecamatan[i]
-                        dialogInterface.dismiss()
-                    }
-                    .setPositiveButton("OK", object : DialogInterface.OnClickListener{
-                        override fun onClick(p0: DialogInterface?, p1: Int) {
-                            listAduan.clear()
-                            getAduanSpkt(filterKecamatan)
-                            rvAduan.adapter!!.notifyDataSetChanged()
-                        }
-                    })
-                    .setNeutralButton("BATAL", object : DialogInterface.OnClickListener {
-                        override fun onClick(p0: DialogInterface?, p1: Int) {
-                        }
-                    })
-                    .create()
-                    .show()
+            val mBuilder = AlertDialog.Builder(requireContext())
+            mBuilder.setTitle("Sortir Aduan Berdasarkan Kecamatan")
+            mBuilder.setSingleChoiceItems(kecamatan, -1) { dialogInterface, i ->
+                filterKecamatan = kecamatan[i]
+                listAduan.clear()
+                getAduanSpkt(filterKecamatan)
+                rvAduan.adapter!!.notifyDataSetChanged()
+                dialogInterface.dismiss()
+            }
+            mBuilder.setNeutralButton("TAMPILKAN SEMUA DATA", object : DialogInterface.OnClickListener {
+                override fun onClick(p0: DialogInterface?, p1: Int) {
+                    getAduanOperator()
+                }
+            })
+            val mDialog = mBuilder.create()
+            mDialog.show()
         }
-    }
 
-//    private fun spinnerOpsiKecamatan() {
-//        val kecamatan = resources.getStringArray(R.array.subdistrict_array)
-//        binding.opsiKecamatan.onItemSelectedListener = object :
-//                AdapterView.OnItemSelectedListener {
-//            override fun onItemSelected(p0: AdapterView<*>?, view: View?, position: Int, id: Long) {
-//                opsiKecamatan = kecamatan[position].toString()
-//            }
+//            MaterialAlertDialogBuilder(requireContext())
+//                    .setTitle("Sortir Aduan Berdasarkan Kecamatan")
+//                    .setMessage("Silahkan Pilih Salah Satu Kecamatan")
+//                    .setSingleChoiceItems(kecamatan, -1, DialogInterface.OnClickListener(){
 //
-//            override fun onNothingSelected(p0: AdapterView<*>?) {
-//                TODO("Not yet implemented")
-//            }
-//        }
-//    }
+//                    }
+//                        filterKecamatan = kecamatan[i]
+//                        dialogInterface.dismiss()
+//                    }
+//                    .setPositiveButton("OK", object : DialogInterface.OnClickListener{
+//                        override fun onClick(p0: DialogInterface?, p1: Int) {
+//                            listAduan.clear()
+//                            getAduanSpkt(filterKecamatan)
+//                            rvAduan.adapter!!.notifyDataSetChanged()
+//                        }
+//                    })
+//                    .setNeutralButton("BATAL", object : DialogInterface.OnClickListener {
+//                        override fun onClick(p0: DialogInterface?, p1: Int) {
+//                        }
+//                    })
+//                    .create()
+//                    .show()
+
+    }
 
     private fun getAduanOperator() {
         ApiConfig.instance.getAllAduan("proses")

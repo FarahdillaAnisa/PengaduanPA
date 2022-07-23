@@ -1,5 +1,6 @@
 package com.icha.layananpengaduanpa.ui.masyarakat.pengaduan.postaduan
 
+import android.annotation.SuppressLint
 import android.content.Intent
 import android.net.Uri
 import androidx.appcompat.app.AppCompatActivity
@@ -59,7 +60,7 @@ class DetailAduanActivity : AppCompatActivity() {
                                     binding.statusAduan.text = "Belum Diproses"
                                 } else {
                                     binding.statusAduan.text = "Selesai"
-                                    getDataPolisi(dataAduan.idPolisi!!)
+                                    getDataPolisi(dataAduan.idPolisi)
                                     binding.tvKetAduan.setText(dataAduan.isiLaporanpolisi)
                                 }
 
@@ -96,14 +97,15 @@ class DetailAduanActivity : AppCompatActivity() {
         }
     }
 
-    private fun getDataPolisi(idPolisi: String) {
+    private fun getDataPolisi(idPolisi: String?) {
         ApiConfig.instance.getAkunPolisiById(idPolisi)
                 .enqueue(object : Callback<PolisiModel> {
+                    @SuppressLint("SetTextI18n")
                     override fun onResponse(call: Call<PolisiModel>, response: Response<PolisiModel>) {
                         if (response.isSuccessful) {
                             val dataAkun = response.body()
                             dataAkun?.let { data ->
-                                binding.tvDataNamaPetugas.setText("${data.idPolisi} - ${data.namaPolisi}" )
+                                binding.tvDataNamaPetugas.setText("$idPolisi - ${data.namaPolisi}" )
                                 binding.tvSatwil?.setText(data.satuanWilayah)
                                 binding.btnKontakPetugas.setOnClickListener {
                                     val intent = Intent(Intent.ACTION_DIAL, Uri.parse("tel:" + Uri.encode(data.notelpPolisi)))

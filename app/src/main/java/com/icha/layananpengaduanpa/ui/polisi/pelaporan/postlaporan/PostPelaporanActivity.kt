@@ -2,7 +2,9 @@ package com.icha.layananpengaduanpa.ui.polisi.pelaporan.postlaporan
 
 import android.Manifest
 import android.annotation.SuppressLint
+import android.content.Context
 import android.content.DialogInterface
+import android.content.Intent
 import android.content.pm.PackageManager
 import android.location.Location
 import android.location.LocationListener
@@ -10,6 +12,7 @@ import android.location.LocationManager
 import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.provider.Settings
 import android.util.Log
 import android.view.View
 import android.widget.Toast
@@ -24,11 +27,17 @@ import com.icha.layananpengaduanpa.helper.Helper
 import com.icha.layananpengaduanpa.model.ApiConfig
 import com.icha.layananpengaduanpa.model.ResponsePengaduan
 import com.icha.layananpengaduanpa.session.SessionManager
+import com.icha.layananpengaduanpa.ui.masyarakat.pengaduan.postaduan.PostAduanActivity
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
 class PostPelaporanActivity : AppCompatActivity(), LocationListener {
+    companion object {
+        private const val PERMISSION_REQUEST_ACCESS_LOCATION = 100
+        const val EXTRA_KODE_ADUAN = "kode_aduan"
+    }
+
     private lateinit var binding : ActivityPostPelaporanBinding
     lateinit var session: SessionManager
     private var latitude : Double = 0.0
@@ -36,11 +45,8 @@ class PostPelaporanActivity : AppCompatActivity(), LocationListener {
     private var id_polisi: String = ""
     //location-fusedprovider
     lateinit var fusedLocationProviderClient: FusedLocationProviderClient
-    private val locationPermissionCode = 2
+    private lateinit var locationManager: LocationManager
 
-    companion object {
-        const val EXTRA_KODE_ADUAN = "kode_aduan"
-    }
     @RequiresApi(Build.VERSION_CODES.O)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -49,7 +55,7 @@ class PostPelaporanActivity : AppCompatActivity(), LocationListener {
 
         cekLoginId()
         fusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(this)
-//        getLocations()
+        getCurrentLocation()
         getLokasi()
 
         MaterialAlertDialogBuilder(this)
@@ -80,6 +86,7 @@ class PostPelaporanActivity : AppCompatActivity(), LocationListener {
 
     private fun refreshPage() {
         binding.swipeToRefresh.setOnRefreshListener {
+            getCurrentLocation()
             getLokasi()
             binding.swipeToRefresh.isRefreshing = false
         }
@@ -112,6 +119,74 @@ class PostPelaporanActivity : AppCompatActivity(), LocationListener {
         })
     }
 
+    private fun getCurrentLocation() {
+        if (checkPermission()) {
+            if (isLocationEnabled()) {
+                //data latitude longitude
+                if (ActivityCompat.checkSelfPermission(this, android.Manifest.permission.ACCESS_FINE_LOCATION)
+                        != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, android.Manifest.permission.ACCESS_COARSE_LOCATION)
+                        != PackageManager.PERMISSION_GRANTED) {
+                    requestPermission()
+                    return
+                }
+
+                fusedLocationProviderClient.lastLocation.addOnCompleteListener(this) {task ->
+                    val location: Location? = task.result
+                    if (location == null) {
+                        Toast.makeText(this, "Data Koordinat Tidak Ditemukan", Toast.LENGTH_SHORT).show()
+                    } else {
+                        Toast.makeText(this, "Data koordinat berhasil didapatkan", Toast.LENGTH_SHORT).show()
+                        latitude = location.latitude
+                        longitude = location.longitude
+                        binding.koordinatTxt.text = "Lintang : $latitude , Bujur : $longitude"
+                    }
+                }
+            } else {
+                //setting location manually
+                Toast.makeText(this, "Hidupkan Lokasi", Toast.LENGTH_SHORT).show()
+                val intent = Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS)
+                startActivity(intent)
+            }
+        } else {
+            //request permission
+            requestPermission()
+
+        }
+    }
+
+    private fun isLocationEnabled() : Boolean {
+        locationManager = getSystemService(Context.LOCATION_SERVICE) as LocationManager
+        return locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER)||locationManager.isProviderEnabled(LocationManager.NETWORK_PROVIDER)
+
+    }
+
+    private fun requestPermission() {
+        ActivityCompat.requestPermissions(this, arrayOf(android.Manifest.permission.ACCESS_COARSE_LOCATION, android.Manifest.permission.ACCESS_FINE_LOCATION), PERMISSION_REQUEST_ACCESS_LOCATION)
+    }
+
+    private fun checkPermission(): Boolean {
+        if (ActivityCompat.checkSelfPermission(this, android.Manifest.permission.ACCESS_COARSE_LOCATION)
+                == PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, android.Manifest.permission.ACCESS_FINE_LOCATION)
+                == PackageManager.PERMISSION_GRANTED) {
+            return true
+        } else {
+            return false
+        }
+    }
+
+    override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<out String>, grantResults: IntArray) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults)
+        if (requestCode == PERMISSION_REQUEST_ACCESS_LOCATION) {
+            if (grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                Toast.makeText(this, "Permission Granted", Toast.LENGTH_SHORT).show()
+                getCurrentLocation()
+            }
+            else {
+                Toast.makeText(this, "Permission Denied", Toast.LENGTH_SHORT).show()
+            }
+        }
+    }
+
     private fun getLokasi() {
         val task : Task<Location> = fusedLocationProviderClient.lastLocation
         if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION)
@@ -135,18 +210,6 @@ class PostPelaporanActivity : AppCompatActivity(), LocationListener {
         longitude = location.longitude
 
         binding.koordinatTxt.text = "Lintang : $latitude , Bujur : $longitude"
-    }
-
-    @SuppressLint("MissingSuperCall")
-    override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<out String>, grantResults: IntArray) {
-        if (requestCode == locationPermissionCode) {
-            if (grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-                Toast.makeText(this, "Permission Granted", Toast.LENGTH_SHORT).show()
-            }
-            else {
-                Toast.makeText(this, "Permission Denied", Toast.LENGTH_SHORT).show()
-            }
-        }
     }
 
     private fun cekLoginId() {
