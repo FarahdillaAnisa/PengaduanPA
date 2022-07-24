@@ -38,7 +38,7 @@ import retrofit2.http.*
     ): Call<ArrayList<ResponsePengaduan>>
 
     //get aduan by status
-    @GET("api/pengaduan/getaduanbystatus/{status_aduan}")
+    @GET("api/pengaduan/getaduanbystatus/")
     fun getAduanStatus(
             @Query("status_aduan") status_aduan:String,
             @Query("id_msy_fk") id_msy_fk: String
@@ -82,6 +82,22 @@ import retrofit2.http.*
     fun getAkunMsy(
             @Query("id_msy") id_msy: String
     ): Call<MasyarakatModel>
+
+    //perbaharui data masyarakat
+    @FormUrlEncoded
+    @PUT("api/masyarakat")
+    fun updateAkunMsy(
+            @Field("id_msy") id_msy: String,
+            @Field("nama_msy") nama_msy: String,
+            @Field("notelp_msy") notelp_msy: String
+    ): Call<MasyarakatModel>
+
+    @FormUrlEncoded
+    @PUT("api/masyarakat/updatePassword")
+    fun updatePassMsy(
+            @Field("id_msy") id_msy: String,
+            @Field("pass_msy") pass_msy: String
+    ) : Call<MasyarakatModel>
 
     //get Akun Polisi
     @GET("api/polisi")

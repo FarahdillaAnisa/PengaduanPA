@@ -35,7 +35,7 @@
                 android:layout_height="match_parent"
                 android:backgroundTint="@android:color/transparent"
                 android:hint="ID Pengguna"
-
+                android:text=""
                 android:inputType="text" />
         </com.google.android.material.textfield.TextInputLayout>
 
@@ -53,6 +53,7 @@
                 android:layout_height="match_parent"
                 android:backgroundTint="@android:color/transparent"
                 android:hint="Password"
+                android:text=""
                 android:inputType="textPassword" />
         </com.google.android.material.textfield.TextInputLayout>
 

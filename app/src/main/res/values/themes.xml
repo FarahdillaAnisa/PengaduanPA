@@ -22,7 +22,7 @@
     <style name="TextContent.TitlePage">
         <item name="android:textAppearance">@style/TextAppearance.MaterialComponents.Headline6</item>
         <item name="android:textColor">@color/primaryDarkColor</item>
-        <item name="android:layout_margin">20dp</item>
+        <item name="android:layout_margin">15dp</item>
         <item name="android:layout_gravity">center</item>
         <item name="textAllCaps">true</item>
     </style>

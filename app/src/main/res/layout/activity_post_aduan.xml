@@ -27,11 +27,6 @@
                 android:layout_marginTop="20dp"
                 android:layout_marginBottom="20dp"/>
 
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="Nama Lengkap"/>
-
             <com.google.android.material.textfield.TextInputLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -47,11 +42,6 @@
                     android:hint="Nama Lengkap"
                     android:inputType="text" />
             </com.google.android.material.textfield.TextInputLayout>
-
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="Nomor Telepon"/>
 
             <com.google.android.material.textfield.TextInputLayout
                 android:layout_width="match_parent"
@@ -81,11 +71,6 @@
                 android:padding="10dp"
                 android:layout_marginBottom="20dp"
                 />
-
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="Pengaduan"/>
 
             <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/til_isi_aduan"

@@ -50,7 +50,7 @@ class LoginActivity : AppCompatActivity() {
             .show()
 
         spinnerOpsiLogin()
-
+//        validasiFieldNotNull()
         binding.loginbtn.setOnClickListener {
             binding.progressBar.visibility = View.VISIBLE
             userLogin(opsiLogin)
@@ -99,6 +99,7 @@ class LoginActivity : AppCompatActivity() {
 
     private fun userLogin(opsi: String) {
         if (opsi.equals("Masyarakat")) {
+
             loginMasyarakat(opsi)
         } else if (opsi.equals("Polisi")) {
             loginPolisi(opsi)
@@ -106,6 +107,15 @@ class LoginActivity : AppCompatActivity() {
             loginSpkt("Spkt")
         } else if (opsi.equals("Operator")) {
             loginOperator("Operator")
+        }
+    }
+
+    private fun validasiFieldNotNull() {
+
+        if (binding.edtId.text.toString().equals("") && binding.edtPass.text.toString().equals("")) {
+            binding.loginbtn.isEnabled = false
+        } else {
+            binding.loginbtn.isEnabled = true
         }
     }
 

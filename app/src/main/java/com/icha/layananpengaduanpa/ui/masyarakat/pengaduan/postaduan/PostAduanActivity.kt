@@ -19,6 +19,7 @@ import android.widget.ArrayAdapter
 import android.widget.Toast
 import androidx.annotation.RequiresApi
 import androidx.core.app.ActivityCompat
+import androidx.core.content.ContextCompat
 import com.google.android.gms.location.FusedLocationProviderClient
 import com.google.android.gms.location.LocationServices
 import com.google.android.gms.tasks.Task
@@ -119,8 +120,9 @@ class PostAduanActivity : AppCompatActivity(), LocationListener {
 
     private fun refreshPage() {
         binding.swipeToRefresh.setOnRefreshListener {
-            getCurrentLocation()
-            getLokasi()
+//            getLokasi()
+//            getCurrentLocation()
+            getLocation()
             binding.swipeToRefresh.isRefreshing = false
         }
     }
@@ -140,6 +142,7 @@ class PostAduanActivity : AppCompatActivity(), LocationListener {
                     val location: Location? = task.result
                     if (location == null) {
                         Toast.makeText(this, "Data Koordinat Tidak Ditemukan", Toast.LENGTH_SHORT).show()
+                        getLocation()
                     } else {
                         Toast.makeText(this, "Data koordinat berhasil didapatkan", Toast.LENGTH_SHORT).show()
                         latitude = location.latitude
@@ -225,6 +228,14 @@ class PostAduanActivity : AppCompatActivity(), LocationListener {
         longitude = location.longitude
 
         binding.koordinatTxt.text = "Lintang : $latitude , Bujur : $longitude"
+    }
+
+    private fun getLocation() {
+        locationManager = getSystemService(Context.LOCATION_SERVICE) as LocationManager
+        if ((ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED)) {
+            ActivityCompat.requestPermissions(this, arrayOf(Manifest.permission.ACCESS_FINE_LOCATION), PERMISSION_REQUEST_ACCESS_LOCATION)
+        }
+        locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 5000, 5f, this)
     }
 
     @RequiresApi(Build.VERSION_CODES.O)

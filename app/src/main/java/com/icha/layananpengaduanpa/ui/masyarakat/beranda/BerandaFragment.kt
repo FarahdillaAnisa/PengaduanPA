@@ -1,5 +1,6 @@
 package com.icha.layananpengaduanpa.ui.masyarakat.beranda
 
+import android.annotation.SuppressLint
 import android.content.Intent
 import android.os.Bundle
 import android.text.style.ReplacementSpan
@@ -50,8 +51,7 @@ class BerandaFragment : Fragment() {
         val id: String = user.get(SessionManager.KEY_ID)!!
         binding.idMsytxt.setText(id)
         getAkunDetail(id)
-        getAduanCount("proses", id)
-        getAduanCount("selesai", id)
+        getAduanCount(id)
 
         binding.btnLogout.setOnClickListener {
             session.logoutUser()
@@ -64,19 +64,17 @@ class BerandaFragment : Fragment() {
         }
     }
 
-    private fun getAduanCount(status_aduan: String, id_msy: String) {
-        ApiConfig.instance.getAduanStatus(status_aduan, id_msy)
+    private fun getAduanCount(id_msy: String) {
+        ApiConfig.instance.getAduanStatus("proses", id_msy)
             .enqueue(object: Callback<ArrayList<ResponsePengaduan>> {
                 override fun onResponse(
                     call: Call<ArrayList<ResponsePengaduan>>,
                     response: Response<ArrayList<ResponsePengaduan>>
                 ) {
                     if (response.isSuccessful) {
-                        val data = response.body()!!.count()
-                        if (status_aduan == "proses") {
-                            binding.jumlahProses.setText(data.toString())
-                        } else if (status_aduan == "selesai") {
-                            binding.jumlahSelesai.setText(data.toString())
+                        val data = response.body()
+                        data?.let { jumlah->
+                                binding.jumlahProses.setText(jumlah.count().toString())
                         }
                     }
                 }
@@ -85,22 +83,49 @@ class BerandaFragment : Fragment() {
                     println(t.message)
                 }
             })
+
+        ApiConfig.instance.getAduanStatus("selesai", id_msy)
+                .enqueue(object: Callback<ArrayList<ResponsePengaduan>> {
+                    override fun onResponse(
+                            call: Call<ArrayList<ResponsePengaduan>>,
+                            response: Response<ArrayList<ResponsePengaduan>>
+                    ) {
+                        if (response.isSuccessful) {
+                            val data = response.body()
+                            data?.let { jumlah->
+//                                Toast.makeText(context, jumlah.count().toString(), Toast.LENGTH_SHORT).show()
+                                if (jumlah.count() < 1) {
+                                    binding.jumlahSelesai.setText("0")
+                                } else {
+                                    binding.jumlahSelesai.setText(jumlah.count().toString())
+                                }
+                            }
+                        }
+                    }
+
+                    override fun onFailure(call: Call<ArrayList<ResponsePengaduan>>, t: Throwable) {
+                        println(t.message)
+                    }
+                })
     }
 
     private fun getAkunDetail(id_msy: String) {
+//        var namamsy: String
         val helper = Helper()
         val currentDate = helper.displayDateBeranda(getCurrentDate())
         ApiConfig.instance.getAkunMsy(id_msy)
             .enqueue(object: Callback<MasyarakatModel> {
+                @SuppressLint("SetTextI18n")
                 override fun onResponse(
                     call: Call<MasyarakatModel>,
                     response: Response<MasyarakatModel>
                 ) {
                     if (response.isSuccessful) {
                         val dataAkun = response.body()
-                        if (dataAkun != null) {
-                            binding.idMsytxt.setText(dataAkun.idMsy)
-                            binding.namaTxt.setText(dataAkun.namaMsy)
+                        dataAkun?.let { data ->
+                            val nama = data.namaMsy
+                            binding.idMsytxt.setText(id_msy)
+                            binding.namaTxt.setText("Halo, $nama")
                             binding.tgltxt.setText(currentDate)
                         }
                     }

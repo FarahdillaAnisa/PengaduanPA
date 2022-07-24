@@ -6,83 +6,79 @@
     android:layout_height="match_parent"
     tools:context=".ui.masyarakat.akun.AkunFragment">
 
-    <com.google.android.material.card.MaterialCardView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="20dp"
-        android:layout_marginTop="20dp"
-        android:layout_marginEnd="20dp"
-        app:layout_constraintBottom_toTopOf="@+id/materialCardView"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:contentPadding="10dp"
-        app:strokeColor="@color/primaryColor"
-        app:strokeWidth="2dp">
+<!--    <com.google.android.material.card.MaterialCardView-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:layout_marginStart="20dp"-->
+<!--        android:layout_marginTop="20dp"-->
+<!--        android:layout_marginEnd="20dp"-->
+<!--        app:layout_constraintBottom_toTopOf="@+id/materialCardView"-->
+<!--        app:layout_constraintEnd_toEndOf="parent"-->
+<!--        app:layout_constraintStart_toStartOf="parent"-->
+<!--        app:layout_constraintTop_toTopOf="parent"-->
+<!--        app:contentPadding="10dp"-->
+<!--        app:strokeColor="@color/primaryColor"-->
+<!--        app:strokeWidth="2dp">-->
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:gravity="center">
+<!--        <LinearLayout-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:orientation="vertical"-->
+<!--            android:gravity="center">-->
 
-            <TextView
-                android:id="@+id/nama_txt"
-                android:textSize="20sp"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Farahdilla Anisa Putri"
-                android:textAllCaps="true"
-                android:textStyle="bold"
-                android:textColor="@color/primaryDarkColor"
-                app:layout_constraintLeft_toLeftOf="parent"
-                app:layout_constraintRight_toRightOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
+<!--            <TextView-->
+<!--                android:id="@+id/nama_txt"-->
+<!--                android:textSize="20sp"-->
+<!--                android:layout_width="wrap_content"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:text="Farahdilla Anisa Putri"-->
+<!--                android:textAllCaps="true"-->
+<!--                android:textStyle="bold"-->
+<!--                android:textColor="@color/primaryDarkColor"-->
+<!--                app:layout_constraintLeft_toLeftOf="parent"-->
+<!--                app:layout_constraintRight_toRightOf="parent"-->
+<!--                app:layout_constraintTop_toTopOf="parent" />-->
 
-            <com.google.android.material.button.MaterialButton
-                android:id="@+id/id_msytxt"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:backgroundTint="@color/info"
-                android:clickable="false"
-                android:fontFamily="sans-serif-black"
-                android:text="MSY-cdl"
-                android:textAlignment="center"
-                android:textAllCaps="false"
-                android:textSize="14sp"
-                android:typeface="normal"
-                app:icon="@drawable/ic_baseline_person_24"
-                app:iconSize="14dp" />
+<!--            <com.google.android.material.button.MaterialButton-->
+<!--                android:id="@+id/id_msytxt"-->
+<!--                android:layout_width="wrap_content"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:backgroundTint="@color/info"-->
+<!--                android:clickable="false"-->
+<!--                android:fontFamily="sans-serif-black"-->
+<!--                android:text="MSY-cdl"-->
+<!--                android:textAlignment="center"-->
+<!--                android:textAllCaps="false"-->
+<!--                android:textSize="14sp"-->
+<!--                android:typeface="normal"-->
+<!--                app:icon="@drawable/ic_baseline_person_24"-->
+<!--                app:iconSize="14dp" />-->
 
-            <com.google.android.material.button.MaterialButton
-                android:id="@+id/logoutBtn"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:backgroundTint="@color/white"
-                android:text="KELUAR"
-                android:textColor="@color/primaryColor"
-                app:icon="@drawable/ic_baseline_logout_24"
-                app:iconGravity="textStart"
-                app:iconTint="@color/primaryColor"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/uname_txt"
-                app:strokeColor="@color/primaryColor"
-                app:strokeWidth="2dp" />
-        </LinearLayout>
-    </com.google.android.material.card.MaterialCardView>
+<!--            <com.google.android.material.button.MaterialButton-->
+<!--                android:id="@+id/logoutBtn"-->
+<!--                android:layout_width="match_parent"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:backgroundTint="@color/white"-->
+<!--                android:text="KELUAR"-->
+<!--                android:textColor="@color/primaryColor"-->
+<!--                app:icon="@drawable/ic_baseline_logout_24"-->
+<!--                app:iconGravity="textStart"-->
+<!--                app:iconTint="@color/primaryColor"-->
+<!--                app:layout_constraintEnd_toEndOf="parent"-->
+<!--                app:layout_constraintStart_toStartOf="parent"-->
+<!--                app:layout_constraintTop_toBottomOf="@+id/uname_txt"-->
+<!--                app:strokeColor="@color/primaryColor"-->
+<!--                app:strokeWidth="2dp" />-->
+<!--        </LinearLayout>-->
+<!--    </com.google.android.material.card.MaterialCardView>-->
 
     <com.google.android.material.card.MaterialCardView
         android:id="@+id/materialCardView"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="20dp"
-        android:layout_marginEnd="20dp"
-        android:layout_marginBottom="20dp"
-        app:contentPadding="10dp"
-        app:layout_constraintBottom_toBottomOf="parent"
+        android:layout_height="match_parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent">
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
 
         <LinearLayout
             android:id="@+id/linearLayout2"
@@ -105,7 +101,6 @@
             <com.google.android.material.textfield.TextInputLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="10dp"
                 app:boxStrokeColor="@color/primaryColor"
                 app:boxStrokeWidth="1dp">
 
@@ -121,7 +116,6 @@
             <com.google.android.material.textfield.TextInputLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="10dp"
                 app:boxStrokeColor="@color/primaryColor"
                 app:boxStrokeWidth="1dp">
 
@@ -137,7 +131,6 @@
             <com.google.android.material.textfield.TextInputLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="10dp"
                 app:boxStrokeColor="@color/primaryColor"
                 app:boxStrokeWidth="1dp">
 
@@ -150,18 +143,36 @@
                     android:inputType="phone" />
             </com.google.android.material.textfield.TextInputLayout>
 
-            <TextView
-                android:id="@+id/statusUname"
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/btn_update"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:text="Perbaharui Akun"
+                android:insetBottom="0dp"
+                android:insetTop="0dp"
+                android:textSize="16sp"
+                android:textStyle="bold" />
+
+            <TextView
+                style="@style/TextContent.contentTitle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Perbaharui Password : "
+                android:layout_marginTop="10dp"
+                android:textSize="20sp"
+                android:textColor="@color/primaryColor"
+                android:visibility="visible" />
+
+            <com.google.android.material.divider.MaterialDivider
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
                 android:layout_marginBottom="10dp"
-                android:text="Status Username : "
-                android:visibility="gone" />
+                app:dividerColor="@color/primaryColor" />
 
             <com.google.android.material.textfield.TextInputLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="10dp"
                 app:boxStrokeColor="@color/primaryColor"
                 app:boxStrokeWidth="1dp"
                 app:passwordToggleEnabled="true">
@@ -198,12 +209,14 @@
                 android:text="Masukkan sesuai dengan kolom password" />
 
             <com.google.android.material.button.MaterialButton
-                android:id="@+id/btn_update"
+                android:id="@+id/btn_update_pass"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="20dp"
-                android:text="Perbaharui"
+                android:layout_marginTop="10dp"
+                android:text="Perbaharui Password"
                 android:textSize="16sp"
+                android:insetBottom="0dp"
+                android:insetTop="0dp"
                 android:textStyle="bold" />
         </LinearLayout>
     </com.google.android.material.card.MaterialCardView>

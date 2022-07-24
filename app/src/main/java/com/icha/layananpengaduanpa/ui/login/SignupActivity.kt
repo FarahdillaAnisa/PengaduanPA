@@ -45,15 +45,22 @@ class SignupActivity : AppCompatActivity() {
 
         val id_msy = helper.getRandomId(3, "masyarakat")
         binding.edtId.setText(id_msy)
+//        validasiFieldNotNull()
         binding.btnSignup.setOnClickListener {
             binding.progressBar.visibility = View.VISIBLE
             if (validasiPassword() == true){
+                userSignup(id_msy)
                 val clipboardManager = getSystemService(Context.CLIPBOARD_SERVICE) as android.content.ClipboardManager
                 val clipData = ClipData.newPlainText("text", id_msy)
                 clipboardManager.setPrimaryClip(clipData)
-                userSignup(id_msy)
                 Toast.makeText(this, "ID Pengguna sudah disalin, silahkan gunakan saat masuk/login", Toast.LENGTH_SHORT).show()
             }
+        }
+    }
+
+    private fun validasiFieldNotNull() {
+        if (binding.edtId.text!!.equals("") && binding.edtNama.text!!.equals("") && binding.edtNotelp.text!!.equals("")) {
+            binding.btnSignup.isEnabled = false
         }
     }
 
