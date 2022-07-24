@@ -27,8 +27,8 @@ class MapsActivity : AppCompatActivity() {
 
             val webViewMap : WebView = findViewById(R.id.webViewMaps)
             webViewMap.webViewClient = WebViewClient()
-            webViewMap.loadUrl("http://maps.google.com/maps?q=${latitude},${longitude}&z=17")
             webViewMap.settings.javaScriptEnabled = true
+            webViewMap.loadUrl("http://maps.google.com/maps?q=${latitude},${longitude}&z=17")
             webViewMap.settings.setSupportZoom(true)
         }
     }

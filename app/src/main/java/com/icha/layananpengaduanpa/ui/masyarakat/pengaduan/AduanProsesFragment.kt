@@ -70,6 +70,7 @@ class AduanProsesFragment() : Fragment() {
             getAduanMsy(id_user)
         } else if (role_user == "spkt") {
             binding.searchfilter.visibility = View.VISIBLE
+            binding.actionFilter.visibility = View.INVISIBLE
             setHasOptionsMenu(false)
             getAduanSpkt(satwil)
         } else if (role_user == "operator") {

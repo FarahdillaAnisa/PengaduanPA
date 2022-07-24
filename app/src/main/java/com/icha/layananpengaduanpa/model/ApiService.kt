@@ -166,8 +166,15 @@ import retrofit2.http.*
              @Field("id_spkt") id_spkt: String,
              @Field("uname_spkt") uname_spkt: String,
              @Field("satuan_wilayah") satuan_wilayah: String,
-//             @Field("pass_spkt") pass_spkt: String,
              @Field("notelp_spkt") notelp_spkt: String
+     ): Call<SpktModel>
+
+     //edit password spkt
+     @FormUrlEncoded
+     @PUT("api/spktpolsek/updatePasswordSpkt")
+     fun editPassSpkt(
+             @Field("id_spkt") id_spkt: String,
+             @Field("pass_spkt") pass_spkt: String,
      ): Call<SpktModel>
 
     //Login Akun Polisi

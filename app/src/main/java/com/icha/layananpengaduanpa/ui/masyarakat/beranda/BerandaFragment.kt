@@ -3,17 +3,11 @@ package com.icha.layananpengaduanpa.ui.masyarakat.beranda
 import android.annotation.SuppressLint
 import android.content.Intent
 import android.os.Bundle
-import android.text.style.ReplacementSpan
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.TextView
 import android.widget.Toast
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProvider
-import com.icha.layananpengaduanpa.R
-import com.icha.layananpengaduanpa.databinding.FragmentAkunBinding
 import com.icha.layananpengaduanpa.databinding.FragmentBerandaBinding
 import com.icha.layananpengaduanpa.helper.Helper
 import com.icha.layananpengaduanpa.helper.getCurrentDate
@@ -22,11 +16,9 @@ import com.icha.layananpengaduanpa.model.MasyarakatModel
 import com.icha.layananpengaduanpa.model.ResponsePengaduan
 import com.icha.layananpengaduanpa.session.SessionManager
 import com.icha.layananpengaduanpa.ui.masyarakat.pengaduan.postaduan.PostAduanActivity
-import com.icha.layananpengaduanpa.ui.spktpolsek.beranda.BerandaViewModel
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
-import java.util.*
 import kotlin.collections.ArrayList
 import kotlin.collections.HashMap
 
@@ -74,7 +66,7 @@ class BerandaFragment : Fragment() {
                     if (response.isSuccessful) {
                         val data = response.body()
                         data?.let { jumlah->
-                                binding.jumlahProses.setText(jumlah.count().toString())
+                                                            binding.jumlahProses.setText(jumlah.count().toString())
                         }
                     }
                 }
@@ -93,7 +85,6 @@ class BerandaFragment : Fragment() {
                         if (response.isSuccessful) {
                             val data = response.body()
                             data?.let { jumlah->
-//                                Toast.makeText(context, jumlah.count().toString(), Toast.LENGTH_SHORT).show()
                                 if (jumlah.count() < 1) {
                                     binding.jumlahSelesai.setText("0")
                                 } else {
@@ -110,7 +101,6 @@ class BerandaFragment : Fragment() {
     }
 
     private fun getAkunDetail(id_msy: String) {
-//        var namamsy: String
         val helper = Helper()
         val currentDate = helper.displayDateBeranda(getCurrentDate())
         ApiConfig.instance.getAkunMsy(id_msy)

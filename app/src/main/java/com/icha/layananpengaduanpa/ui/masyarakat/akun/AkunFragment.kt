@@ -7,12 +7,10 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.ViewModelProvider
 import com.icha.layananpengaduanpa.databinding.FragmentAkunBinding
 import com.icha.layananpengaduanpa.model.ApiConfig
 import com.icha.layananpengaduanpa.model.MasyarakatModel
 import com.icha.layananpengaduanpa.session.SessionManager
-import com.icha.layananpengaduanpa.ui.spktpolsek.akun.AkunViewModel
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -71,7 +69,7 @@ class AkunFragment : Fragment() {
     private fun updatePassAkun(id: String) {
         ApiConfig.instance.updatePassMsy(
                 id,
-                binding.edtPassword.toString()
+                binding.edtPassword.text.toString()
         ).enqueue(object: Callback<MasyarakatModel> {
             override fun onResponse(call: Call<MasyarakatModel>, response: Response<MasyarakatModel>) {
                 if (response.isSuccessful) {

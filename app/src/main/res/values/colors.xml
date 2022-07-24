@@ -11,6 +11,11 @@
     <color name="primaryColor">#6B132B</color>
     <color name="primaryDarkColor">#3c0000</color>
     <color name="primaryLightColor">#9d4251</color>
+    <color name="primarySurface">#E1D0D5</color>
+    <color name="primaryBorder">#CEB0B8</color>
+    <color name="primaryHover">#591024</color>
+    <color name="primaryBackground">#85F9F6F7</color>
+    <color name="primaryFocus">#6B132B</color>
     <color name="secondaryColor">#E3B505</color>
     <color name="secondaryDarkColor">#ac8600</color>
     <color name="secondaryLightColor">#ffe74d</color>
