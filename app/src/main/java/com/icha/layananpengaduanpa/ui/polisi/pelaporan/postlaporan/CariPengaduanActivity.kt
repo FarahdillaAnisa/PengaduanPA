@@ -4,6 +4,8 @@ import android.content.Intent
 import android.net.Uri
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.view.Menu
+import android.view.MenuItem
 import android.view.View
 import android.widget.AdapterView
 import android.widget.Toast
@@ -12,6 +14,7 @@ import com.icha.layananpengaduanpa.databinding.ActivityCariPengaduanBinding
 import com.icha.layananpengaduanpa.model.ApiConfig
 import com.icha.layananpengaduanpa.model.MasyarakatModel
 import com.icha.layananpengaduanpa.model.ResponsePengaduan
+import com.icha.layananpengaduanpa.session.SessionManager
 import com.icha.layananpengaduanpa.ui.masyarakat.pengaduan.postaduan.DetailAduanActivity
 import com.icha.layananpengaduanpa.ui.masyarakat.pengaduan.postaduan.MapsActivity
 import retrofit2.Call
@@ -25,7 +28,7 @@ class CariPengaduanActivity : AppCompatActivity() {
     var status: Boolean = false
     var kode_aduan : String = ""
     private var opsiKecamatan: String = ""
-
+    lateinit var session: SessionManager
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -34,6 +37,7 @@ class CariPengaduanActivity : AppCompatActivity() {
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
 
         spinnerOpsiKecamatan()
+        session = SessionManager(applicationContext)
 
         binding.btnCariAduan.setOnClickListener {
             binding.progressBar.visibility = View.VISIBLE
@@ -83,7 +87,6 @@ class CariPengaduanActivity : AppCompatActivity() {
                         dataAduan.let {
                             getDataMsy(dataAduan.idMsyFk)
                             binding.tvKetAduan.setText(dataAduan.isiAduan)
-
                             latitude = dataAduan.latLokasi
                             longitude = dataAduan.longLokasi
                             status = true
@@ -95,7 +98,6 @@ class CariPengaduanActivity : AppCompatActivity() {
                     }
                 }
                 else {
-
                     Toast.makeText(this@CariPengaduanActivity, "Gagal Mengambil Data", Toast.LENGTH_SHORT).show()
                 }
             }
@@ -135,6 +137,22 @@ class CariPengaduanActivity : AppCompatActivity() {
                     override fun onFailure(call: Call<MasyarakatModel>, t: Throwable) {
                     }
                 })
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+        menuInflater.inflate(R.menu.menu_simpanaduan, menu)
+        return true
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        when (item.itemId) {
+            R.id.action_simpan -> {
+                val kode_aduan = binding.txtKodeAduan.text.toString()
+                session.simpanDataAduan(kode_aduan, opsiKecamatan)
+                Toast.makeText(this, "Lihat Data Tersimpan di Beranda", Toast.LENGTH_SHORT).show()
+            }
+        }
+        return true
     }
 
     override fun onSupportNavigateUp(): Boolean {

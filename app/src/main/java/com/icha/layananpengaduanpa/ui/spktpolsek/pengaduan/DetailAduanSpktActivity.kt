@@ -117,7 +117,7 @@ class DetailAduanSpktActivity : AppCompatActivity() {
                         if (response.isSuccessful) {
                             val dataAkun = response.body()
                             dataAkun?.let { data ->
-                                binding.txtNamaPelapor.setText("Nama Pelapor : $idMsyFk - ${data.namaMsy}")
+                                binding.txtNamaPelapor.setText("Pelapor : $idMsyFk - ${data.namaMsy}")
                                 binding.kontakMsyBtn.setOnClickListener {
                                     val intent = Intent(Intent.ACTION_DIAL, Uri.parse("tel:" + Uri.encode(data.notelpMsy)))
                                     startActivity(intent)

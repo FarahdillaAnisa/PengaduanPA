@@ -31,6 +31,9 @@ class SessionManager {
         val KEY_PASSWORD: String = "pass"
         val KEY_SATWIL: String = "satwil"
         val ROLE_USER: String = "roleuser"
+
+        val KEY_ADUAN: String = "kodeaduan"
+        val KEY_SATWIL_ADUAN: String = "satwiladuan"
     }
 
     fun createLoginSession(pass: String, id: String, nama: String, notelp: String) {
@@ -95,5 +98,18 @@ class SessionManager {
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK)
         context.startActivity(intent)
+    }
+
+    fun simpanDataAduan(kodeAduan: String, satuanWilayah: String) {
+        editor.putString(KEY_ADUAN, kodeAduan)
+        editor.putString(KEY_SATWIL_ADUAN, satuanWilayah)
+        editor.commit()
+    }
+
+    fun getSimpanAduan(): HashMap<String, String> {
+        var aduan : Map<String, String> = HashMap()
+        (aduan as HashMap).put(KEY_ADUAN, pref.getString(KEY_ADUAN, "Tidak Ada").toString())
+        aduan.put(KEY_SATWIL_ADUAN, pref.getString(KEY_SATWIL_ADUAN, "Tidak Ada").toString())
+        return aduan
     }
 }

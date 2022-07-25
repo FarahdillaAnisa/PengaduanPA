@@ -5,6 +5,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/primaryBackground"
     tools:context=".ui.spktpolsek.pengaduan.DetailAduanSpktActivity">
 
     <androidx.cardview.widget.CardView
@@ -13,8 +14,8 @@
         android:layout_height="wrap_content"
         app:layout_constraintTop_toTopOf="parent"
         android:layout_margin="10dp"
-        android:elevation="8dp"
-        app:cardCornerRadius="10dp">
+        app:cardCornerRadius="20dp"
+        app:cardElevation="10dp">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width='match_parent'
@@ -27,8 +28,9 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
                 tools:text="KODE ADUAN"
+                android:fontFamily="@font/montserrat_bold"
                 android:textColor="@color/black"
-                android:textSize="20sp"
+                android:textSize="16sp"
                 android:textStyle="bold"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="@+id/status_aduan" />
@@ -37,10 +39,11 @@
                 android:id="@+id/kec_txt"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                tools:text="KECAMATAN"
+                tools:text="Kecamatan"
                 android:textColor="@color/black"
                 android:textSize="14sp"
                 android:textStyle="bold"
+                android:fontFamily="@font/montserrat_regular"
                 app:layout_constraintBottom_toTopOf="@+id/tgladuan_txt"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/kode_aduan_txt" />
@@ -51,6 +54,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="10dp"
                 tools:text="Tgl Pengaduan : 02/05/2022"
+                android:fontFamily="@font/montserrat_light"
                 android:textColor="@color/black"
                 android:textSize="14sp"
                 app:layout_constraintBottom_toBottomOf="parent"
@@ -62,7 +66,8 @@
                 android:layout_height="wrap_content"
                 android:clickable="false"
                 android:text="BELUM DIPROSES"
-                android:textSize="11sp"
+                android:textSize="10sp"
+                android:fontFamily="@font/montserrat_bold"
                 android:backgroundTint="#EEB4B0"
                 android:textColor="#BD251C"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -73,7 +78,8 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:text="LOKASI"
-                android:textSize="11sp"
+                android:textSize="10sp"
+                android:fontFamily="@font/montserrat_bold"
                 app:layout_constraintEnd_toEndOf="@+id/status_aduan"
                 app:layout_constraintStart_toStartOf="@+id/status_aduan"
                 app:layout_constraintTop_toBottomOf="@+id/status_aduan"
@@ -86,8 +92,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="10dp"
-        android:elevation="8dp"
-        app:cardCornerRadius="10dp"
+        app:cardElevation="10dp"
+        app:cardCornerRadius="20dp"
         app:layout_constraintTop_toBottomOf="@+id/aduancv1">
 
         <LinearLayout
@@ -102,6 +108,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="10dp"
                 android:text="Nama Pelapor : "
+                android:fontFamily="@font/montserrat_bold"
                 android:textColor="@color/black"
                 android:textSize="14sp" />
 
@@ -110,6 +117,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="10dp"
+                android:fontFamily="@font/montserrat_regular"
                 android:text="Isi Pengaduan : "
                 android:textColor="@color/black"
                 android:textSize="14sp" />
@@ -118,8 +126,9 @@
                 android:id="@+id/tv_isi_aduan"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:lines="7"
+                android:lines="4"
                 android:elevation="10dp"
+                android:fontFamily="@font/montserrat_regular"
                 android:background="#F8F8F8"/>
         </LinearLayout>
     </androidx.cardview.widget.CardView>
@@ -130,7 +139,8 @@
         android:layout_height="wrap_content"
         app:layout_constraintTop_toBottomOf="@id/aduancv2"
         android:layout_margin="10dp"
-        android:elevation="8dp">
+        app:cardElevation="10dp"
+        app:cardCornerRadius="20dp">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
@@ -142,6 +152,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="Keterangan Penanganan"
+                android:fontFamily="@font/montserrat_bold"
                 android:textSize="14sp"
                 android:textColor="@color/black"
                 app:layout_constraintTop_toTopOf="parent" />
@@ -160,6 +171,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Nama Petugas"
+                android:fontFamily="@font/montserrat_regular"
                 android:layout_marginStart="10dp"
                 android:textColor="@color/black"
                 android:textSize="12sp"
@@ -174,6 +186,7 @@
                 android:text="Tidak Ada"
                 android:textColor="#616161"
                 android:textSize="12sp"
+                android:fontFamily="@font/montserrat_light"
                 app:layout_constraintStart_toEndOf="@+id/img_petugas"
                 app:layout_constraintTop_toBottomOf="@+id/tv_nama_petugas" />
 
@@ -193,6 +206,7 @@
                 android:layout_marginStart="10dp"
                 android:text="Keterangan Penanganan oleh Kepolisian"
                 android:textColor="@color/black"
+                android:fontFamily="@font/montserrat_regular"
                 android:textSize="12sp"
                 app:layout_constraintStart_toEndOf="@+id/img_laporan"
                 app:layout_constraintTop_toTopOf="@+id/img_laporan" />
@@ -202,10 +216,11 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="10dp"
-                android:lines="8"
-                android:text="Pelaporan"
+                android:lines="5"
+                android:text="Tidak Ada"
                 android:textColor="#616161"
                 android:textSize="12sp"
+                android:fontFamily="@font/montserrat_light"
                 android:background="#F8F8F8"
                 app:layout_constraintEnd_toEndOf="@+id/tv_keterangan"
                 app:layout_constraintStart_toEndOf="@+id/img_laporan"
@@ -229,6 +244,7 @@
             android:drawableStart="@android:drawable/ic_menu_call"
             android:drawableTint="@color/white"
             android:text="kontak petugas"
+            android:fontFamily="@font/montserrat_bold"
             android:layout_margin="10dp"/>
 
         <Button
@@ -237,6 +253,7 @@
             android:layout_height="wrap_content"
             android:text="Kontak Pelapor"
             android:layout_margin="10dp"
+            android:fontFamily="@font/montserrat_bold"
             android:backgroundTint="#367A59"/>
     </LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

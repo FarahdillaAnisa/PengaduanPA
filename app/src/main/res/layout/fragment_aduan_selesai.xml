@@ -5,6 +5,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/primaryBackground"
     tools:context=".ui.masyarakat.pengaduan.AduanSelesaiFragment">
 
     <LinearLayout
@@ -25,15 +26,18 @@
             android:layout_height="wrap_content"
             android:layout_marginEnd="0.5dp"
             android:layout_weight="1.9"
-            app:queryHint="Cari Aduan (Nama Pelapor)" />
+            app:queryHint="Cari Aduan (Nama Pelapor)"
+            android:padding="10dp"/>
 
         <ImageButton
             android:id="@+id/action_filter"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="0.1"
-            android:background="@color/white"
-            android:src="@drawable/ic_baseline_filter_list_24" />
+            android:background="@color/primaryBackground"
+            android:src="@drawable/ic_baseline_filter_list_24"
+            android:layout_margin="10dp"
+            />
     </LinearLayout>
 
         <ScrollView

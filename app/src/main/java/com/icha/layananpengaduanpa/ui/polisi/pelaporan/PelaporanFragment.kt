@@ -25,7 +25,6 @@ import retrofit2.Response
 
 class PelaporanFragment : Fragment(), View.OnClickListener {
 
-    private lateinit var pelaporanViewModel: PelaporanViewModel
     private lateinit var binding: FragmentPelaporanBinding
     lateinit var session: SessionManager
     private val listLaporan = ArrayList<ResponsePengaduan>()
@@ -35,7 +34,6 @@ class PelaporanFragment : Fragment(), View.OnClickListener {
       container: ViewGroup?,
       savedInstanceState: Bundle?
     ): View? {
-        pelaporanViewModel = ViewModelProvider(this).get(PelaporanViewModel::class.java)
         binding = FragmentPelaporanBinding.inflate(inflater, container, false)
         val view = binding.root
 

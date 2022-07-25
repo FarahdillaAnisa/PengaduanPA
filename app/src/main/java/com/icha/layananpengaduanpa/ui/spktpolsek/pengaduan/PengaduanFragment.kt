@@ -12,7 +12,6 @@ import com.icha.layananpengaduanpa.ui.masyarakat.pengaduan.SectionsPagerAdapter
 
 class PengaduanFragment : Fragment() {
 
-    private lateinit var pengaduanViewModel: PengaduanViewModel
     private lateinit var binding : FragmentPengaduanSpktBinding
     lateinit var session: SessionManager
 
@@ -21,7 +20,6 @@ class PengaduanFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
       ): View? {
-        pengaduanViewModel = ViewModelProvider(this).get(PengaduanViewModel::class.java)
         binding = FragmentPengaduanSpktBinding.inflate(inflater, container, false)
         val view = binding.root
 

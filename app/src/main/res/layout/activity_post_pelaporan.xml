@@ -4,7 +4,16 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/primaryBackground"
     tools:context=".ui.polisi.pelaporan.postlaporan.PostPelaporanActivity">
+    
+    <com.google.android.material.card.MaterialCardView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="10dp"
+        app:contentPadding="10dp"
+        app:cardCornerRadius="20dp"
+        app:cardElevation="20dp">
 
     <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
         android:layout_width="match_parent"
@@ -13,24 +22,20 @@
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
             android:orientation="vertical"
             android:padding="10dp">
+
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Tambah Data Pelaporan"
-                android:textSize="18dp"
-                android:textStyle="bold"
-                android:textColor="@color/black"
+                style="@style/TextContent.TitlePage"
+                android:fontFamily="@font/montserrat_bold"
+                android:textColor="@color/primaryColor"
                 android:layout_gravity="center"
                 android:layout_marginTop="20dp"
                 android:layout_marginBottom="20dp"/>
-
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="Nama Lengkap"/>
 
             <com.google.android.material.textfield.TextInputLayout
                 android:layout_width="match_parent"
@@ -43,15 +48,11 @@
                     android:id="@+id/txt_nama"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
+                    android:fontFamily="@font/montserrat_regular"
                     android:backgroundTint="@android:color/transparent"
                     android:hint="Nama Lengkap"
                     android:inputType="text" />
             </com.google.android.material.textfield.TextInputLayout>
-
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="Nomor Telepon"/>
 
             <com.google.android.material.textfield.TextInputLayout
                 android:layout_width="match_parent"
@@ -64,15 +65,11 @@
                     android:id="@+id/notelp_txt"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
+                    android:fontFamily="@font/montserrat_regular"
                     android:backgroundTint="@android:color/transparent"
                     android:hint="Nomor Telepon / WA Aktif"
                     android:inputType="text" />
             </com.google.android.material.textfield.TextInputLayout>
-
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="Satuan Wilayah"/>
 
             <com.google.android.material.textfield.TextInputLayout
                 android:layout_width="match_parent"
@@ -87,26 +84,29 @@
                     android:layout_height="match_parent"
                     android:backgroundTint="@android:color/transparent"
                     android:hint="Satuan Wilayah"
+                    android:fontFamily="@font/montserrat_regular"
                     android:inputType="text" />
             </com.google.android.material.textfield.TextInputLayout>
 
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Lokasi (Koordinat)"/>
+                android:fontFamily="@font/montserrat_regular"
+                android:text="Lokasi (Koordinat)"
+                android:textSize="16sp"/>
 
             <com.google.android.material.textview.MaterialTextView
                 android:id="@+id/koordinat_txt"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:fontFamily="@font/montserrat_regular"
                 android:padding="10dp"
-                android:layout_marginBottom="20dp"
                 />
 
-            <TextView
+            <com.google.android.material.divider.MaterialDivider
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="Pelaporan"/>
+                android:layout_height="2dp"
+                android:layout_marginBottom="20dp"/>
 
             <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/til_isi_laporan"
@@ -127,14 +127,16 @@
 
             <com.google.android.material.button.MaterialButton
                 android:id="@+id/btn_add_laporan"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="BUAT PELAPORAN"
+                android:fontFamily="@font/montserrat_bold"
                 android:textSize="16dp"
                 android:layout_gravity="center"/>
         </LinearLayout>
 
     </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
+    </com.google.android.material.card.MaterialCardView>
 
     <ProgressBar
         android:id="@+id/progressBar"

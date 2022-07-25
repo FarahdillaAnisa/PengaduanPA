@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/primaryBackground"
     tools:context=".ui.polisi.pelaporan.postlaporan.CariPengaduanActivity">
 
     <LinearLayout
@@ -13,13 +14,10 @@
 
         <TextView
             android:id="@+id/txtidaduan"
-            android:text="@string/tambahLaporan"
+            android:text="Cari Data Pengaduan"
             style="@style/TextContent.TitlePage"
-            />
-
-        <TextView
-            android:text="@string/kode_pengaduan"
-            style="@style/TextContent.HintField.withMargin"
+            android:fontFamily="@font/montserrat_bold"
+            android:layout_margin="10dp"
             />
 
         <com.google.android.material.textfield.TextInputLayout
@@ -34,12 +32,14 @@
                 android:layout_height="match_parent"
                 android:backgroundTint="@android:color/transparent"
                 android:hint="@string/kode_pengaduan"
+                android:fontFamily="@font/montserrat_regular"
                 android:inputType="text" />
         </com.google.android.material.textfield.TextInputLayout>
 
         <TextView
-            android:text="@string/kecamatan"
-            style="@style/TextContent.HintField.withMargin"/>
+            android:text="Pilih Kecamatan Satuan Wilayah"
+            style="@style/TextContent.HintField.withMargin"
+            android:fontFamily="@font/montserrat_regular"/>
 
         <Spinner
             android:id="@+id/opsiKecamatan"
@@ -47,6 +47,7 @@
             android:layout_height="wrap_content"
             android:entries="@array/subdistrict_array"
             android:layout_margin="10dp"
+            android:fontFamily="@font/montserrat_regular"
             android:padding="15dp"
             />
 
@@ -60,20 +61,24 @@
             <com.google.android.material.button.MaterialButton
                 android:id="@+id/btn_cari_aduan"
                 android:text="@string/cari_aduan"
-                style="@style/Button.ButtonDivide"/>
+                style="@style/Button.ButtonDivide"
+                android:fontFamily="@font/montserrat_bold"/>
 
             <com.google.android.material.button.MaterialButton
                 android:id="@+id/btn_tambah_laporan"
                 style="@style/Button.ButtonDivide"
-                android:text="@string/tambah_laporan"/>
+                android:text="2. Tambah Laporan"
+                android:fontFamily="@font/montserrat_bold"/>
         </LinearLayout>
 
-        <androidx.cardview.widget.CardView
+        <com.google.android.material.card.MaterialCardView
             android:id="@+id/aduancv3"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             app:layout_constraintTop_toBottomOf="@id/aduancv2"
-            android:elevation="8dp">
+            app:cardElevation="10dp"
+            app:cardCornerRadius="20dp"
+            android:layout_margin="10dp">
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
@@ -85,6 +90,7 @@
                     style="@style/TextContent.HintField"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:fontFamily="@font/montserrat_bold"
                     android:text="Data Aduan"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
@@ -102,14 +108,16 @@
 
                 <TextView
                     android:id="@+id/tv_nama_pelapor"
-                    android:text="@string/nama_pelapor"
                     style="@style/TextContent.contentTitle"
+                    android:fontFamily="@font/montserrat_semibold"
+                    android:text="@string/nama_pelapor"
                     app:layout_constraintStart_toEndOf="@+id/img_pelapor"
                     app:layout_constraintTop_toTopOf="@+id/img_pelapor" />
 
                 <TextView
                     android:id="@+id/tv_data_nama_pelapor"
                     style="@style/TextContent.content.withMargin"
+                    android:fontFamily="@font/montserrat_regular"
                     android:text="@string/tidak_ada"
                     app:layout_constraintStart_toEndOf="@+id/img_pelapor"
                     app:layout_constraintTop_toBottomOf="@+id/tv_nama_pelapor" />
@@ -121,20 +129,21 @@
                     android:layout_marginTop="10dp"
                     android:src="@drawable/ic_baseline_call_24"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/tv_data_nama_pelapor"
-                    android:contentDescription="TODO" />
+                    app:layout_constraintTop_toBottomOf="@+id/tv_data_nama_pelapor" />
 
                 <TextView
                     android:id="@+id/tv_notelp"
-                    android:text="@string/nomor_telepon"
                     style="@style/TextContent.contentTitle"
+                    android:fontFamily="@font/montserrat_semibold"
+                    android:text="@string/nomor_telepon"
                     app:layout_constraintStart_toEndOf="@+id/img_pelapor"
                     app:layout_constraintTop_toTopOf="@+id/img_satwil" />
 
                 <TextView
                     android:id="@+id/tv_notelp_pelapor"
-                    android:text="@string/tidak_ada"
                     style="@style/TextContent.content.withMargin"
+                    android:fontFamily="@font/montserrat_regular"
+                    android:text="@string/tidak_ada"
                     app:layout_constraintStart_toEndOf="@+id/img_satwil"
                     app:layout_constraintTop_toBottomOf="@+id/tv_notelp" />
 
@@ -150,25 +159,27 @@
 
                 <TextView
                     android:id="@+id/tv_laporan"
-                    android:text="Isi Pengaduan"
                     style="@style/TextContent.contentTitle"
+                    android:fontFamily="@font/montserrat_semibold"
+                    android:text="Isi Pengaduan"
                     app:layout_constraintStart_toEndOf="@+id/img_laporan"
                     app:layout_constraintTop_toTopOf="@+id/img_laporan" />
 
                 <TextView
                     android:id="@+id/tv_ket_aduan"
+                    style="@style/TextContent.content.withMargin"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:lines="6"
-                    android:text="@string/pelaporan"
                     android:background="#F8F8F8"
-                    style="@style/TextContent.content.withMargin"
+                    android:fontFamily="@font/montserrat_regular"
+                    android:lines="4"
+                    android:text="Tidak Ada"
                     app:layout_constraintEnd_toEndOf="@+id/tv_keterangan"
                     app:layout_constraintStart_toEndOf="@+id/img_laporan"
                     app:layout_constraintTop_toBottomOf="@+id/tv_laporan" />
 
             </androidx.constraintlayout.widget.ConstraintLayout>
-        </androidx.cardview.widget.CardView>
+        </com.google.android.material.card.MaterialCardView>
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -178,15 +189,17 @@
 
             <com.google.android.material.button.MaterialButton
                 android:id="@+id/btn_lokasi_aduan"
-                android:text="@string/lokasi"
                 style="@style/Button.ButtonDivide"
-                android:backgroundTint="@color/info"/>
+                android:backgroundTint="@color/info"
+                android:fontFamily="@font/montserrat_bold"
+                android:text="@string/lokasi" />
 
             <com.google.android.material.button.MaterialButton
                 android:id="@+id/btn_kontak_pelapor"
-                android:text="@string/kontak_pelapor"
                 style="@style/Button.ButtonDivide"
-                android:backgroundTint="@color/danger"/>
+                android:backgroundTint="@color/danger"
+                android:fontFamily="@font/montserrat_bold"
+                android:text="@string/kontak_pelapor" />
         </LinearLayout>
     </LinearLayout>
 

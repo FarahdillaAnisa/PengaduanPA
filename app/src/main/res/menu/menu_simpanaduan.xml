@@ -2,9 +2,9 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
     <item
-        android:id="@+id/action_gmaps"
-        android:icon="@drawable/ic_baseline_location_on_24"
-        android:title="Buka di Google Maps"
+        android:id="@+id/action_simpan"
+        android:icon="@drawable/ic_baseline_save_alt_24"
+        android:title="Simpan Aduan"
         app:showAsAction="ifRoom"
-        android:tooltipText="Google Maps" />
+        android:tooltipText="Simpan" />
 </menu>
