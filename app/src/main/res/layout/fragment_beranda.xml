@@ -4,195 +4,193 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/primaryBackground"
     tools:context=".ui.masyarakat.beranda.BerandaFragment">
 
     <com.google.android.material.card.MaterialCardView
-        android:id="@+id/cardView"
+        android:id="@+id/materialCardView2"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_margin="10dp"
+        android:layout_height="230dp"
+        android:layout_margin="20dp"
+        android:backgroundTint="@color/primaryColor"
+        app:cardCornerRadius="30dp"
+        app:contentPadding="30dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:strokeColor="@color/primaryLightColor"
-        app:strokeWidth="2dp">
+        app:cardElevation="30dp"
+        >
 
-        <LinearLayout
+        <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:padding="15dp">
+            android:layout_height="match_parent"
+            android:layout_gravity="center">
 
             <com.google.android.material.button.MaterialButton
                 android:id="@+id/id_msytxt"
-                style="@style/rounded_button"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="10dp"
-                android:backgroundTint="@color/info"
-                android:clickable="false"
-                android:fontFamily="sans-serif-black"
-                android:insetTop="6dp"
-                android:insetBottom="6dp"
-                android:text="MSY-cdl"
-                android:textAlignment="center"
-                android:textAllCaps="false"
+                android:fontFamily="@font/montserrat_bold"
+                android:text="Id Pengguna : MSY-cdl"
+                android:textColor="@color/primaryColor"
                 android:textSize="14sp"
-                android:typeface="normal"
-                app:icon="@drawable/ic_baseline_person_24"
-                app:iconSize="14dp" />
+                android:textAllCaps="false"
+                android:backgroundTint="@color/primarySurface"
+                app:cornerRadius="20dp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"/>
 
-            <TextView
+            <com.google.android.material.textview.MaterialTextView
                 android:id="@+id/nama_txt"
-                style="@style/TextContent.contentTitle"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="20dp"
-                android:text="Halo, Farahdilla Anisa Putri"
-                android:textColor="@color/content"
+                android:fontFamily="@font/montserrat_bold"
+                android:text="Halo, Farahdilla "
+                android:textColor="@color/white"
                 android:textSize="20sp"
-                android:textStyle="bold" />
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/id_msytxt" />
 
-            <TextView
+            <com.google.android.material.textview.MaterialTextView
                 android:id="@+id/tgltxt"
-                style="@style/TextContent.content.withMargin"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="10dp"
-                android:text="23 Juli 2022"
-                android:textColor="#919191" />
+                android:fontFamily="@font/montserrat_regular"
+                android:text="24 Juli 2022"
+                android:textColor="@color/white"
+                android:textSize="16sp"
+                app:layout_constraintTop_toBottomOf="@+id/nama_txt"
+                tools:layout_editor_absoluteX="0dp" />
 
             <com.google.android.material.button.MaterialButton
                 android:id="@+id/btn_logout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="KELUAR"
+                app:layout_constraintTop_toBottomOf="@+id/tgltxt"
                 app:icon="@drawable/ic_baseline_logout_24"
-                app:iconTint="@color/primaryColor"
+                android:layout_marginTop="30dp"
                 app:iconGravity="textStart"
-                android:layout_gravity="right"
-                android:textColor="@color/primaryColor"
-                app:strokeColor="@color/primaryColor"
-                app:strokeWidth="2dp"
-                android:backgroundTint="@color/white"/>
-
-        </LinearLayout>
+                android:text="Keluar"
+                android:fontFamily="@font/montserrat_bold"
+                android:backgroundTint="@color/primaryBorder"
+                app:cornerRadius="20dp"
+                app:elevation="20dp" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
     </com.google.android.material.card.MaterialCardView>
 
-    <com.google.android.material.card.MaterialCardView
+    <com.google.android.material.textview.MaterialTextView
+        android:id="@+id/materialTextView3"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:text="Jumlah Pengaduan"
+        android:fontFamily="@font/montserrat_bold"
+        android:textSize="16sp"
+        android:textColor="@color/primaryColor"
+        android:layout_margin="20dp"
+        app:layout_constraintTop_toBottomOf="@+id/materialCardView2" />
+
+    <LinearLayout
+        android:id="@+id/linearLayout4"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:weightSum="1"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/cardView"
-        android:layout_margin="10dp"
-        app:strokeColor="@color/primaryColor"
-        app:strokeWidth="2dp">
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:padding="10dp">
-            <TextView
-                style="@style/TextContent.TitlePage"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/title_pengaduan"
-                android:textStyle="bold"
-                android:textColor="#3C3C3C"
-                />
+        app:layout_constraintTop_toBottomOf="@+id/materialTextView3">
 
+        <com.google.android.material.card.MaterialCardView
+            android:layout_width="match_parent"
+            android:layout_height="150dp"
+            android:layout_margin="20dp"
+            android:layout_weight="0.5"
+            app:cardCornerRadius="30dp"
+            app:cardElevation="10dp">
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:weightSum="1"
-                android:padding="10dp">
+                android:orientation="vertical"
+                android:padding="20dp">
+                <com.google.android.material.textview.MaterialTextView
+                    android:id="@+id/status_proses"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Status Aduan:\nBelum Diproses"
+                    android:fontFamily="@font/montserrat_regular"
+                    android:textSize="14sp"
+                    android:textAlignment="center"
+                    android:textColor="@color/primaryColor"
+                    app:layout_constraintTop_toBottomOf="@+id/materialCardView2" />
 
-                <androidx.cardview.widget.CardView
-                    android:layout_width="0dp"
-                    android:layout_height="100dp"
-                    android:layout_weight="0.5"
-                    app:cardElevation="4dp"
-                    android:layout_margin="5dp"
-                    app:contentPadding="5dp">
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:orientation="vertical"
-                        android:gravity="center">
-                        <TextView
-                            android:id="@+id/jumlah_proses"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:text="0"
-                            android:textSize="30sp"
-                            android:textAlignment="center"
-                            android:textAllCaps="true"
-                            android:textStyle="bold"
-                            android:textColor="@color/primaryColor"/>
-
-                        <TextView
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_gravity="bottom"
-                            android:text="@string/belum_diproses"
-                            android:textAllCaps="true"
-                            android:textSize="18dp"
-                            android:textStyle="bold"
-                            android:textAlignment="center"
-                            tools:ignore="RtlCompat"
-                            android:textColor="@color/primaryDarkColor"/>
-                    </LinearLayout>
-                </androidx.cardview.widget.CardView>
-
-                <androidx.cardview.widget.CardView
-                    android:layout_width="0dp"
-                    android:layout_height="100dp"
-                    android:layout_weight="0.5"
-                    app:cardElevation="4dp"
-                    android:layout_margin="5dp">
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:orientation="vertical"
-                        android:gravity="center">
-                        <TextView
-                            android:id="@+id/jumlah_selesai"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:text="0"
-                            android:textSize="30sp"
-                            android:textAlignment="center"
-                            android:textAllCaps="true"
-                            android:textStyle="bold"
-                            android:textColor="#496A07"/>
-
-                        <TextView
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_gravity="bottom"
-                            android:text="@string/tab_text_selesai"
-                            android:textAllCaps="true"
-                            android:textSize="18dp"
-                            android:textStyle="bold"
-                            android:textAlignment="center"
-                            tools:ignore="RtlCompat"
-                            android:textColor="#334A05"/>
-                    </LinearLayout>
-
-                </androidx.cardview.widget.CardView>
+                <com.google.android.material.textview.MaterialTextView
+                    android:id="@+id/jumlah_proses"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="0"
+                    android:fontFamily="@font/montserrat_regular"
+                    android:textSize="56sp"
+                    android:textAlignment="center"
+                    android:textColor="@color/primaryColor"
+                    app:layout_constraintTop_toBottomOf="@+id/materialCardView2" />
             </LinearLayout>
 
-            <com.google.android.material.button.MaterialButton
-                android:id="@+id/btn_tambahaduan"
+
+        </com.google.android.material.card.MaterialCardView>
+
+        <com.google.android.material.card.MaterialCardView
+            android:id="@+id/materialCardView4"
+            android:layout_width="match_parent"
+            android:layout_height="150dp"
+            android:layout_margin="20dp"
+            android:layout_weight="0.5"
+            app:cardCornerRadius="30dp"
+            app:cardElevation="10dp">
+
+            <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="BUAT PENGADUAN"
-                app:icon="@drawable/report"
-                app:iconGravity="textStart" />
-        </LinearLayout>
+                android:layout_height="match_parent"
+                android:padding="20dp"
+                android:orientation="vertical">
+                <com.google.android.material.textview.MaterialTextView
+                    android:id="@+id/status_selesai"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Status Aduan:\nSelesai"
+                    android:textAlignment="center"
+                    android:fontFamily="@font/montserrat_regular"
+                    android:textSize="14sp"
+                    android:textColor="#6E8F13"
+                    app:layout_constraintTop_toBottomOf="@+id/materialCardView2" />
 
+                <com.google.android.material.textview.MaterialTextView
+                    android:id="@+id/jumlah_selesai"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="0"
+                    android:fontFamily="@font/montserrat_regular"
+                    android:textSize="56sp"
+                    android:textAlignment="center"
+                    android:textColor="#6E8F13"
+                    app:layout_constraintTop_toBottomOf="@+id/materialCardView2" />
+            </LinearLayout>
+        </com.google.android.material.card.MaterialCardView>
+    </LinearLayout>
 
-    </com.google.android.material.card.MaterialCardView>
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/btn_tambahaduan"
+        android:layout_width="match_parent"
+        android:layout_height="70dp"
+        android:layout_marginStart="20dp"
+        android:layout_marginEnd="20dp"
+        android:fontFamily="@font/montserrat_bold"
+        android:text="Buat Pengaduan"
+        app:cornerRadius="10dp"
+        app:elevation="10dp"
+        app:icon="@drawable/report"
+        app:iconGravity="textStart"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/linearLayout4" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>

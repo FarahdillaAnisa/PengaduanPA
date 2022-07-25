@@ -6,6 +6,14 @@
     android:layout_height="match_parent"
     tools:context=".ui.masyarakat.pengaduan.postaduan.PostAduanActivity">
 
+    <com.google.android.material.card.MaterialCardView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="10dp"
+        app:contentPadding="10dp"
+        app:cardCornerRadius="20dp"
+        app:cardElevation="20dp">
+
     <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -20,9 +28,9 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Tambah Data Pengaduan"
-                android:textSize="18dp"
-                android:textStyle="bold"
-                android:textColor="@color/black"
+                style="@style/TextContent.TitlePage"
+                android:fontFamily="@font/montserrat_bold"
+                android:textColor="@color/primaryColor"
                 android:layout_gravity="center"
                 android:layout_marginTop="20dp"
                 android:layout_marginBottom="20dp"/>
@@ -38,6 +46,7 @@
                     android:id="@+id/txt_nama"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
+                    android:fontFamily="@font/montserrat_regular"
                     android:backgroundTint="@android:color/transparent"
                     android:hint="Nama Lengkap"
                     android:inputType="text" />
@@ -54,6 +63,7 @@
                     android:id="@+id/notelp_txt"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
+                    android:fontFamily="@font/montserrat_regular"
                     android:backgroundTint="@android:color/transparent"
                     android:hint="Nomor Telepon / WA Aktif"
                     android:inputType="text" />
@@ -62,15 +72,22 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Lokasi (Koordinat)"/>
+                android:fontFamily="@font/montserrat_regular"
+                android:text="Lokasi (Koordinat)"
+                android:textSize="16sp" />
 
             <com.google.android.material.textview.MaterialTextView
                 android:id="@+id/koordinat_txt"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:padding="10dp"
-                android:layout_marginBottom="20dp"
+                android:fontFamily="@font/montserrat_regular"
                 />
+
+            <com.google.android.material.divider.MaterialDivider
+                android:layout_width="match_parent"
+                android:layout_height="2dp"
+                android:layout_marginBottom="20dp"/>
 
             <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/til_isi_aduan"
@@ -84,6 +101,7 @@
                     android:id="@+id/txt_isi_aduan"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
+                    android:fontFamily="@font/montserrat_regular"
                     android:backgroundTint="@android:color/transparent"
                     android:hint="Isi Pengaduan"
                     android:maxLines="10" />
@@ -92,26 +110,34 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:fontFamily="@font/montserrat_regular"
+                android:textSize="16sp"
                 android:text="Kecamatan"/>
 
             <Spinner
                 android:id="@+id/subdistrict_spinner"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="10dp"
                 android:entries="@array/subdistrict_array"
                 android:padding="15dp"
                 />
 
+            <com.google.android.material.divider.MaterialDivider
+                android:layout_width="match_parent"
+                android:layout_height="2dp"
+                android:layout_marginBottom="10dp"/>
+
             <com.google.android.material.button.MaterialButton
                 android:id="@+id/btn_add_aduan"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:fontFamily="@font/montserrat_bold"
                 android:text="BUAT PENGADUAN"
                 android:textSize="16dp"
                 android:layout_gravity="center"/>
         </LinearLayout>
     </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
+    </com.google.android.material.card.MaterialCardView>
 
     <ProgressBar
         android:id="@+id/progressBar"

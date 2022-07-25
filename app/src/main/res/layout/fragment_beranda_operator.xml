@@ -6,6 +6,78 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".ui.operator.beranda.BerandaOperatorFragment">
 
+    <com.google.android.material.card.MaterialCardView
+        android:id="@+id/materialCardView2"
+        android:layout_width="match_parent"
+        android:layout_height="230dp"
+        android:layout_margin="20dp"
+        android:backgroundTint="@color/primaryColor"
+        app:cardCornerRadius="30dp"
+        app:contentPadding="30dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:cardElevation="30dp"
+        >
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_gravity="center">
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/id_txt"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/montserrat_bold"
+                android:text="Id Pengguna : SPKT-cdl"
+                android:textColor="@color/primaryColor"
+                android:textSize="14sp"
+                android:textAllCaps="false"
+                android:backgroundTint="@color/primarySurface"
+                app:cornerRadius="20dp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"/>
+
+            <com.google.android.material.textview.MaterialTextView
+                android:id="@+id/nama_txt"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/montserrat_bold"
+                android:text="Halo, SPKT Sukajadi"
+                android:textColor="@color/white"
+                android:textSize="20sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/id_txt" />
+
+            <com.google.android.material.textview.MaterialTextView
+                android:id="@+id/tgltxt"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/montserrat_regular"
+                android:text="24 Juli 2022"
+                android:textColor="@color/white"
+                android:textSize="16sp"
+                app:layout_constraintTop_toBottomOf="@+id/nama_txt"
+                tools:layout_editor_absoluteX="0dp" />
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/logoutBtn"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:layout_constraintTop_toBottomOf="@+id/tgltxt"
+                app:icon="@drawable/ic_baseline_logout_24"
+                android:layout_marginTop="30dp"
+                app:iconGravity="textStart"
+                android:text="Keluar"
+                android:fontFamily="@font/montserrat_bold"
+                android:backgroundTint="@color/primaryBorder"
+                app:cornerRadius="20dp"
+                app:elevation="20dp" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </com.google.android.material.card.MaterialCardView>
+
     <LinearLayout
         android:id="@+id/akun"
         android:layout_width="match_parent"
@@ -13,21 +85,6 @@
         android:gravity="center"
         android:orientation="vertical"
         android:padding="20dp">
-        <TextView
-            android:id="@+id/id_txt"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="ID (Role)"
-            android:layout_gravity="center"
-            />
-
-        <Button
-            android:id="@+id/logoutBtn"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:layout_marginTop="10dp"
-            android:text="Logout" />
 
         <Spinner
             android:id="@+id/kecamatan"
@@ -56,23 +113,23 @@
             tools:text="Bukit Raya"
             android:padding="10dp"/>
 
-        <androidx.appcompat.widget.SearchView
-            android:id="@+id/search"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            android:queryHint="Pencarian Aduan Berdasarkan Nama Pelapor"/>
+<!--        <androidx.appcompat.widget.SearchView-->
+<!--            android:id="@+id/search"-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            app:layout_constraintEnd_toEndOf="parent"-->
+<!--            app:layout_constraintStart_toStartOf="parent"-->
+<!--            app:layout_constraintTop_toTopOf="parent"-->
+<!--            android:queryHint="Pencarian Aduan Berdasarkan Nama Pelapor"/>-->
 
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/rv_aduan"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/search"
-            tools:listitem="@layout/item_row_aduan" />
+<!--        <androidx.recyclerview.widget.RecyclerView-->
+<!--            android:id="@+id/rv_aduan"-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="match_parent"-->
+<!--            app:layout_constraintBottom_toBottomOf="parent"-->
+<!--            app:layout_constraintEnd_toEndOf="parent"-->
+<!--            app:layout_constraintStart_toStartOf="parent"-->
+<!--            app:layout_constraintTop_toBottomOf="@+id/search"-->
+<!--            tools:listitem="@layout/item_row_aduan" />-->
     </LinearLayout>
 </RelativeLayout>

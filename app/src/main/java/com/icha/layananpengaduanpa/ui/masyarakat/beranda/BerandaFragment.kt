@@ -25,6 +25,7 @@ import kotlin.collections.HashMap
 class BerandaFragment : Fragment() {
     lateinit var session: SessionManager
     private lateinit var binding: FragmentBerandaBinding
+
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -66,7 +67,7 @@ class BerandaFragment : Fragment() {
                     if (response.isSuccessful) {
                         val data = response.body()
                         data?.let { jumlah->
-                                                            binding.jumlahProses.setText(jumlah.count().toString())
+                            binding.jumlahProses.setText(jumlah.count().toString())
                         }
                     }
                 }
@@ -85,11 +86,7 @@ class BerandaFragment : Fragment() {
                         if (response.isSuccessful) {
                             val data = response.body()
                             data?.let { jumlah->
-                                if (jumlah.count() < 1) {
-                                    binding.jumlahSelesai.setText("0")
-                                } else {
                                     binding.jumlahSelesai.setText(jumlah.count().toString())
-                                }
                             }
                         }
                     }
@@ -114,7 +111,7 @@ class BerandaFragment : Fragment() {
                         val dataAkun = response.body()
                         dataAkun?.let { data ->
                             val nama = data.namaMsy
-                            binding.idMsytxt.setText(id_msy)
+                            binding.idMsytxt.setText("Id Pengguna : $id_msy")
                             binding.namaTxt.setText("Halo, $nama")
                             binding.tgltxt.setText(currentDate)
                         }
@@ -122,8 +119,7 @@ class BerandaFragment : Fragment() {
                 }
 
                 override fun onFailure(call: Call<MasyarakatModel>, t: Throwable) {
-                    val responseCode = t.message
-                    Toast.makeText(context, responseCode, Toast.LENGTH_SHORT).show()
+                    Toast.makeText(context, "Tidak berhasil menampilkan data", Toast.LENGTH_SHORT).show()
                 }
             })
     }

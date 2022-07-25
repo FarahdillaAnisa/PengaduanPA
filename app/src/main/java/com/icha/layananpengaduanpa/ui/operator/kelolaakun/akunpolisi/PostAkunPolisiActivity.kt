@@ -86,7 +86,7 @@ class PostAkunPolisiActivity : AppCompatActivity() {
                 if (isEdit) {
                     editAkunSpkt()
                 } else {
-                    tambahAkunSpkt()
+//                    tambahAkunSpkt()
                 }
             }
         }
@@ -102,7 +102,8 @@ class PostAkunPolisiActivity : AppCompatActivity() {
         ApiConfig.instance.tambahAkunSpkt(
                 id_spkt,
                 binding.edtNama.text.toString(),
-                binding.edtSatuanwilayah.text.toString(),
+                binding.edtNama.text.toString(),
+//                binding.satuanwilayah.text.toString(),
                 binding.edtPassword.text.toString(),
                 passRandom
         ).enqueue(object : Callback<SpktModel> {
@@ -124,7 +125,8 @@ class PostAkunPolisiActivity : AppCompatActivity() {
         ApiConfig.instance.editAkunSpkt(
                 binding.edtIdpolisi.text.toString(),
                 binding.edtNama.text.toString(),
-                binding.edtSatuanwilayah.text.toString(),
+                binding.edtNama.text.toString(),
+//                binding.edtSatuanwilayah.text.toString(),
 //                binding.edtPassword.text.toString(),
                 binding.edtNotelp.text.toString()
         ).enqueue(object : Callback<SpktModel> {
@@ -172,7 +174,7 @@ class PostAkunPolisiActivity : AppCompatActivity() {
                                 binding.edtIdpolisi.setText(data.idSpkt)
                                 binding.edtNama.setText(data.unameSpkt)
                                 binding.edtNotelp.setText(data.notelpSpkt)
-                                binding.edtSatuanwilayah.setText(data.satuanWilayah)
+//                                binding.edtSatuanwilayah.setText(data.satuanWilayah)
                                 //PASSWORD
                             }
                         } else {
@@ -199,7 +201,7 @@ class PostAkunPolisiActivity : AppCompatActivity() {
                                 binding.edtIdpolisi.setText(data.idPolisi)
                                 binding.edtNama.setText(data.namaPolisi)
                                 binding.edtNotelp.setText(data.notelpPolisi)
-                                binding.edtSatuanwilayah.setText(data.satuanWilayah)
+//                                binding.edtSatuanwilayah.setText(data.satuanWilayah)
                                 //PASSWORD
                             }
                         } else {
@@ -237,7 +239,8 @@ class PostAkunPolisiActivity : AppCompatActivity() {
         ApiConfig.instance.editAkunPolisi(
                 binding.edtIdpolisi.text.toString(),
                 binding.edtNama.text.toString(),
-                binding.edtSatuanwilayah.text.toString(),
+                binding.edtNama.text.toString(),
+//                binding.edtSatuanwilayah.text.toString(),
                 binding.edtNotelp.text.toString()
 //            binding.edtPassword.text.toString()
         ).enqueue(object : Callback<PolisiModel> {
@@ -267,7 +270,8 @@ class PostAkunPolisiActivity : AppCompatActivity() {
         ApiConfig.instance.tambahAkunPolisi(
                 id_polisi,
                 binding.edtNama.text.toString(),
-                binding.edtSatuanwilayah.text.toString(),
+                binding.edtNama.text.toString(),
+//                binding.edtSatuanwilayah.text.toString(),
                 binding.edtNotelp.text.toString(),
                 passRandom
         ).enqueue(object : Callback<PolisiModel> {

@@ -6,9 +6,11 @@ import android.net.Uri
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Button
 import android.widget.ImageButton
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
+import com.google.android.material.button.MaterialButton
 import com.icha.layananpengaduanpa.R
 import com.icha.layananpengaduanpa.model.PolisiModel
 import com.icha.layananpengaduanpa.model.SpktModel
@@ -25,7 +27,7 @@ class KelolaAkunAdapter(private val listAkun : ArrayList<PolisiModel>): Recycler
         var idnamatxt: TextView = itemView.findViewById(R.id.tv_nama_petugas)
         var satwiltxt: TextView = itemView.findViewById(R.id.tv_satwil)
         var dialBtn: ImageButton = itemView.findViewById(R.id.dialBtn)
-        var shareBtn: ImageButton = itemView.findViewById(R.id.shareBtn)
+        var shareBtn: MaterialButton = itemView.findViewById(R.id.shareBtn)
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): AkunViewHolder {

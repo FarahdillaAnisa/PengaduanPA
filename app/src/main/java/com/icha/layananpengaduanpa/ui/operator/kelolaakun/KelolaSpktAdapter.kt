@@ -8,6 +8,7 @@ import android.view.ViewGroup
 import android.widget.ImageButton
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
+import com.google.android.material.button.MaterialButton
 import com.icha.layananpengaduanpa.R
 import com.icha.layananpengaduanpa.model.SpktModel
 import com.icha.layananpengaduanpa.ui.operator.kelolaakun.akunpolisi.PostAkunPolisiActivity
@@ -23,7 +24,7 @@ class KelolaSpktAdapter(private val listSpkt : ArrayList<SpktModel>): RecyclerVi
         var idnamatxt: TextView = itemView.findViewById(R.id.tv_nama_petugas)
         var satwiltxt: TextView = itemView.findViewById(R.id.tv_satwil)
         var dialBtn: ImageButton = itemView.findViewById(R.id.dialBtn)
-        var shareBtn: ImageButton = itemView.findViewById(R.id.shareBtn)
+        var shareBtn: MaterialButton = itemView.findViewById(R.id.shareBtn)
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): AkunViewHolder {
