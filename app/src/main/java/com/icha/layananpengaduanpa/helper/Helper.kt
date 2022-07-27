@@ -14,7 +14,6 @@ import java.text.SimpleDateFormat
 import java.util.*
 
 class Helper {
-    private lateinit var binding : ActivitySignupBinding
     fun saveCurrentDate(): String {
         val dateFormat = SimpleDateFormat("yyyy-MM-dd", Locale.getDefault())
         val date = Date()
@@ -35,7 +34,7 @@ class Helper {
         return dateFormat.format(dateInput)
     }
 
-    fun getRandomId(length: Int, entity: String, nrp: String? = null) : String {
+    fun getRandomId(length: Int, entity: String) : String {
         val charset = "ABCDEFGHIJKLMNOPQRSTUVWXTZabcdefghiklmnopqrstuvwxyz0123456789"
         val output =  (1..length)
                 .map { charset.random() }
@@ -49,18 +48,10 @@ class Helper {
             id = "MSY-$output"
         }
         else if (entity == "polisi"){
-            if (nrp != null) {
-                id = "POL-$nrp"
-            } else {
-                id = "POL-$output"
-            }
+            id = "POL-$output"
         }
         else if (entity == "spkt"){
-            if (nrp != null) {
-                id = "SPKT-$nrp"
-            } else {
-                id = "SPKT-$output"
-            }
+            id = "SPKT-$output"
         }
         else if (entity == "operator"){
             id = "OP-$output"

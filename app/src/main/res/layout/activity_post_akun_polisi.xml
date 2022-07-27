@@ -22,25 +22,27 @@
         app:layout_constraintTop_toTopOf="parent">
 
         <TextView
+            android:id="@+id/txttambahakun"
             style="@style/TextContent.TitlePage"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="20dp"
             android:fontFamily="@font/montserrat_bold"
-            android:text="Tambah Akun Polisi"
+            android:text="Tambah Akun"
             android:textAlignment="center"
             android:textColor="@color/primaryColor"
             android:textSize="20sp" />
 
         <TextView
+            android:id="@+id/textjenisakun"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:fontFamily="@font/montserrat_regular"
-            android:text="Jenis Akun (Polisi / SPKT)"
+            android:text="Jenis Akun (Polisi / SPKT / Operator)"
             android:textSize="16sp" />
 
         <Spinner
-            android:id="@+id/opsiLogin"
+            android:id="@+id/opsiAkun"
             android:paddingStart="5dp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -64,11 +66,10 @@
             app:boxStrokeWidth="1dp">
 
             <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/edt_idpolisi"
+                android:id="@+id/edt_id"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:backgroundTint="@color/cardview_light_background"
-                android:editable="false"
                 android:fontFamily="@font/montserrat_regular"
                 android:hint="ID Pengguna"
                 android:inputType="textPersonName" />
@@ -87,7 +88,7 @@
                 android:layout_height="match_parent"
                 android:backgroundTint="@color/cardview_light_background"
                 android:fontFamily="@font/montserrat_regular"
-                android:hint="Nama (Nama Pengguna/Nama SPKT) "
+                android:hint="Nama (Polisi / SPKT / Operator) "
                 android:inputType="textPersonName" />
         </com.google.android.material.textfield.TextInputLayout>
 
@@ -101,9 +102,29 @@
             android:padding="15dp"
             android:paddingStart="5dp"
             app:boxStrokeColor="@color/primaryColor"
-            app:boxStrokeWidth="1dp" />
+            app:boxStrokeWidth="1dp"/>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="10dp"
+            app:boxStrokeColor="@color/primaryColor"
+            app:boxStrokeWidth="1dp"
+            android:visibility="gone">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/edt_satwil"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:backgroundTint="@color/cardview_light_background"
+                android:editable="false"
+                android:fontFamily="@font/montserrat_regular"
+                android:hint="Satuan Wilayah"
+                android:inputType="textPersonName" />
+        </com.google.android.material.textfield.TextInputLayout>
 
         <com.google.android.material.divider.MaterialDivider
+            android:id="@+id/divider"
             android:layout_width="match_parent"
             android:layout_height="2dp"
             android:layout_marginBottom="10dp"/>
@@ -144,7 +165,7 @@
         </com.google.android.material.textfield.TextInputLayout>
 
         <com.google.android.material.button.MaterialButton
-            android:id="@+id/btn_postpolisi"
+            android:id="@+id/btn_post"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:fontFamily="@font/montserrat_bold"

@@ -9,6 +9,9 @@ data class SpktModel(
 	@field:SerializedName("pass_spkt")
 	val passSpkt: String? = null,
 
+	@field:SerializedName("pass_awal")
+	val pass_awal: String,
+
 	@field:SerializedName("notelp_spkt")
 	val notelpSpkt: String? = null,
 

@@ -119,7 +119,8 @@ import retrofit2.http.*
          @Field("nama_polisi") nama_polisi: String,
          @Field("satuan_wilayah") satuan_wilayah: String,
          @Field("notelp_polisi") notelp_polisi: String,
-         @Field("pass_polisi") pass_polisi: String
+         @Field("pass_polisi") pass_polisi: String,
+         @Field("pass_awal") pass_awal: String,
      ): Call<PolisiModel>
 
      @FormUrlEncoded
@@ -153,11 +154,9 @@ import retrofit2.http.*
              @Field("uname_spkt") uname_spkt: String,
              @Field("satuan_wilayah") satuan_wilayah: String,
              @Field("pass_spkt") pass_spkt: String,
+             @Field("pass_awal") pass_awal: String,
              @Field("notelp_spkt") notelp_spkt: String
      ): Call<SpktModel>
-
-     @DELETE("api/spktpolsek/")
-     fun deleteAkunSpkt(@Field("id_spkt") id_spkt: String) : Call<SpktModel>
 
      //edit akun Spkt
      @FormUrlEncoded
@@ -223,4 +222,8 @@ import retrofit2.http.*
     //get aduan oleh polisi
     @GET("api/pengaduan")
     fun getLaporan(@Query("id_polisi") id_polisi : String): Call<ArrayList<ResponsePengaduan>>
+
+    //getAkun Operator By Id
+    @GET("api/operator")
+    fun getOperatorById(@Query("id_operator") id_operator : String) : Call<OperatorModel>
  }

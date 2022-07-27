@@ -41,10 +41,14 @@ class KelolaSpktAdapter(private val listSpkt : ArrayList<SpktModel>): RecyclerVi
             holder.itemView.context.startActivity(intent)
         }
         holder.shareBtn.setOnClickListener {
-            val intent = Intent(Intent.ACTION_SEND)
-            intent.putExtra("Share", "ID Akun : ${dataSpkt.idSpkt}, Nama : ${dataSpkt.unameSpkt}, Satuan Wilayah : ${dataSpkt.satuanWilayah}, No. Telp : ${dataSpkt.notelpSpkt}, Password Awal : ${dataSpkt.passSpkt} }")
-            intent.setType("text/plain")
-            holder.itemView.context.startActivity(Intent.createChooser(intent, "Bagikan Melalui : "))
+            val sendIntent: Intent = Intent().apply {
+                action =Intent.ACTION_SEND
+                putExtra(Intent.EXTRA_TEXT, "ID Akun : ${dataSpkt.idSpkt}, Nama : ${dataSpkt.unameSpkt}, Satuan Wilayah : ${dataSpkt.satuanWilayah}, No. Telp : ${dataSpkt.notelpSpkt}, Password Awal : ${dataSpkt.pass_awal} }")
+                type = "text/plain"
+            }
+
+            val shareIntent = Intent.createChooser(sendIntent, "Bagikan Melalui")
+            holder.itemView.context.startActivity(shareIntent)
         }
         holder.itemView.setOnClickListener {
             onItemClickCallback.onItemClicked(listSpkt[holder.adapterPosition])

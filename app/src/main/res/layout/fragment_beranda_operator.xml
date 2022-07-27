@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -9,7 +9,7 @@
     <com.google.android.material.card.MaterialCardView
         android:id="@+id/materialCardView2"
         android:layout_width="match_parent"
-        android:layout_height="230dp"
+        android:layout_height="210dp"
         android:layout_margin="20dp"
         android:backgroundTint="@color/primaryColor"
         app:cardCornerRadius="30dp"
@@ -30,7 +30,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:fontFamily="@font/montserrat_bold"
-                android:text="Id Pengguna : SPKT-cdl"
+                android:text="Id Pengguna : OP-cdl"
                 android:textColor="@color/primaryColor"
                 android:textSize="14sp"
                 android:textAllCaps="false"
@@ -44,7 +44,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:fontFamily="@font/montserrat_bold"
-                android:text="Halo, SPKT Sukajadi"
+                android:text="Halo, Operator Polresta Pku"
                 android:textColor="@color/white"
                 android:textSize="20sp"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -68,7 +68,7 @@
                 android:layout_height="wrap_content"
                 app:layout_constraintTop_toBottomOf="@+id/tgltxt"
                 app:icon="@drawable/ic_baseline_logout_24"
-                android:layout_marginTop="30dp"
+                android:layout_marginTop="10dp"
                 app:iconGravity="textStart"
                 android:text="Keluar"
                 android:fontFamily="@font/montserrat_bold"
@@ -79,57 +79,141 @@
     </com.google.android.material.card.MaterialCardView>
 
     <LinearLayout
-        android:id="@+id/akun"
+        android:id="@+id/tampildata"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
         android:gravity="center"
         android:orientation="vertical"
-        android:padding="20dp">
+        android:padding="20dp"
+        app:layout_constraintTop_toBottomOf="@+id/materialCardView2">
+
+        <com.google.android.material.textview.MaterialTextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Pilih Kecamatan :"
+            android:fontFamily="@font/montserrat_bold"
+            android:textSize="16sp"
+            android:textColor="@color/primaryColor"
+            app:layout_constraintTop_toBottomOf="@+id/tampildata" />
 
         <Spinner
             android:id="@+id/kecamatan"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:entries="@array/kecamatan"
-            android:layout_marginBottom="10dp"
-            android:padding="15dp"
             android:elevation="@dimen/cardview_default_elevation"
-            app:boxStrokeWidth="1dp"
+            android:entries="@array/kecamatan"
+            android:padding="15dp"
             app:boxStrokeColor="@color/primaryColor"
-            />
+            app:boxStrokeWidth="5dp" />
+
+        <com.google.android.material.divider.MaterialDivider
+            android:layout_width="match_parent"
+            android:layout_height="3dp"
+            app:dividerColor="@color/primaryColor"/>
 
         <Button
             android:id="@+id/kecBtn"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:layout_marginTop="10dp"
-            android:text="Tampilkan Data" />
-
-        <TextView
-            android:id="@+id/dataTxt"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            tools:text="Bukit Raya"
-            android:padding="10dp"/>
-
-<!--        <androidx.appcompat.widget.SearchView-->
-<!--            android:id="@+id/search"-->
-<!--            android:layout_width="match_parent"-->
-<!--            android:layout_height="wrap_content"-->
-<!--            app:layout_constraintEnd_toEndOf="parent"-->
-<!--            app:layout_constraintStart_toStartOf="parent"-->
-<!--            app:layout_constraintTop_toTopOf="parent"-->
-<!--            android:queryHint="Pencarian Aduan Berdasarkan Nama Pelapor"/>-->
-
-<!--        <androidx.recyclerview.widget.RecyclerView-->
-<!--            android:id="@+id/rv_aduan"-->
-<!--            android:layout_width="match_parent"-->
-<!--            android:layout_height="match_parent"-->
-<!--            app:layout_constraintBottom_toBottomOf="parent"-->
-<!--            app:layout_constraintEnd_toEndOf="parent"-->
-<!--            app:layout_constraintStart_toStartOf="parent"-->
-<!--            app:layout_constraintTop_toBottomOf="@+id/search"-->
-<!--            tools:listitem="@layout/item_row_aduan" />-->
+            android:layout_gravity="center"
+            android:layout_marginTop="5dp"
+            android:text="Tampilkan Jumlah Pengaduan" />
     </LinearLayout>
-</RelativeLayout>
+
+    <com.google.android.material.textview.MaterialTextView
+        android:id="@+id/materialTextView3"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Jumlah Pengaduan"
+        android:fontFamily="@font/montserrat_bold"
+        android:textSize="16sp"
+        android:textColor="@color/primaryColor"
+        android:layout_marginStart="20dp"
+        app:layout_constraintTop_toBottomOf="@+id/tampildata" />
+
+    <LinearLayout
+        android:id="@+id/linearLayout4"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:weightSum="1"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/materialTextView3">
+
+        <com.google.android.material.card.MaterialCardView
+            android:layout_width="match_parent"
+            android:layout_height="150dp"
+            android:layout_margin="20dp"
+            android:layout_weight="0.5"
+            app:cardCornerRadius="30dp"
+            app:cardElevation="10dp">
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:padding="20dp">
+                <com.google.android.material.textview.MaterialTextView
+                    android:id="@+id/status_proses"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Status Aduan:\nBelum Diproses"
+                    android:fontFamily="@font/montserrat_regular"
+                    android:textSize="14sp"
+                    android:textAlignment="center"
+                    android:textColor="@color/primaryColor"
+                    app:layout_constraintTop_toBottomOf="@+id/materialCardView2" />
+
+                <com.google.android.material.textview.MaterialTextView
+                    android:id="@+id/jumlah_proses"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="0"
+                    android:fontFamily="@font/montserrat_regular"
+                    android:textSize="56sp"
+                    android:textAlignment="center"
+                    android:textColor="@color/primaryColor"
+                    app:layout_constraintTop_toBottomOf="@+id/materialCardView2" />
+            </LinearLayout>
+
+
+        </com.google.android.material.card.MaterialCardView>
+
+        <com.google.android.material.card.MaterialCardView
+            android:layout_width="match_parent"
+            android:layout_height="150dp"
+            android:layout_margin="20dp"
+            android:layout_weight="0.5"
+            app:cardCornerRadius="30dp"
+            app:cardElevation="10dp">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:padding="20dp"
+                android:orientation="vertical">
+                <com.google.android.material.textview.MaterialTextView
+                    android:id="@+id/status_selesai"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Status Aduan:\nSelesai"
+                    android:textAlignment="center"
+                    android:fontFamily="@font/montserrat_regular"
+                    android:textSize="14sp"
+                    android:textColor="#6E8F13"
+                    app:layout_constraintTop_toBottomOf="@+id/materialCardView2" />
+
+                <com.google.android.material.textview.MaterialTextView
+                    android:id="@+id/jumlah_selesai"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="0"
+                    android:fontFamily="@font/montserrat_regular"
+                    android:textSize="56sp"
+                    android:textAlignment="center"
+                    android:textColor="#6E8F13"
+                    app:layout_constraintTop_toBottomOf="@+id/materialCardView2" />
+            </LinearLayout>
+        </com.google.android.material.card.MaterialCardView>
+    </LinearLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>

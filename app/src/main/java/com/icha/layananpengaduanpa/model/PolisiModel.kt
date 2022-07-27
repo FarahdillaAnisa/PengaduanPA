@@ -16,7 +16,10 @@ data class PolisiModel(
 		val notelpPolisi: String,
 
 		@field:SerializedName("pass_polisi")
-		val passPolisi: String
+		val passPolisi: String,
+
+		@field:SerializedName("pass_awal")
+		val pass_awal: String
 )
 
 

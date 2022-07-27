@@ -104,16 +104,16 @@ class AkunPolisiListFragment(val role_user : String) : Fragment() {
     }
 
     private fun showSelectedAkun(data: PolisiModel) {
-        val intent = Intent(context, PostAkunPolisiActivity::class.java)
-        intent.putExtra(PostAkunPolisiActivity.EXTRA_ID, data.idPolisi)
-        intent.putExtra(PostAkunPolisiActivity.EXTRA_ROLE, "polisi")
+        val intent = Intent(context, EditPolisiSpktActivity::class.java)
+        intent.putExtra(EditPolisiSpktActivity.EXTRA_ID, data.idPolisi)
+        intent.putExtra(EditPolisiSpktActivity.EXTRA_ROLE, "polisi")
         startActivity(intent)
     }
 
     private fun showSelectedAkunSpkt(data: SpktModel) {
-        val intent = Intent(context, PostAkunPolisiActivity::class.java)
-        intent.putExtra(PostAkunPolisiActivity.EXTRA_ID, data.idSpkt)
-        intent.putExtra(PostAkunPolisiActivity.EXTRA_ROLE, "spkt")
+        val intent = Intent(context, EditPolisiSpktActivity::class.java)
+        intent.putExtra(EditPolisiSpktActivity.EXTRA_ID, data.idSpkt)
+        intent.putExtra(EditPolisiSpktActivity.EXTRA_ROLE, "spkt")
         startActivity(intent)
     }
 }

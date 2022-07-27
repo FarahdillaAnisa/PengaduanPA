@@ -62,15 +62,18 @@ class AduanSelesaiFragment() : Fragment() {
         if (role_user == "masyarakat") {
             binding.searchfilter.visibility = View.GONE
             setHasOptionsMenu(false)
+            listAduanSelesai.clear()
             getAduanMsy(id_user)
         } else if (role_user == "spkt") {
             binding.searchfilter.visibility = View.VISIBLE
             binding.actionFilter.visibility = View.INVISIBLE
             setHasOptionsMenu(false)
+            listAduanSelesai.clear()
             getAduanSpkt(satwil)
         } else if (role_user == "operator") {
             binding.searchfilter.visibility = View.VISIBLE
             setHasOptionsMenu(true)
+            listAduanSelesai.clear()
             getAduanOperator()
         }
 

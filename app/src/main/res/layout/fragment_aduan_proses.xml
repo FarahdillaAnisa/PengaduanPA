@@ -49,7 +49,6 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/searchfilter">
 
-
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/rv_aduan_proses"
                 android:layout_width="match_parent"

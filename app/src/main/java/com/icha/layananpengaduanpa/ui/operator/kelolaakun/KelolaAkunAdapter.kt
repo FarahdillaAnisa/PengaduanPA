@@ -44,10 +44,14 @@ class KelolaAkunAdapter(private val listAkun : ArrayList<PolisiModel>): Recycler
             holder.itemView.context.startActivity(intent)
         }
         holder.shareBtn.setOnClickListener {
-            val intent = Intent(Intent.ACTION_SEND)
-            intent.putExtra("Share", "ID Akun : ${dataAkun.idPolisi}, Nama : ${dataAkun.namaPolisi}, Satuan Wilayah : ${dataAkun.satuanWilayah}, No. Telp : ${dataAkun.notelpPolisi}, Password Awal : ${dataAkun.passPolisi} }")
-            intent.setType("text/plain")
-            holder.itemView.context.startActivity(Intent.createChooser(intent, "Bagikan Melalui : "))
+            val sendIntent: Intent = Intent().apply {
+                action =Intent.ACTION_SEND
+                putExtra(Intent.EXTRA_TEXT, "ID Akun : ${dataAkun.idPolisi}, Nama : ${dataAkun.namaPolisi}, Satuan Wilayah : ${dataAkun.satuanWilayah}, No. Telp : ${dataAkun.notelpPolisi}, Password Awal : ${dataAkun.pass_awal} }")
+                type = "text/plain"
+            }
+
+            val shareIntent = Intent.createChooser(sendIntent, "Bagikan Melalui")
+            holder.itemView.context.startActivity(shareIntent)
         }
         holder.itemView.setOnClickListener {
             onItemClickCallback.onItemClicked(listAkun[holder.adapterPosition])

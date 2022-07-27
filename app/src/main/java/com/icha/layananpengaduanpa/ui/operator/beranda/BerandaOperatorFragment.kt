@@ -3,22 +3,19 @@ package com.icha.layananpengaduanpa.ui.operator.beranda
 import android.widget.AdapterView
 import com.icha.layananpengaduanpa.R
 import android.annotation.SuppressLint
-import android.content.Intent
 import android.os.Bundle
-import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
-import androidx.appcompat.widget.SearchView
-import androidx.recyclerview.widget.LinearLayoutManager
 import com.icha.layananpengaduanpa.databinding.FragmentBerandaOperatorBinding
+import com.icha.layananpengaduanpa.helper.Helper
+import com.icha.layananpengaduanpa.helper.getCurrentDate
 import com.icha.layananpengaduanpa.model.ApiConfig
+import com.icha.layananpengaduanpa.model.OperatorModel
 import com.icha.layananpengaduanpa.model.ResponsePengaduan
 import com.icha.layananpengaduanpa.session.SessionManager
-import com.icha.layananpengaduanpa.ui.masyarakat.pengaduan.PengaduanAdapter
-import com.icha.layananpengaduanpa.ui.spktpolsek.pengaduan.DetailAduanSpktActivity
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -26,16 +23,12 @@ import retrofit2.Response
 class BerandaOperatorFragment : Fragment() {
     private lateinit var binding: FragmentBerandaOperatorBinding
     lateinit var session: SessionManager
-    private val listAduan = ArrayList<ResponsePengaduan>()
     private var kecamatan : String = ""
-    private var jumlahAduanProses: Int = 0
-    private var jumlahAduanSelesai: Int = 0
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        // Inflate the layout for this fragment
         binding = FragmentBerandaOperatorBinding.inflate(inflater, container, false)
         val view = binding.root
         return view
@@ -48,42 +41,19 @@ class BerandaOperatorFragment : Fragment() {
         session = SessionManager(view.context)
 
         val operator: HashMap<String, String> = session.getUserDetails()
-        val unameOperator: String = operator.get(SessionManager.KEY_USERNAME)!!
         val idOperator: String = operator.get(SessionManager.KEY_ID)!!
-        Log.d("USERNAME" , "$unameOperator dan id : $idOperator ")
-        binding.idTxt.setText(unameOperator)
+        getOperatorDetail(idOperator)
 
-        spinnerKecamatan()
+        opxiKecamatanAkun()
 
         //getCountData
         binding.kecBtn.setOnClickListener {
             if (kecamatan != "Data Semua Aduan") {
-                getCountAduanKec("proses", kecamatan)
-                getCountAduanKec("selesai", kecamatan)
-                binding.dataTxt.setText("Kecamatan : $kecamatan, Aduan Diproses : $jumlahAduanProses, Aduan Selesai :  $jumlahAduanSelesai")
+                getCountAduanKec(kecamatan)
             } else {
-                getCountAduan("proses")
-                getCountAduan("selesai")
-                binding.dataTxt.setText("Semua Aduan di Kota Pekanbaru, Aduan Diproses : $jumlahAduanProses, Aduan Selesai :  $jumlahAduanSelesai")
+                getCountAduan()
             }
         }
-
-        //search data aduan
-        binding.search.queryHint = "Pencarian Aduan Berdasarkan Nama Pelapor"
-        binding.search.setOnQueryTextListener(object: SearchView.OnQueryTextListener{
-            override fun onQueryTextSubmit(query: String): Boolean {
-                cariAduan(query, null)
-                return true
-            }
-
-            override fun onQueryTextChange(newText: String): Boolean {
-                if (newText.isNotEmpty()) {
-                    cariAduan(newText, null)
-                }
-                return true
-            }
-        })
-
 
         binding.logoutBtn.setOnClickListener {
             session.logoutUser()
@@ -91,7 +61,31 @@ class BerandaOperatorFragment : Fragment() {
         }
     }
 
-    private fun spinnerKecamatan() {
+    private fun getOperatorDetail(idOperator: String) {
+        val helper = Helper()
+        val currentDate = helper.displayDateBeranda(getCurrentDate())
+        ApiConfig.instance.getOperatorById(idOperator)
+                .enqueue(object: Callback<OperatorModel> {
+                    @SuppressLint("SetTextI18n")
+                    override fun onResponse(call: Call<OperatorModel>, response: Response<OperatorModel>) {
+                        val dataOperator = response.body()
+                        dataOperator?.let { operator ->
+                            val uname = operator.unameOperator
+                            binding.idTxt.setText("Id Operator : $idOperator")
+                            binding.namaTxt.setText("Halo, $uname")
+                            binding.tgltxt.setText(currentDate)
+
+                        }
+                    }
+
+                    override fun onFailure(call: Call<OperatorModel>, t: Throwable) {
+                        Toast.makeText(context, "Tidak berhasil menampilkan data", Toast.LENGTH_SHORT).show()
+                    }
+
+                })
+    }
+
+    private fun opxiKecamatanAkun() {
         val kecamatanOpsi = resources.getStringArray(R.array.kecamatan)
         binding.kecamatan.onItemSelectedListener = object :
                 AdapterView.OnItemSelectedListener {
@@ -105,37 +99,41 @@ class BerandaOperatorFragment : Fragment() {
         }
     }
 
-    private fun cariAduan(keyword_nama_msy: String, kecamatan: String?){
-        ApiConfig.instance.searchAduanByNama(keyword_nama_msy, kecamatan)
+    private fun getCountAduan() {
+        binding.jumlahProses.setText("0")
+        binding.jumlahSelesai.setText("0")
+        ApiConfig.instance.getAllAduan("proses")
                 .enqueue(object : Callback<ArrayList<ResponsePengaduan>> {
                     override fun onResponse(call: Call<ArrayList<ResponsePengaduan>>, response: Response<ArrayList<ResponsePengaduan>>) {
                         if (response.isSuccessful) {
-                            response.body()?.let { listAduan.addAll(it) }
-                            showRecyclerListAduan()
+                            val data = response.body()
+                            data?.let { jumlah ->
+                                if (jumlah.count() > 1) {
+                                    binding.jumlahProses.setText(jumlah.count().toString())
+                                } else {
+                                    binding.jumlahProses.setText("0")
+                                }
+                            }
                         }
                     }
 
                     override fun onFailure(call: Call<ArrayList<ResponsePengaduan>>, t: Throwable) {
-                        val responseCode = t.message
-                        Toast.makeText(context, responseCode, Toast.LENGTH_SHORT).show()
+                        println(t.message)
                     }
                 })
-    }
 
-    private fun getCountAduan(status_aduan : String) {
-        var jumlah : Int = 0
-        ApiConfig.instance.getAllAduan(status_aduan)
+        ApiConfig.instance.getAllAduan("selesai")
                 .enqueue(object : Callback<ArrayList<ResponsePengaduan>> {
                     override fun onResponse(call: Call<ArrayList<ResponsePengaduan>>, response: Response<ArrayList<ResponsePengaduan>>) {
                         if (response.isSuccessful) {
-                            if (status_aduan == "proses" ){
-                                jumlahAduanProses = response.body()!!.count()
-                                Log.d("aduan proses : ", jumlahAduanProses.toString())
-                            } else if (status_aduan == "selesai") {
-                                jumlahAduanSelesai = response.body()!!.count()
-                                Log.d("aduan selesai : ", jumlahAduanSelesai.toString())
+                            val data = response.body()
+                            data?.let { jumlah ->
+                                if (jumlah.count() > 1) {
+                                    binding.jumlahSelesai.setText(jumlah.count().toString())
+                                } else {
+                                    binding.jumlahSelesai.setText("0")
+                                }
                             }
-                            println(response.body()!!.count())
                         }
                     }
 
@@ -145,17 +143,21 @@ class BerandaOperatorFragment : Fragment() {
                 })
     }
 
-    private fun getCountAduanKec(status_aduan: String, kec_lokasi : String) {
-        ApiConfig.instance.getAduanKec(status_aduan, kec_lokasi)
+    private fun getCountAduanKec(kec_lokasi : String) {
+        binding.jumlahProses.setText("0")
+        binding.jumlahSelesai.setText("0")
+        ApiConfig.instance.getAduanKec("proses", kec_lokasi)
                 .enqueue(object: Callback<ArrayList<ResponsePengaduan>> {
                     override fun onResponse(call: Call<ArrayList<ResponsePengaduan>>, response: Response<ArrayList<ResponsePengaduan>>) {
                         if (response.isSuccessful) {
-                            if (status_aduan == "proses") {
-                                jumlahAduanProses = response.body()!!.count()
-                                Log.d("aduan proses : ", jumlahAduanProses.toString())
-                            } else if (status_aduan == "selesai"){
-                                jumlahAduanSelesai = response.body()!!.count()
-                                Log.d("aduan selesai : ", jumlahAduanSelesai.toString())
+                            val data = response.body()
+                            data?.let { jumlah ->
+                                if (jumlah.count() > 1) {
+                                    binding.jumlahProses.setText(jumlah.count().toString())
+
+                                } else {
+                                    binding.jumlahProses.setText("0")
+                                }
                             }
                         }
                     }
@@ -164,24 +166,25 @@ class BerandaOperatorFragment : Fragment() {
                         println(t.message)
                     }
                 })
-    }
 
-    private fun showRecyclerListAduan() {
-        binding.rvAduan.layoutManager = LinearLayoutManager(requireContext())
-        val pengaduanAdapter = PengaduanAdapter(listAduan)
-        binding.rvAduan.adapter = pengaduanAdapter
+        ApiConfig.instance.getAduanKec("selesai", kec_lokasi)
+                .enqueue(object: Callback<ArrayList<ResponsePengaduan>> {
+                    override fun onResponse(call: Call<ArrayList<ResponsePengaduan>>, response: Response<ArrayList<ResponsePengaduan>>) {
+                        if (response.isSuccessful) {
+                            val data = response.body()
+                            data?.let { jumlah ->
+                                if (jumlah.count() > 1) {
+                                    binding.jumlahSelesai.setText(jumlah.count().toString())
+                                } else {
+                                    binding.jumlahSelesai.setText("0")
+                                }
+                            }
+                        }
+                    }
 
-        pengaduanAdapter.setOnItemClickCallback(object: PengaduanAdapter.OnItemClickCallback {
-            override fun onItemClicked(data: ResponsePengaduan) {
-                showSelectedAduan(data)
-            }
-        })
-    }
-
-    private fun showSelectedAduan(aduan : ResponsePengaduan) {
-        Toast.makeText(context, "Data Aduan : ${aduan.kodeAduan}", Toast.LENGTH_SHORT).show()
-        val intent = Intent(context, DetailAduanSpktActivity::class.java)
-        intent.putExtra(DetailAduanSpktActivity.EXTRA_KODE_ADUAN, aduan.kodeAduan)
-        startActivity(intent)
+                    override fun onFailure(call: Call<ArrayList<ResponsePengaduan>>, t: Throwable) {
+                        println(t.message)
+                    }
+                })
     }
 }

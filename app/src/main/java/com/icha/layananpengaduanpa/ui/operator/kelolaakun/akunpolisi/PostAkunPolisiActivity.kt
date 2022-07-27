@@ -4,27 +4,26 @@ import android.content.DialogInterface
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
+import android.widget.AdapterView
 import android.widget.Toast
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
+import com.icha.layananpengaduanpa.R
 import com.icha.layananpengaduanpa.databinding.ActivityPostAkunPolisiBinding
 import com.icha.layananpengaduanpa.helper.Helper
 import com.icha.layananpengaduanpa.model.ApiConfig
 import com.icha.layananpengaduanpa.model.PolisiModel
 import com.icha.layananpengaduanpa.model.SpktModel
+import com.icha.layananpengaduanpa.ui.masyarakat.pengaduan.postaduan.DetailAduanActivity
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
 class PostAkunPolisiActivity : AppCompatActivity() {
-    companion object {
-        const val EXTRA_ID = "extra_id"
-        const val EXTRA_ROLE = "role_user"
-    }
-
     private lateinit var binding: ActivityPostAkunPolisiBinding
-    private var isEdit = false
-    private var role : String? = ""
-    private var id_akun: String? = ""
+    private var kecamatan: String? = ""
+    private var opsiAkun: String = ""
+    private var id_pengguna: String = ""
+    private var passRandom: String = ""
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -33,79 +32,80 @@ class PostAkunPolisiActivity : AppCompatActivity() {
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
 
         MaterialAlertDialogBuilder(this)
-            .setTitle("Perhatian!")
-            .setMessage("Pilih salah satu diantara opsi akun Polisi" +
-                    "atau SPKT di kolom “Jenis Akun (Polisi / SPKT)“ " +
-                    "terlebih dahulu")
-            .setNeutralButton("Lanjutkan", object : DialogInterface.OnClickListener{
-                override fun onClick(p0: DialogInterface?, p1: Int) {
-                }
-            })
-            .show()
+                .setTitle("Perhatian!")
+                .setMessage("Pilih salah satu diantara opsi akun yang ditambahkan" +
+                        "di kolom “Jenis Akun (Polisi / SPKT / Operator)“ " +
+                        "terlebih dahulu")
+                .setNeutralButton("Lanjutkan", object : DialogInterface.OnClickListener{
+                    override fun onClick(p0: DialogInterface?, p1: Int) {
+                    }
+                })
+                .show()
 
-        val bundle: Bundle? = intent.extras
-        if (bundle?.containsKey(EXTRA_ID)!! && bundle.containsKey(EXTRA_ROLE)) {
-            role = intent.getStringExtra(EXTRA_ROLE)
-            id_akun = intent.getStringExtra(EXTRA_ID)
-            isEdit = true
-            binding.btnPostpolisi.setText("Perbaharui Akun")
-            if (role == "polisi") {
-                if (id_akun != null) {
-//                    binding.btnDeletepolisi.visibility = View.VISIBLE
-                    supportActionBar?.title = "Edit Data Akun Polisi"
-                    getAkunPolisi(id_akun!!)
-                }
-            } else if (role == "spkt") {
-                if (id_akun != null) {
-//                    binding.btnDeletepolisi.visibility = View.VISIBLE
-                    supportActionBar?.title = "Edit Data Akun Spkt"
-                    getAkunSpkt(id_akun!!)
-                }
+        spinnerKecamatan()
+        cekOpsiAkun()
+
+        binding.btnPost.setOnClickListener {
+            binding.progressBar.visibility = View.VISIBLE
+            if (opsiAkun == "Polisi") {
+                tambahAkunPolisi()
+            } else if (opsiAkun == "SPKT Polsek") {
+                tambahAkunSpkt()
             }
-        } else {
-            isEdit = false
+        }
+    }
+
+    private fun cekOpsiAkun() {
+
+
+    }
+
+    private fun spinnerKecamatan() {
+        val helper = Helper()
+        passRandom = helper.getRandomPassword()
+        binding.edtPassword.setText(passRandom)
+        val kecamatanOpsi = resources.getStringArray(R.array.kecamatan)
+        val akunOpsi = resources.getStringArray(R.array.opsi_tambah_akun)
+        binding.satuanwilayah.onItemSelectedListener = object :
+                AdapterView.OnItemSelectedListener {
+            override fun onItemSelected(p0: AdapterView<*>?, view: View?, position: Int, id: Long) {
+                kecamatan = kecamatanOpsi[position].toString()
+            }
+
+            override fun onNothingSelected(p0: AdapterView<*>?) {
+            }
         }
 
-//        binding.btnDeletepolisi.setOnClickListener {
-//            if (role == "polisi" && isEdit) {
-//                deleteAkunPolisi(id_akun!!)
-//            } else if (role == "spkt" && isEdit){
-//                deleteAkunSpkt(id_akun!!)
-//            }
-//        }
+        binding.opsiAkun.onItemSelectedListener = object :
+        AdapterView.OnItemSelectedListener {
+            override fun onItemSelected(p0: AdapterView<*>?, view: View?, position: Int, id: Long) {
+                opsiAkun = akunOpsi[position]
+                Toast.makeText(this@PostAkunPolisiActivity, opsiAkun, Toast.LENGTH_SHORT).show()
+                if (opsiAkun == "Polisi") {
+                    id_pengguna = helper.getRandomId(3, "polisi" )
+                    Toast.makeText(this@PostAkunPolisiActivity, id_pengguna, Toast.LENGTH_SHORT).show()
+                    binding.edtId.setText(id_pengguna)
+                } else if (opsiAkun == "SPKT Polsek") {
+                    id_pengguna = helper.getRandomId(3, "spkt" )
+                    binding.edtId.setText(id_pengguna)
+                }
 
-        binding.btnPostpolisi.setOnClickListener {
-            binding.progressBar.visibility = View.VISIBLE
-            if (role == "polisi") {
-                if (isEdit) {
-                    editAkunPolisi()
-                } else {
-                    tambahAkunPolisi()
-                }
-            } else if (role == "spkt") {
-                if (isEdit) {
-                    editAkunSpkt()
-                } else {
-//                    tambahAkunSpkt()
-                }
+
+            }
+
+            override fun onNothingSelected(p0: AdapterView<*>?) {
             }
         }
     }
 
     private fun tambahAkunSpkt() {
-        val helper = Helper()
-        val id_spkt = helper.getRandomId(3, "spkt")
-        binding.edtIdpolisi.setText(id_spkt)
-        val passRandom = helper.getRandomPassword()
-        binding.edtPassword.setText(passRandom)
-
         ApiConfig.instance.tambahAkunSpkt(
-                id_spkt,
+                id_pengguna,
                 binding.edtNama.text.toString(),
-                binding.edtNama.text.toString(),
-//                binding.satuanwilayah.text.toString(),
-                binding.edtPassword.text.toString(),
-                passRandom
+                kecamatan.toString(),
+                passRandom,
+                passRandom,
+                binding.edtNotelp.text.toString()
         ).enqueue(object : Callback<SpktModel> {
             override fun onResponse(call: Call<SpktModel>, response: Response<SpktModel>) {
                 binding.progressBar.visibility = View.GONE
@@ -121,158 +121,15 @@ class PostAkunPolisiActivity : AppCompatActivity() {
         })
     }
 
-    private fun editAkunSpkt() {
-        ApiConfig.instance.editAkunSpkt(
-                binding.edtIdpolisi.text.toString(),
-                binding.edtNama.text.toString(),
-                binding.edtNama.text.toString(),
-//                binding.edtSatuanwilayah.text.toString(),
-//                binding.edtPassword.text.toString(),
-                binding.edtNotelp.text.toString()
-        ).enqueue(object : Callback<SpktModel> {
-            override fun onResponse(call: Call<SpktModel>, response: Response<SpktModel>) {
-                binding.progressBar.visibility = View.GONE
-                Toast.makeText(this@PostAkunPolisiActivity, "Spkt ${binding.edtNama.text} berhasil diperbaharui", Toast.LENGTH_SHORT).show()
-//                val intent = Intent(this@PostAkunPolisiActivity, KelolaAkunFragment::class.java)
-//                startActivity(intent)
-            }
-
-            override fun onFailure(call: Call<SpktModel>, t: Throwable) {
-                Toast.makeText(this@PostAkunPolisiActivity, "Data Spkt gagal diperbaharui!", Toast.LENGTH_SHORT).show()
-                Toast.makeText(this@PostAkunPolisiActivity, "Message : ${t.message}", Toast.LENGTH_SHORT).show()
-            }
-
-        })
-    }
-
-    private fun deleteAkunSpkt(idAkun: String) {
-        ApiConfig.instance.deleteAkunSpkt(
-                idAkun
-        ).enqueue(object: Callback<SpktModel> {
-            override fun onResponse(call: Call<SpktModel>, response: Response<SpktModel>) {
-                binding.progressBar.visibility = View.GONE
-                Toast.makeText(this@PostAkunPolisiActivity, "Akun Spkt ${binding.edtNama.text} berhasil dihapus", Toast.LENGTH_SHORT).show()
-//                val intent = Intent(this@PostAkunPolisiActivity, KelolaAkunFragment::class.java)
-//                startActivity(intent)
-            }
-
-            override fun onFailure(call: Call<SpktModel>, t: Throwable) {
-                Toast.makeText(this@PostAkunPolisiActivity, "Data Spkt gagal diperbaharui!", Toast.LENGTH_SHORT).show()
-                Toast.makeText(this@PostAkunPolisiActivity, "Message : ${t.message}", Toast.LENGTH_SHORT).show()
-            }
-        })
-    }
-
-    private fun getAkunSpkt(idAkun: String) {
-        ApiConfig.instance.getAkunSpktById(idAkun)
-                .enqueue(object : Callback<SpktModel> {
-                    override fun onResponse(call: Call<SpktModel>, response: Response<SpktModel>) {
-                        binding.progressBar.visibility = View.GONE
-                        if (response.isSuccessful) {
-                            val dataAkun = response.body()
-                            dataAkun?.let { data ->
-                                binding.edtIdpolisi.setText(data.idSpkt)
-                                binding.edtNama.setText(data.unameSpkt)
-                                binding.edtNotelp.setText(data.notelpSpkt)
-//                                binding.edtSatuanwilayah.setText(data.satuanWilayah)
-                                //PASSWORD
-                            }
-                        } else {
-                            Toast.makeText(this@PostAkunPolisiActivity, "Gagal Mengambil Data", Toast.LENGTH_SHORT).show()
-                        }
-                    }
-
-                    override fun onFailure(call: Call<SpktModel>, t: Throwable) {
-                        Toast.makeText(this@PostAkunPolisiActivity, "Kode : $idAkun", Toast.LENGTH_SHORT).show()
-                        val responseCode = t.message
-                        Toast.makeText(this@PostAkunPolisiActivity, responseCode, Toast.LENGTH_SHORT).show()
-                    }
-                })
-    }
-
-    private fun getAkunPolisi(id: String) {
-        ApiConfig.instance.getAkunPolisiById(id)
-                .enqueue(object : Callback<PolisiModel> {
-                    override fun onResponse(call: Call<PolisiModel>, response: Response<PolisiModel>) {
-                        binding.progressBar.visibility = View.GONE
-                        if (response.isSuccessful) {
-                            val dataAkun = response.body()
-                            dataAkun?.let { data ->
-                                binding.edtIdpolisi.setText(data.idPolisi)
-                                binding.edtNama.setText(data.namaPolisi)
-                                binding.edtNotelp.setText(data.notelpPolisi)
-//                                binding.edtSatuanwilayah.setText(data.satuanWilayah)
-                                //PASSWORD
-                            }
-                        } else {
-                            Toast.makeText(this@PostAkunPolisiActivity, "Gagal Mengambil Data", Toast.LENGTH_SHORT).show()
-                        }
-                    }
-
-                    override fun onFailure(call: Call<PolisiModel>, t: Throwable) {
-                        Toast.makeText(this@PostAkunPolisiActivity, "Kode : $id", Toast.LENGTH_SHORT).show()
-                        val responseCode = t.message
-                        Toast.makeText(this@PostAkunPolisiActivity, responseCode, Toast.LENGTH_SHORT).show()
-                    }
-
-                })
-    }
-
-    private fun deleteAkunPolisi(idAkun: String) {
-        ApiConfig.instance.deleteAkunPolisi(idAkun)
-                .enqueue(object : Callback<PolisiModel> {
-            override fun onResponse(call: Call<PolisiModel>, response: Response<PolisiModel>) {
-                binding.progressBar.visibility = View.GONE
-                Toast.makeText(this@PostAkunPolisiActivity, "Akun Polisi ${binding.edtIdpolisi.text} berhasil dihapus", Toast.LENGTH_SHORT).show()
-//                val intent = Intent(this@PostAkunPolisiActivity, KelolaAkunFragment::class.java)
-//                startActivity(intent)
-            }
-
-            override fun onFailure(call: Call<PolisiModel>, t: Throwable) {
-                Toast.makeText(this@PostAkunPolisiActivity, "Data Polisi gagal dihapus!", Toast.LENGTH_SHORT).show()
-                Toast.makeText(this@PostAkunPolisiActivity, "Message : ${t.message}", Toast.LENGTH_SHORT).show()
-            }
-        })
-    }
-
-    private fun editAkunPolisi() {
-        ApiConfig.instance.editAkunPolisi(
-                binding.edtIdpolisi.text.toString(),
-                binding.edtNama.text.toString(),
-                binding.edtNama.text.toString(),
-//                binding.edtSatuanwilayah.text.toString(),
-                binding.edtNotelp.text.toString()
-//            binding.edtPassword.text.toString()
-        ).enqueue(object : Callback<PolisiModel> {
-            override fun onResponse(call: Call<PolisiModel>, response: Response<PolisiModel>) {
-                binding.progressBar.visibility = View.GONE
-                Toast.makeText(this@PostAkunPolisiActivity, "Polisi ${binding.edtNama.text} berhasil diperbaharui", Toast.LENGTH_SHORT).show()
-//                val intent = Intent(this@PostAkunPolisiActivity, KelolaAkunFragment::class.java)
-//                startActivity(intent)
-            }
-
-            override fun onFailure(call: Call<PolisiModel>, t: Throwable) {
-                Toast.makeText(this@PostAkunPolisiActivity, "Data Polisi gagal diperbaharui!", Toast.LENGTH_SHORT).show()
-                Toast.makeText(this@PostAkunPolisiActivity, "Message : ${t.message}", Toast.LENGTH_SHORT).show()
-            }
-
-        })
-    }
-
     private fun tambahAkunPolisi() {
-        val helper = Helper()
-        val id_polisi = helper.getRandomId(3, "polisi", )
-        binding.edtIdpolisi.setText(id_polisi)
-        val passRandom = helper.getRandomPassword()
-        binding.edtPassword.setText(passRandom)
         //yes/no dialog box
 
         ApiConfig.instance.tambahAkunPolisi(
-                id_polisi,
+                id_pengguna,
                 binding.edtNama.text.toString(),
-                binding.edtNama.text.toString(),
-//                binding.edtSatuanwilayah.text.toString(),
+                kecamatan.toString(),
                 binding.edtNotelp.text.toString(),
+                passRandom,
                 passRandom
         ).enqueue(object : Callback<PolisiModel> {
             override fun onResponse(call: Call<PolisiModel>, response: Response<PolisiModel>) {
