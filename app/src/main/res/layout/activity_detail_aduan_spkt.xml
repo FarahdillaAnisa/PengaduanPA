@@ -26,14 +26,13 @@
                 android:id="@+id/kode_aduan_txt"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
-                tools:text="KODE ADUAN"
                 android:fontFamily="@font/montserrat_bold"
                 android:textColor="@color/black"
                 android:textSize="16sp"
                 android:textStyle="bold"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="@+id/status_aduan" />
+                app:layout_constraintTop_toTopOf="parent"
+                tools:text="KODE ADUAN" />
 
             <TextView
                 android:id="@+id/kec_txt"
@@ -59,18 +58,16 @@
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="parent" />
 
-            <Button
+            <TextView
                 android:id="@+id/status_aduan"
-                android:layout_width="wrap_content"
+                android:layout_width="120dp"
                 android:layout_height="wrap_content"
-                android:clickable="false"
-                android:text="BELUM DIPROSES"
-                android:textSize="10sp"
-                android:fontFamily="@font/montserrat_bold"
-                android:backgroundTint="#EEB4B0"
+                android:text="Belum Diproses"
+                android:gravity="center"
                 android:textColor="#BD251C"
+                android:fontFamily="@font/montserrat_bold"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
+                app:layout_constraintTop_toTopOf="parent"/>
 
             <Button
                 android:id="@+id/lokasi_btn"
@@ -244,7 +241,8 @@
             android:drawableTint="@color/white"
             android:text="kontak petugas"
             android:fontFamily="@font/montserrat_bold"
-            android:layout_margin="10dp"/>
+            android:layout_margin="10dp"
+            android:visibility="visible"/>
 
         <Button
             android:id="@+id/kontak_msy_btn"

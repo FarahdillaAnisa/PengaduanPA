@@ -59,8 +59,8 @@ class MapsActivity : AppCompatActivity() {
         return true
     }
 
-    override fun onSupportNavigateUp(): Boolean {
-        onBackPressed()
-        return super.onSupportNavigateUp()
-    }
+//    override fun onSupportNavigateUp(): Boolean {
+//        onBackPressed()
+//        return super.onSupportNavigateUp()
+//    }
 }

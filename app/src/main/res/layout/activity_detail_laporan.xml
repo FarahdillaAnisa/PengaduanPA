@@ -24,59 +24,73 @@
                 android:id="@+id/kode_aduan_txt"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
-                tools:text="KODE ADUAN"
+                android:fontFamily="@font/montserrat_bold"
                 android:textColor="@color/black"
                 android:textSize="20sp"
                 android:textStyle="bold"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="@+id/status_aduan" />
+                app:layout_constraintTop_toTopOf="parent"
+                tools:text="KODE ADUAN" />
 
             <TextView
                 android:id="@+id/kec_txt"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                tools:text="KECAMATAN"
+                android:fontFamily="@font/montserrat_bold"
                 android:textColor="@color/black"
                 android:textSize="14sp"
                 android:textStyle="bold"
                 app:layout_constraintBottom_toTopOf="@+id/tgladuan_txt"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/kode_aduan_txt" />
+                app:layout_constraintTop_toBottomOf="@+id/kode_aduan_txt"
+                tools:text="KECAMATAN" />
 
             <TextView
                 android:id="@+id/tgladuan_txt"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="10dp"
-                tools:text="Tgl Pengaduan : 02/05/2022"
+                android:fontFamily="@font/montserrat_regular"
                 android:textColor="@color/black"
                 android:textSize="14sp"
                 app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintStart_toStartOf="parent" />
+                app:layout_constraintStart_toStartOf="parent"
+                tools:text="Tgl Pengaduan : 02/05/2022" />
 
-            <Button
+            <TextView
                 android:id="@+id/status_aduan"
-                android:layout_width="wrap_content"
+                android:layout_width="120dp"
                 android:layout_height="wrap_content"
-                android:clickable="false"
-                android:text="BELUM DIPROSES"
-                android:textSize="11sp"
-                android:backgroundTint="#367A59"
-                android:textColor="@color/white"
+                android:fontFamily="@font/montserrat_bold"
+                android:gravity="center"
+                android:text="Selesai"
+                android:textColor="#72a50b"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
+
+<!--            <Button-->
+<!--                android:id="@+id/status_aduan"-->
+<!--                android:layout_width="wrap_content"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:clickable="false"-->
+<!--                android:text="BELUM DIPROSES"-->
+<!--                android:textSize="11sp"-->
+<!--                android:backgroundTint="#367A59"-->
+<!--                android:textColor="@color/white"-->
+<!--                app:layout_constraintEnd_toEndOf="parent"-->
+<!--                app:layout_constraintTop_toTopOf="parent" />-->
 
             <Button
                 android:id="@+id/lokasi_btn"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
+                android:backgroundTint="#11317D"
+                android:fontFamily="@font/montserrat_bold"
                 android:text="LOKASI"
                 android:textSize="11sp"
                 app:layout_constraintEnd_toEndOf="@+id/status_aduan"
                 app:layout_constraintStart_toStartOf="@+id/status_aduan"
-                app:layout_constraintTop_toBottomOf="@+id/status_aduan"
-                android:backgroundTint="#11317D"/>
+                app:layout_constraintTop_toBottomOf="@+id/status_aduan" />
         </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.cardview.widget.CardView>
 
@@ -100,6 +114,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="10dp"
+                android:fontFamily="@font/montserrat_semibold"
                 android:text="Isi Pengaduan"
                 android:textColor="@color/black"
                 android:textSize="14sp" />
@@ -108,9 +123,10 @@
                 android:id="@+id/tv_isi_aduan"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:lines="7"
+                android:background="#F8F8F8"
                 android:elevation="10dp"
-                android:background="#F8F8F8"/>
+                android:fontFamily="@font/montserrat_regular"
+                android:lines="7" />
         </LinearLayout>
     </androidx.cardview.widget.CardView>
 
@@ -131,10 +147,12 @@
                 android:id="@+id/tv_keterangan"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:fontFamily="@font/montserrat_semibold"
                 android:text="Data Pelaporan"
-                android:textSize="14sp"
                 android:textColor="@color/black"
-                app:layout_constraintTop_toTopOf="parent" />
+                android:textSize="14sp"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:layout_editor_absoluteX="20dp" />
 
             <ImageView
                 android:id="@+id/img_laporan"
@@ -150,6 +168,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="10dp"
+                android:fontFamily="@font/montserrat_regular"
                 android:text="Isi Pelaporan"
                 android:textColor="@color/black"
                 android:textSize="12sp"
@@ -161,11 +180,12 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="10dp"
+                android:background="#F8F8F8"
+                android:fontFamily="@font/montserrat_regular"
                 android:lines="8"
                 android:text="Pengaduan telah ditangani"
                 android:textColor="#616161"
                 android:textSize="12sp"
-                android:background="#F8F8F8"
                 app:layout_constraintEnd_toEndOf="@+id/tv_keterangan"
                 app:layout_constraintStart_toEndOf="@+id/img_laporan"
                 app:layout_constraintTop_toBottomOf="@+id/tv_laporan" />

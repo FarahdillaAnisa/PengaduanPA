@@ -1,10 +1,12 @@
 package com.icha.layananpengaduanpa.ui.spktpolsek.pengaduan
 
 import android.content.Intent
+import android.graphics.Color
 import android.net.Uri
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
+import android.view.View
 import android.widget.Toast
 import com.icha.layananpengaduanpa.R
 import com.icha.layananpengaduanpa.databinding.ActivityDetailAduanSpktBinding
@@ -56,8 +58,11 @@ class DetailAduanSpktActivity : AppCompatActivity() {
                                 val statusAduan = dataAduan.statusAduan
                                 if (statusAduan == "proses") {
                                     binding.statusAduan.text = "Belum Diproses"
+                                    binding.aduancv3.visibility = View.GONE
+                                    binding.btnKontakPetugas.visibility = View.GONE
                                 } else {
                                     binding.statusAduan.text = "Selesai"
+                                    binding.statusAduan.setTextColor(Color.parseColor("#72a50b"))
                                     getDataPolisi(dataAduan.idPolisi)
                                     binding.tvKetAduan.setText(dataAduan.isiLaporanpolisi)
                                 }

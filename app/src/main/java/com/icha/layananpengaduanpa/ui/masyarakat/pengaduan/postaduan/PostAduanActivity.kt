@@ -12,6 +12,7 @@ import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.provider.Settings
+import android.text.method.ScrollingMovementMethod
 import android.util.Log
 import android.view.View
 import android.widget.AdapterView
@@ -67,17 +68,11 @@ class PostAduanActivity : AppCompatActivity(), LocationListener {
         getCurrentLocation()
         getLokasi()
 
-        MaterialAlertDialogBuilder(this)
-            .setTitle("Perhatian!")
-            .setMessage("Jika koordinat tidak muncul" +
-                    " silahkan swipe kebawah untuk refresh halaman")
-            .setNeutralButton("Lanjutkan", object : DialogInterface.OnClickListener{
-                override fun onClick(p0: DialogInterface?, p1: Int) {
-                }
-            })
-            .show()
+        dialogBox("Perhatian!", "Jika koordinat tidak muncul" +
+                " silahkan swipe kebawah untuk refresh halaman")
 
         refreshPage()
+        binding.txtIsiAduan.movementMethod = ScrollingMovementMethod()
 
         ArrayAdapter.createFromResource(
                 this,
@@ -242,7 +237,7 @@ class PostAduanActivity : AppCompatActivity(), LocationListener {
     private fun createNewAduan(id_msy : String, nama_msy: String) {
         val helper = Helper()
         val currentDate = helper.saveCurrentDate()
-        val id_aduan = helper.getRandomId(5, "pengaduan")
+        val id_aduan = helper.getRandomId(3, "pengaduan")
 
         ApiConfig.instance.createNewAduan(
                 id_aduan,
@@ -257,6 +252,7 @@ class PostAduanActivity : AppCompatActivity(), LocationListener {
             override fun onResponse(call: Call<ResponsePengaduan>, response: Response<ResponsePengaduan>) {
                 binding.progressBar.visibility = View.GONE
                 Toast.makeText(applicationContext, "Data telah berhasil disimpan!", Toast.LENGTH_SHORT).show()
+                dialogBox("Buat Pengaduan", "Data telah berhasil disimpan!")
             }
 
             override fun onFailure(call: Call<ResponsePengaduan>, t: Throwable) {
@@ -269,6 +265,19 @@ class PostAduanActivity : AppCompatActivity(), LocationListener {
     override fun onSupportNavigateUp(): Boolean {
         onBackPressed()
         return super.onSupportNavigateUp()
+    }
+
+
+
+    private fun dialogBox(title : String, message : String) {
+        MaterialAlertDialogBuilder(this)
+                .setTitle(title)
+                .setMessage(message)
+                .setNeutralButton("Lanjutkan", object : DialogInterface.OnClickListener{
+                    override fun onClick(p0: DialogInterface?, p1: Int) {
+                    }
+                })
+                .show()
     }
 }
 

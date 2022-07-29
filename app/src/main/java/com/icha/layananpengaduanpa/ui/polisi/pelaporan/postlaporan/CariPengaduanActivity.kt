@@ -74,7 +74,7 @@ class CariPengaduanActivity : AppCompatActivity() {
     }
 
     private fun cariAduan() {
-        kode_aduan = binding.txtKodeAduan.text.toString()
+        kode_aduan = "ADUAN-${binding.txtKodeAduan.text.toString()}"
         ApiConfig.instance.cariAduan(kode_aduan, opsiKecamatan).enqueue(object : Callback<ResponsePengaduan> {
             override fun onResponse(
                 call: Call<ResponsePengaduan>,
@@ -95,6 +95,13 @@ class CariPengaduanActivity : AppCompatActivity() {
                         Toast.makeText(this@CariPengaduanActivity, "Data Aduan : ${kode_aduan} sudah ditindaklanjuti", Toast.LENGTH_SHORT).show()
                         binding.btnTambahLaporan.isEnabled = false
                         status = false
+                        dataAduan.let {
+                            getDataMsy(dataAduan!!.idMsyFk)
+                            binding.tvKetAduan.setText(dataAduan.isiAduan)
+                            latitude = dataAduan.latLokasi
+                            longitude = dataAduan.longLokasi
+                        }
+
                     }
                 }
                 else {
@@ -155,8 +162,8 @@ class CariPengaduanActivity : AppCompatActivity() {
         return true
     }
 
-    override fun onSupportNavigateUp(): Boolean {
-        onBackPressed()
-        return super.onSupportNavigateUp()
-    }
+//    override fun onSupportNavigateUp(): Boolean {
+//        onBackPressed()
+//        return super.onSupportNavigateUp()
+//    }
 }

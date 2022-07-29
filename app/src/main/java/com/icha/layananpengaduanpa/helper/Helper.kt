@@ -1,15 +1,5 @@
 package com.icha.layananpengaduanpa.helper
 
-import android.app.AlertDialog
-import android.app.Application
-import android.util.Log
-import android.view.View
-import com.icha.layananpengaduanpa.databinding.ActivitySignupBinding
-import com.icha.layananpengaduanpa.model.ApiConfig
-import com.icha.layananpengaduanpa.model.MasyarakatUnameCheck
-import retrofit2.Call
-import retrofit2.Callback
-import retrofit2.Response
 import java.text.SimpleDateFormat
 import java.util.*
 
@@ -35,7 +25,7 @@ class Helper {
     }
 
     fun getRandomId(length: Int, entity: String) : String {
-        val charset = "ABCDEFGHIJKLMNOPQRSTUVWXTZabcdefghiklmnopqrstuvwxyz0123456789"
+        val charset = "ABCDEFGHIJKLMNOPQRSTUVWXTZ0123456789"
         val output =  (1..length)
                 .map { charset.random() }
                 .joinToString("")

@@ -4,6 +4,8 @@ import android.app.Activity
 import android.content.DialogInterface
 import android.content.Intent
 import android.os.Bundle
+import android.text.Editable
+import android.text.TextWatcher
 import android.util.Log
 import android.view.View
 import android.widget.AdapterView
@@ -51,10 +53,32 @@ class LoginActivity : AppCompatActivity() {
 
         spinnerOpsiLogin()
 //        validasiFieldNotNull()
+        checkField
         binding.loginbtn.setOnClickListener {
             binding.progressBar.visibility = View.VISIBLE
             userLogin(opsiLogin)
         }
+    }
+
+    private val checkField = object : TextWatcher {
+        override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
+            TODO("Not yet implemented")
+        }
+
+        override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
+            val id: String = binding.edtId.toString().trim()
+            val password : String = binding.edtPass.toString().trim()
+            if (id.isEmpty() && password.isEmpty()) {
+                binding.loginbtn.isEnabled = false
+            } else {
+                binding.loginbtn.isEnabled = true
+            }
+        }
+
+        override fun afterTextChanged(p0: Editable?) {
+            TODO("Not yet implemented")
+        }
+
     }
 
     private fun checkLogin(role_user : String) {
@@ -99,7 +123,6 @@ class LoginActivity : AppCompatActivity() {
 
     private fun userLogin(opsi: String) {
         if (opsi.equals("Masyarakat")) {
-
             loginMasyarakat(opsi)
         } else if (opsi.equals("Polisi")) {
             loginPolisi(opsi)
@@ -140,8 +163,8 @@ class LoginActivity : AppCompatActivity() {
             }
 
             override fun onFailure(call: Call<OperatorModel>, t: Throwable) {
-                Toast.makeText(this@LoginActivity, "Operator gagal login!", Toast.LENGTH_SHORT).show()
-                Toast.makeText(this@LoginActivity, "Message : ${t.message}", Toast.LENGTH_SHORT).show()
+                Toast.makeText(this@LoginActivity, "User gagal login! Pastikan Id dan Password Sudah Sesuai", Toast.LENGTH_SHORT).show()
+                binding.progressBar.visibility = View.GONE
                 Log.d("Gagal : ", t.message.toString())
             }
         })
@@ -169,8 +192,8 @@ class LoginActivity : AppCompatActivity() {
             }
 
             override fun onFailure(call: Call<SpktModel>, t: Throwable) {
-                Toast.makeText(this@LoginActivity, "Spkt gagal login!", Toast.LENGTH_SHORT).show()
-                Toast.makeText(this@LoginActivity, "Message : ${t.message}", Toast.LENGTH_SHORT).show()
+                Toast.makeText(this@LoginActivity, "User gagal login! Pastikan Id dan Password Sudah Sesuai", Toast.LENGTH_SHORT).show()
+                binding.progressBar.visibility = View.GONE
                 Log.d("Gagal : ", t.message.toString())
             }
         })
@@ -197,8 +220,8 @@ class LoginActivity : AppCompatActivity() {
             }
 
             override fun onFailure(call: Call<PolisiModel>, t: Throwable) {
-                Toast.makeText(this@LoginActivity, "Polisi gagal login!", Toast.LENGTH_SHORT).show()
-                Toast.makeText(this@LoginActivity, "Message : ${t.message}", Toast.LENGTH_SHORT).show()
+                Toast.makeText(this@LoginActivity, "User gagal login! Pastikan Id dan Password Sudah Sesuai", Toast.LENGTH_SHORT).show()
+                binding.progressBar.visibility = View.GONE
                 Log.d("Gagal : ", t.message.toString())
             }
         })
@@ -226,7 +249,7 @@ class LoginActivity : AppCompatActivity() {
 
             override fun onFailure(call: Call<MasyarakatModel>, t: Throwable) {
                 Toast.makeText(this@LoginActivity, "User gagal login! Pastikan Id dan Password Sudah Sesuai", Toast.LENGTH_SHORT).show()
-//                Toast.makeText(this@LoginActivity, "Message : ${t.message}", Toast.LENGTH_SHORT).show()
+                binding.progressBar.visibility = View.GONE
                 Log.d("Gagal : ", t.message.toString())
             }
         })

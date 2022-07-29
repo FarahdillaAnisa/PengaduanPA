@@ -7,7 +7,6 @@ import android.content.Intent
 import android.graphics.Color
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.text.ClipboardManager
 import android.widget.Toast
 import com.icha.layananpengaduanpa.databinding.ActivitySignupBinding
 import com.icha.layananpengaduanpa.helper.Helper
@@ -17,9 +16,7 @@ import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 import android.view.View
-import androidx.appcompat.app.AlertDialog
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
-import com.icha.layananpengaduanpa.R
 
 class SignupActivity : AppCompatActivity() {
     private lateinit var binding : ActivitySignupBinding
@@ -107,6 +104,5 @@ class SignupActivity : AppCompatActivity() {
         onBackPressed()
         return super.onSupportNavigateUp()
     }
-
 
 }

@@ -24,15 +24,16 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="10dp"
-            app:boxStrokeColor="@color/primaryColor">
+            app:boxStrokeColor="@color/primaryColor"
+            app:prefixText="ADUAN-">
 
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/txt_kode_aduan"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:backgroundTint="@android:color/transparent"
-                android:hint="@string/kode_pengaduan"
                 android:fontFamily="@font/montserrat_regular"
+                android:hint="@string/kode_pengaduan"
                 android:inputType="text" />
         </com.google.android.material.textfield.TextInputLayout>
 

@@ -16,11 +16,12 @@
         app:layout_constraintTop_toTopOf="parent">
 
         <TextView
+            style="@style/TextContent.TitlePage"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="20dp"
+            android:fontFamily="@font/montserrat_bold"
             android:text="Daftar"
-            style="@style/TextContent.TitlePage"
             android:textAlignment="center"
             android:textSize="28sp" />
 
@@ -37,7 +38,9 @@
                 android:layout_height="match_parent"
                 android:backgroundTint="@android:color/transparent"
                 android:editable="false"
-                android:hint="ID Pengguna (Silahkan Gunakan ID untuk Masuk)" />
+                android:enabled="false"
+                android:fontFamily="@font/montserrat_regular"
+                android:hint="ID Pengguna (Gunakan ID untuk Masuk)" />
         </com.google.android.material.textfield.TextInputLayout>
 
         <com.google.android.material.textfield.TextInputLayout
@@ -52,6 +55,9 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:backgroundTint="@android:color/transparent"
+                android:editable="false"
+                android:enabled="false"
+                android:fontFamily="@font/montserrat_regular"
                 android:hint="Nama Lengkap"
                 android:inputType="textPersonName" />
         </com.google.android.material.textfield.TextInputLayout>
@@ -68,6 +74,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:backgroundTint="@android:color/transparent"
+                android:fontFamily="@font/montserrat_regular"
                 android:hint="Nomor Telepon / WA"
                 android:inputType="phone" />
         </com.google.android.material.textfield.TextInputLayout>
@@ -93,6 +100,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:backgroundTint="@android:color/transparent"
+                android:fontFamily="@font/montserrat_regular"
                 android:hint="Password"
                 android:inputType="textPassword" />
         </com.google.android.material.textfield.TextInputLayout>
@@ -109,6 +117,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:backgroundTint="@android:color/transparent"
+                android:fontFamily="@font/montserrat_regular"
                 android:hint="Konfirmasi Password"
                 android:inputType="textPassword" />
         </com.google.android.material.textfield.TextInputLayout>
@@ -117,6 +126,7 @@
             android:id="@+id/checkPass"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:fontFamily="@font/montserrat_semibold"
             android:text="Masukkan sesuai dengan kolom password" />
 
         <com.google.android.material.button.MaterialButton
@@ -124,6 +134,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="20dp"
+            android:fontFamily="@font/montserrat_bold"
             android:text="Daftar"
             android:textSize="16sp"
             android:textStyle="bold" />
