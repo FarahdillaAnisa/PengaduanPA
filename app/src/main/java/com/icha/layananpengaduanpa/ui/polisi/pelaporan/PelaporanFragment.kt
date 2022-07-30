@@ -64,8 +64,7 @@ class PelaporanFragment : Fragment(), View.OnClickListener {
                     }
 
                     override fun onFailure(call: Call<ArrayList<ResponsePengaduan>>, t: Throwable) {
-                        val responseCode = t.message
-                        Toast.makeText(context, responseCode, Toast.LENGTH_SHORT).show()
+                        Toast.makeText(context, "Data gagal ditampilkan!", Toast.LENGTH_SHORT).show()
                     }
                 })
     }

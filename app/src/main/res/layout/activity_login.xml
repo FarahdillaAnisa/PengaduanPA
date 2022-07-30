@@ -24,11 +24,12 @@
             android:textSize="28sp" />
 
         <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/til_id"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="10dp"
-            app:boxStrokeWidth="1dp"
-            app:boxStrokeColor="@color/primaryColor">
+            app:boxStrokeColor="@color/primaryColor"
+            app:boxStrokeWidth="1dp">
 
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/edt_id"
@@ -42,6 +43,7 @@
         </com.google.android.material.textfield.TextInputLayout>
 
         <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/til_pass"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="10dp"
@@ -84,6 +86,7 @@
             android:layout_height="wrap_content"
             android:fontFamily="@font/montserrat_bold"
             android:text="Login"
+            android:enabled="false"
             android:textSize="16sp"
             android:textStyle="bold" />
     </LinearLayout>

@@ -3,12 +3,14 @@ package com.icha.layananpengaduanpa.ui.operator.beranda
 import android.widget.AdapterView
 import com.icha.layananpengaduanpa.R
 import android.annotation.SuppressLint
+import android.content.DialogInterface
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.icha.layananpengaduanpa.databinding.FragmentBerandaOperatorBinding
 import com.icha.layananpengaduanpa.helper.Helper
 import com.icha.layananpengaduanpa.helper.getCurrentDate
@@ -94,7 +96,6 @@ class BerandaOperatorFragment : Fragment() {
             }
 
             override fun onNothingSelected(p0: AdapterView<*>?) {
-                TODO("Not yet implemented")
             }
         }
     }
@@ -118,7 +119,7 @@ class BerandaOperatorFragment : Fragment() {
                     }
 
                     override fun onFailure(call: Call<ArrayList<ResponsePengaduan>>, t: Throwable) {
-                        println(t.message)
+                        Toast.makeText(context, "Tidak berhasil menampilkan jumlah data", Toast.LENGTH_SHORT).show()
                     }
                 })
 
@@ -138,7 +139,7 @@ class BerandaOperatorFragment : Fragment() {
                     }
 
                     override fun onFailure(call: Call<ArrayList<ResponsePengaduan>>, t: Throwable) {
-                        println(t.message)
+                        Toast.makeText(context, "Tidak berhasil menampilkan jumlah data", Toast.LENGTH_SHORT).show()
                     }
                 })
     }
@@ -163,7 +164,7 @@ class BerandaOperatorFragment : Fragment() {
                     }
 
                     override fun onFailure(call: Call<ArrayList<ResponsePengaduan>>, t: Throwable) {
-                        println(t.message)
+                        Toast.makeText(context, "Tidak berhasil menampilkan jumlah data", Toast.LENGTH_SHORT).show()
                     }
                 })
 
@@ -183,7 +184,7 @@ class BerandaOperatorFragment : Fragment() {
                     }
 
                     override fun onFailure(call: Call<ArrayList<ResponsePengaduan>>, t: Throwable) {
-                        println(t.message)
+                        Toast.makeText(context, "Tidak berhasil menampilkan jumlah data", Toast.LENGTH_SHORT).show()
                     }
                 })
     }

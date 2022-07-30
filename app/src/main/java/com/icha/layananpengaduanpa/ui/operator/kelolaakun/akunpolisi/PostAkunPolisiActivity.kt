@@ -3,6 +3,8 @@ package com.icha.layananpengaduanpa.ui.operator.kelolaakun.akunpolisi
 import android.content.DialogInterface
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.text.Editable
+import android.text.TextWatcher
 import android.view.View
 import android.widget.AdapterView
 import android.widget.Toast
@@ -43,8 +45,8 @@ class PostAkunPolisiActivity : AppCompatActivity() {
                 .show()
 
         spinnerKecamatan()
-        cekOpsiAkun()
-
+        binding.edtNama.addTextChangedListener(checkNull)
+        binding.edtNotelp.addTextChangedListener(checkNull)
         binding.btnPost.setOnClickListener {
             binding.progressBar.visibility = View.VISIBLE
             if (opsiAkun == "Polisi") {
@@ -55,9 +57,18 @@ class PostAkunPolisiActivity : AppCompatActivity() {
         }
     }
 
-    private fun cekOpsiAkun() {
+    private val checkNull = object: TextWatcher {
+        override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
+        }
 
+        override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
+            val nama: String = binding.edtNama.text.toString().trim()
+            val notelp : String = binding.edtNotelp.text.toString().trim()
+            binding.btnPost.isEnabled = !nama.isEmpty() && !notelp.isEmpty()
+        }
 
+        override fun afterTextChanged(p0: Editable?) {
+        }
     }
 
     private fun spinnerKecamatan() {
@@ -80,17 +91,15 @@ class PostAkunPolisiActivity : AppCompatActivity() {
         AdapterView.OnItemSelectedListener {
             override fun onItemSelected(p0: AdapterView<*>?, view: View?, position: Int, id: Long) {
                 opsiAkun = akunOpsi[position]
-                Toast.makeText(this@PostAkunPolisiActivity, opsiAkun, Toast.LENGTH_SHORT).show()
+//                Toast.makeText(this@PostAkunPolisiActivity, opsiAkun, Toast.LENGTH_SHORT).show()
                 if (opsiAkun == "Polisi") {
                     id_pengguna = helper.getRandomId(3, "polisi" )
-                    Toast.makeText(this@PostAkunPolisiActivity, id_pengguna, Toast.LENGTH_SHORT).show()
+//                    Toast.makeText(this@PostAkunPolisiActivity, id_pengguna, Toast.LENGTH_SHORT).show()
                     binding.edtId.setText(id_pengguna)
                 } else if (opsiAkun == "SPKT Polsek") {
                     id_pengguna = helper.getRandomId(3, "spkt" )
                     binding.edtId.setText(id_pengguna)
                 }
-
-
             }
 
             override fun onNothingSelected(p0: AdapterView<*>?) {
@@ -116,14 +125,11 @@ class PostAkunPolisiActivity : AppCompatActivity() {
 
             override fun onFailure(call: Call<SpktModel>, t: Throwable) {
                 Toast.makeText(this@PostAkunPolisiActivity, "Data SPKT gagal disimpan!", Toast.LENGTH_SHORT).show()
-                Toast.makeText(this@PostAkunPolisiActivity, "Message : ${t.message}", Toast.LENGTH_SHORT).show()
             }
         })
     }
 
     private fun tambahAkunPolisi() {
-        //yes/no dialog box
-
         ApiConfig.instance.tambahAkunPolisi(
                 id_pengguna,
                 binding.edtNama.text.toString(),
@@ -141,7 +147,6 @@ class PostAkunPolisiActivity : AppCompatActivity() {
 
             override fun onFailure(call: Call<PolisiModel>, t: Throwable) {
                 Toast.makeText(this@PostAkunPolisiActivity, "Data Polisi gagal disimpan!", Toast.LENGTH_SHORT).show()
-                Toast.makeText(this@PostAkunPolisiActivity, "Message : ${t.message}", Toast.LENGTH_SHORT).show()
             }
         })
     }

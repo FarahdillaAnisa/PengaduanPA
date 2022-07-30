@@ -69,9 +69,7 @@ class DetailLaporanActivity : AppCompatActivity() {
                     }
 
                     override fun onFailure(call: Call<ResponsePengaduan>, t: Throwable) {
-                        Toast.makeText(this@DetailLaporanActivity, "Kode : $kodeAduan", Toast.LENGTH_SHORT).show()
-                        val responseCode = t.message
-                        Toast.makeText(this@DetailLaporanActivity, responseCode, Toast.LENGTH_SHORT).show()
+                        Toast.makeText(this@DetailLaporanActivity, "Gagal Mengambil Data dengan Kode : $kodeAduan", Toast.LENGTH_SHORT).show()
                     }
                 })
             }

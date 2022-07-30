@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView
+<androidx.core.widget.NestedScrollView
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
@@ -49,7 +49,6 @@
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:backgroundTint="@android:color/transparent"
-                        android:editable="false"
                         android:enabled="false"
                         android:fontFamily="@font/montserrat_regular"
                         android:hint="ID SPKT" />
@@ -82,7 +81,6 @@
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:backgroundTint="@android:color/transparent"
-                        android:editable="false"
                         android:enabled="false"
                         android:fontFamily="@font/montserrat_regular"
                         android:hint="Satuan Wilayah"
@@ -114,6 +112,7 @@
                     android:insetTop="0dp"
                     android:insetBottom="0dp"
                     android:text="Perbaharui Akun"
+                    android:enabled="false"
                     android:textSize="16sp"
                     android:textStyle="bold"
                     app:cornerRadius="20dp" />
@@ -123,7 +122,9 @@
         <com.google.android.material.card.MaterialCardView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_margin="20dp"
+            android:layout_marginStart="20dp"
+            android:layout_marginEnd="20dp"
+            android:layout_marginBottom="20dp"
             app:cardCornerRadius="30dp"
             app:cardElevation="10dp"
             app:contentPadding="10dp">
@@ -157,6 +158,7 @@
                         android:backgroundTint="@android:color/transparent"
                         android:fontFamily="@font/montserrat_regular"
                         android:hint="Password"
+                        android:enabled="false"
                         android:inputType="textPassword" />
                 </com.google.android.material.textfield.TextInputLayout>
 
@@ -199,4 +201,4 @@
             </LinearLayout>
         </com.google.android.material.card.MaterialCardView>
     </LinearLayout>
-</ScrollView>
+</androidx.core.widget.NestedScrollView>

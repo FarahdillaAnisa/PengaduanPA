@@ -38,7 +38,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:fontFamily="@font/montserrat_regular"
-            android:text="Jenis Akun (Polisi / SPKT / Operator)"
+            android:text="Jenis Akun (Polisi / SPKT)"
             android:textSize="16sp" />
 
         <Spinner
@@ -72,6 +72,7 @@
                 android:backgroundTint="@color/cardview_light_background"
                 android:fontFamily="@font/montserrat_regular"
                 android:hint="ID Pengguna"
+                android:enabled="false"
                 android:inputType="textPersonName" />
         </com.google.android.material.textfield.TextInputLayout>
 
@@ -161,6 +162,7 @@
                 android:backgroundTint="@color/cardview_light_background"
                 android:fontFamily="@font/montserrat_regular"
                 android:hint="Password"
+                android:enabled="false"
                 android:inputType="textPassword" />
         </com.google.android.material.textfield.TextInputLayout>
 
@@ -170,6 +172,7 @@
             android:layout_height="wrap_content"
             android:fontFamily="@font/montserrat_bold"
             android:text="Tambah akun"
+            android:enabled="false"
             android:textSize="16sp"
             android:textStyle="bold" />
     </LinearLayout>

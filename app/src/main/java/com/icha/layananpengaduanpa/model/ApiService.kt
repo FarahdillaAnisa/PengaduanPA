@@ -138,6 +138,14 @@ import retrofit2.http.*
 //             @Field("pass_polisi") pass_polisi: String
      ): Call<PolisiModel>
 
+     //edit password polisi
+     @FormUrlEncoded
+     @PUT("api/polisi/updatePasswordPolisi")
+     fun editPassPolisi(
+             @Field("id_polisi") id_polisi: String,
+             @Field("pass_polisi") pass_polisi: String,
+     ): Call<PolisiModel>
+
      //get Akun Spkt
      @GET("api/spktpolsek")
      fun getAkunSpkt(@Query("id_spkt") id_spkt: String? = null): Call<ArrayList<SpktModel>>

@@ -63,6 +63,7 @@
                 android:id="@+id/btn_cari_aduan"
                 android:text="@string/cari_aduan"
                 style="@style/Button.ButtonDivide"
+                android:enabled="false"
                 android:fontFamily="@font/montserrat_bold"/>
 
             <com.google.android.material.button.MaterialButton
@@ -193,12 +194,14 @@
                 style="@style/Button.ButtonDivide"
                 android:backgroundTint="@color/info"
                 android:fontFamily="@font/montserrat_bold"
+                android:enabled="false"
                 android:text="@string/lokasi" />
 
             <com.google.android.material.button.MaterialButton
                 android:id="@+id/btn_kontak_pelapor"
                 style="@style/Button.ButtonDivide"
                 android:backgroundTint="@color/danger"
+                android:enabled="false"
                 android:fontFamily="@font/montserrat_bold"
                 android:text="@string/kontak_pelapor" />
         </LinearLayout>

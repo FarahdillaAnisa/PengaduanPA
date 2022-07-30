@@ -3,6 +3,8 @@ package com.icha.layananpengaduanpa.ui.polisi.akun
 import android.annotation.SuppressLint
 import android.graphics.Color
 import android.os.Bundle
+import android.text.Editable
+import android.text.TextWatcher
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -41,8 +43,47 @@ class AkunPolisiFragment : Fragment() {
         val idPolisi: String = polisi.get(SessionManager.KEY_ID)!!
         detailAkun(idPolisi)
 
+        binding.edtNama.addTextChangedListener(checkNull)
+        binding.edtNotelp.addTextChangedListener(checkNull)
         binding.btnUpdate.setOnClickListener {
             updateSpkt(idPolisi)
+        }
+
+        binding.btnUpdatePass.setOnClickListener {
+            if (validasiPassword() == true) {
+                updatePassPolisi(idPolisi)
+            }
+        }
+    }
+
+    private fun updatePassPolisi(id: String) {
+        ApiConfig.instance.editPassPolisi(
+                id,
+                binding.edtPassword.text.toString()
+        ).enqueue(object : Callback<PolisiModel> {
+            override fun onResponse(call: Call<PolisiModel>, response: Response<PolisiModel>) {
+                if (response.isSuccessful) {
+                    Toast.makeText(context, "Password Akun $id berhasil diperbaharui", Toast.LENGTH_SHORT).show()
+                }
+            }
+
+            override fun onFailure(call: Call<PolisiModel>, t: Throwable) {
+                Toast.makeText(context, "Password Akun $id gagal diperbaharui", Toast.LENGTH_SHORT).show()
+            }
+        })
+    }
+
+    private val checkNull = object: TextWatcher {
+        override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
+        }
+
+        override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
+            val nama: String = binding.edtNama.text.toString().trim()
+            val notelp : String = binding.edtNotelp.text.toString().trim()
+            binding.btnUpdate.isEnabled = !nama.isEmpty() && !notelp.isEmpty()
+        }
+
+        override fun afterTextChanged(p0: Editable?) {
         }
     }
 

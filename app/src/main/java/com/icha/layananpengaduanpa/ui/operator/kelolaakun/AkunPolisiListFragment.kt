@@ -53,7 +53,6 @@ class AkunPolisiListFragment(val role_user : String) : Fragment() {
                             listSpkt.addAll(it)
                             Log.d("SPKT", listSpkt.toString())
                         }
-//                        showRecyclerListAkun()
                         binding.rvPolisi.layoutManager = LinearLayoutManager(requireContext())
                         binding.rvPolisi.setHasFixedSize(true)
                         val akunAdapter = KelolaSpktAdapter(listSpkt)
@@ -66,10 +65,8 @@ class AkunPolisiListFragment(val role_user : String) : Fragment() {
                     }
 
                     override fun onFailure(call: Call<ArrayList<SpktModel>>, t: Throwable) {
-                        val responseCode = t.message
-                        Toast.makeText(context, responseCode, Toast.LENGTH_SHORT).show()
+                        Toast.makeText(context, "Tidak berhasil menampilkan data", Toast.LENGTH_SHORT).show()
                     }
-
                 })
     }
 
@@ -82,7 +79,6 @@ class AkunPolisiListFragment(val role_user : String) : Fragment() {
                             listPolisi.addAll(it)
                             Log.d("POLISI", listPolisi.toString())
                         }
-//                        showRecyclerListAkun()
                         binding.rvPolisi.layoutManager = LinearLayoutManager(requireContext())
                         binding.rvPolisi.setHasFixedSize(true)
                         val akunAdapter = KelolaAkunAdapter(listPolisi)
@@ -97,8 +93,7 @@ class AkunPolisiListFragment(val role_user : String) : Fragment() {
                     }
 
                     override fun onFailure(call: Call<ArrayList<PolisiModel>>, t: Throwable) {
-                        val responseCode = t.message
-                        Toast.makeText(context, responseCode, Toast.LENGTH_SHORT).show()
+                        Toast.makeText(context, "Tidak berhasil menampilkan data", Toast.LENGTH_SHORT).show()
                     }
                 })
     }

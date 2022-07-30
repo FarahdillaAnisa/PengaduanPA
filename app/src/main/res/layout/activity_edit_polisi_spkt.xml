@@ -51,7 +51,6 @@
                     android:layout_height="match_parent"
                     android:backgroundTint="@color/cardview_light_background"
                     android:enabled="false"
-                    android:editable="false"
                     android:fontFamily="@font/montserrat_regular"
                     android:hint="ID Pengguna"
                     android:inputType="textPersonName" />
@@ -86,7 +85,6 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:backgroundTint="@color/cardview_light_background"
-                    android:editable="false"
                     android:enabled="false"
                     android:fontFamily="@font/montserrat_regular"
                     android:hint="Satuan Wilayah"
@@ -116,14 +114,13 @@
                 android:layout_marginBottom="10dp"
                 app:boxStrokeColor="@color/primaryColor"
                 app:boxStrokeWidth="1dp"
-                app:passwordToggleEnabled="true">
+                app:passwordToggleEnabled="true"
+                android:visibility="gone">
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/edt_password"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:enabled="false"
-                    android:editable="false"
                     android:backgroundTint="@color/cardview_light_background"
                     android:fontFamily="@font/montserrat_regular"
                     android:hint="Password"
@@ -136,6 +133,7 @@
                 android:layout_height="wrap_content"
                 android:fontFamily="@font/montserrat_bold"
                 android:text="Perbaharui akun"
+                android:enabled="false"
                 android:textSize="16sp"
                 android:textStyle="bold" />
         </LinearLayout>

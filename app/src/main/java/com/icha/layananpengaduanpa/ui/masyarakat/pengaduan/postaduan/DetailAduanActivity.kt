@@ -80,20 +80,13 @@ class DetailAduanActivity : AppCompatActivity() {
                     override fun onFailure(call: Call<ResponsePengaduan>, t: Throwable) {
                         Toast.makeText(this@DetailAduanActivity, "Kode : $kodeAduan", Toast.LENGTH_SHORT).show()
                         val responseCode = t.message
-                        Toast.makeText(this@DetailAduanActivity, responseCode, Toast.LENGTH_SHORT).show()
+                        Toast.makeText(this@DetailAduanActivity, "Gagal Mengambil Data", Toast.LENGTH_SHORT).show()
                     }
                 })
             }
         }
 
         binding.lokasiBtn.setOnClickListener {
-//            val gmmIntentUri = Uri.parse("geo:0.522737, 101.431?z=21")
-//            val mapIntent = Intent(Intent.ACTION_VIEW, gmmIntentUri)
-//            mapIntent.setPackage("com.google.android.apps.maps")
-//            mapIntent.resolveActivity(packageManager)?.let {
-//                startActivity(mapIntent)
-//            }
-
             val intent = Intent(this, MapsActivity::class.java)
             intent.putExtra(EXTRA_LOCATION_LATITUDE, latitude)
             intent.putExtra(EXTRA_LOCATION_LONGITUDE, longitude)

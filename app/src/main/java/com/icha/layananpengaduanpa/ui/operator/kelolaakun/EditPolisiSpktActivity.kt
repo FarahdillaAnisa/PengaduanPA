@@ -2,6 +2,8 @@ package com.icha.layananpengaduanpa.ui.operator.kelolaakun
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.text.Editable
+import android.text.TextWatcher
 import android.view.View
 import android.widget.Toast
 import com.icha.layananpengaduanpa.R
@@ -20,7 +22,6 @@ class EditPolisiSpktActivity : AppCompatActivity() {
     }
 
     private lateinit var binding: ActivityEditPolisiSpktBinding
-    private var isEdit = false
     private var role : String? = ""
     private var id_akun: String? = ""
     private var kecamatan: String? = ""
@@ -46,6 +47,8 @@ class EditPolisiSpktActivity : AppCompatActivity() {
                 }
             }
         }
+        binding.edtNama.addTextChangedListener(checkNull)
+        binding.edtNotelp.addTextChangedListener(checkNull)
 
         binding.btnPost.setOnClickListener {
             binding.progressBar.visibility = View.VISIBLE
@@ -54,6 +57,20 @@ class EditPolisiSpktActivity : AppCompatActivity() {
             } else if (role == "spkt") {
                 editAkunSpkt()
             }
+        }
+    }
+
+    private val checkNull = object: TextWatcher {
+        override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
+        }
+
+        override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
+            val nama: String = binding.edtNama.text.toString().trim()
+            val notelp : String = binding.edtNotelp.text.toString().trim()
+            binding.btnPost.isEnabled = !nama.isEmpty() && !notelp.isEmpty()
+        }
+
+        override fun afterTextChanged(p0: Editable?) {
         }
     }
 
@@ -92,7 +109,6 @@ class EditPolisiSpktActivity : AppCompatActivity() {
                                 binding.edtNama.setText(data.unameSpkt)
                                 binding.edtNotelp.setText(data.notelpSpkt)
                                 binding.edtSatwil.setText(data.satuanWilayah)
-                                binding.edtPassword.setText(data.pass_awal)
                             }
                         } else {
                             Toast.makeText(this@EditPolisiSpktActivity, "Gagal Mengambil Data", Toast.LENGTH_SHORT).show()
@@ -119,7 +135,6 @@ class EditPolisiSpktActivity : AppCompatActivity() {
                                 binding.edtNama.setText(data.namaPolisi)
                                 binding.edtNotelp.setText(data.notelpPolisi)
                                 binding.edtSatwil.setText(data.satuanWilayah)
-                                binding.edtPassword.setText(data.pass_awal)
                             }
                         } else {
                             Toast.makeText(this@EditPolisiSpktActivity, "Gagal Mengambil Data", Toast.LENGTH_SHORT).show()

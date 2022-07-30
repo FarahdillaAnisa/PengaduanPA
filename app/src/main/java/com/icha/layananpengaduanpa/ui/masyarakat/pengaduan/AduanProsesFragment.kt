@@ -1,27 +1,21 @@
 package com.icha.layananpengaduanpa.ui.masyarakat.pengaduan
 
-import android.app.Application
-import android.app.SearchManager
 import android.content.DialogInterface
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.view.*
-import android.widget.AdapterView
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.widget.SearchView
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.icha.layananpengaduanpa.R
 import com.icha.layananpengaduanpa.databinding.FragmentAduanProsesBinding
-import com.icha.layananpengaduanpa.model.AduanCount
 import com.icha.layananpengaduanpa.model.ApiConfig
 import com.icha.layananpengaduanpa.model.ResponsePengaduan
 import com.icha.layananpengaduanpa.session.SessionManager
-import com.icha.layananpengaduanpa.ui.login.SignupActivity
 import com.icha.layananpengaduanpa.ui.masyarakat.pengaduan.postaduan.DetailAduanActivity
 import com.icha.layananpengaduanpa.ui.spktpolsek.pengaduan.DetailAduanSpktActivity
 import retrofit2.Call
@@ -132,30 +126,6 @@ class AduanProsesFragment() : Fragment() {
             val mDialog = mBuilder.create()
             mDialog.show()
         }
-
-//            MaterialAlertDialogBuilder(requireContext())
-//                    .setTitle("Sortir Aduan Berdasarkan Kecamatan")
-//                    .setMessage("Silahkan Pilih Salah Satu Kecamatan")
-//                    .setSingleChoiceItems(kecamatan, -1, DialogInterface.OnClickListener(){
-//
-//                    }
-//                        filterKecamatan = kecamatan[i]
-//                        dialogInterface.dismiss()
-//                    }
-//                    .setPositiveButton("OK", object : DialogInterface.OnClickListener{
-//                        override fun onClick(p0: DialogInterface?, p1: Int) {
-//                            listAduan.clear()
-//                            getAduanSpkt(filterKecamatan)
-//                            rvAduan.adapter!!.notifyDataSetChanged()
-//                        }
-//                    })
-//                    .setNeutralButton("BATAL", object : DialogInterface.OnClickListener {
-//                        override fun onClick(p0: DialogInterface?, p1: Int) {
-//                        }
-//                    })
-//                    .create()
-//                    .show()
-
     }
 
     private fun getAduanOperator() {
@@ -168,8 +138,7 @@ class AduanProsesFragment() : Fragment() {
                     }
 
                     override fun onFailure(call: Call<ArrayList<ResponsePengaduan>>, t: Throwable) {
-                        val responseCode = t.message
-                        Toast.makeText(context, responseCode, Toast.LENGTH_SHORT).show()
+                        Toast.makeText(context, "Tidak berhasil menampilkan data aduan", Toast.LENGTH_SHORT).show()
                     }
                 })
     }
@@ -179,14 +148,12 @@ class AduanProsesFragment() : Fragment() {
                 .enqueue(object : Callback<ArrayList<ResponsePengaduan>> {
                     override fun onResponse(call: Call<ArrayList<ResponsePengaduan>>, response: Response<ArrayList<ResponsePengaduan>>) {
                         binding.progressBar.visibility = View.GONE
-//                        val data = response.body().data
                         response.body()?.let { listAduan.addAll(it) }
                         showRecyclerListAduan()
                     }
 
                     override fun onFailure(call: Call<ArrayList<ResponsePengaduan>>, t: Throwable) {
-                        val responseCode = t.message
-                        Toast.makeText(getContext(), responseCode, Toast.LENGTH_SHORT).show()
+                        Toast.makeText(context, "Tidak berhasil menampilkan data aduan", Toast.LENGTH_SHORT).show()
                     }
                 })
     }
@@ -200,8 +167,7 @@ class AduanProsesFragment() : Fragment() {
             }
 
             override fun onFailure(call: Call<ArrayList<ResponsePengaduan>>, t: Throwable) {
-                val responseCode = t.message
-                Toast.makeText(getContext(), responseCode, Toast.LENGTH_SHORT).show()
+                Toast.makeText(context, "Tidak berhasil menampilkan data aduan", Toast.LENGTH_SHORT).show()
             }
         })
     }
@@ -217,8 +183,7 @@ class AduanProsesFragment() : Fragment() {
                     }
 
                     override fun onFailure(call: Call<ArrayList<ResponsePengaduan>>, t: Throwable) {
-                        val responseCode = t.message
-                        Toast.makeText(context, responseCode, Toast.LENGTH_SHORT).show()
+                        Toast.makeText(context, "Tidak berhasil menampilkan data aduan", Toast.LENGTH_SHORT).show()
                     }
                 })
     }

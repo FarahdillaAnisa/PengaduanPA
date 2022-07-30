@@ -83,6 +83,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:padding="10dp"
+                android:enabled="false"
                 android:fontFamily="@font/montserrat_regular"
                 />
 
@@ -137,6 +138,7 @@
                 android:layout_height="wrap_content"
                 android:fontFamily="@font/montserrat_bold"
                 android:text="BUAT PENGADUAN"
+                android:enabled="false"
                 android:textSize="16dp"
                 android:layout_gravity="center"/>
         </LinearLayout>

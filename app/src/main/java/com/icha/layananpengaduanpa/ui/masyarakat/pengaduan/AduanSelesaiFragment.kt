@@ -139,8 +139,7 @@ class AduanSelesaiFragment() : Fragment() {
                     }
 
                     override fun onFailure(call: Call<ArrayList<ResponsePengaduan>>, t: Throwable) {
-                        val responseCode = t.message
-                        Toast.makeText(getContext(), responseCode, Toast.LENGTH_SHORT).show()
+                        Toast.makeText(context, "Tidak berhasil menampilkan data aduan", Toast.LENGTH_SHORT).show()
                     }
                 })
     }
@@ -155,8 +154,7 @@ class AduanSelesaiFragment() : Fragment() {
                     }
 
                     override fun onFailure(call: Call<ArrayList<ResponsePengaduan>>, t: Throwable) {
-                        val responseCode = t.message
-                        Toast.makeText(getContext(), responseCode, Toast.LENGTH_SHORT).show()
+                        Toast.makeText(context, "Tidak berhasil menampilkan data aduan", Toast.LENGTH_SHORT).show()
                     }
                 })
     }
@@ -170,8 +168,7 @@ class AduanSelesaiFragment() : Fragment() {
             }
 
             override fun onFailure(call: Call<ArrayList<ResponsePengaduan>>, t: Throwable) {
-                val responseCode = t.message.toString()
-                Toast.makeText(getContext(), responseCode, Toast.LENGTH_SHORT).show()
+                Toast.makeText(context, "Tidak berhasil menampilkan data aduan", Toast.LENGTH_SHORT).show()
             }
         })
     }
@@ -187,8 +184,7 @@ class AduanSelesaiFragment() : Fragment() {
                     }
 
                     override fun onFailure(call: Call<ArrayList<ResponsePengaduan>>, t: Throwable) {
-                        val responseCode = t.message
-                        Toast.makeText(context, responseCode, Toast.LENGTH_SHORT).show()
+                        Toast.makeText(context, "Tidak berhasil menampilkan data aduan", Toast.LENGTH_SHORT).show()
                     }
                 })
     }

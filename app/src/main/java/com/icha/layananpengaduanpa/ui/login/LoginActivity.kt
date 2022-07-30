@@ -1,6 +1,5 @@
 package com.icha.layananpengaduanpa.ui.login
 
-import android.app.Activity
 import android.content.DialogInterface
 import android.content.Intent
 import android.os.Bundle
@@ -52,33 +51,26 @@ class LoginActivity : AppCompatActivity() {
             .show()
 
         spinnerOpsiLogin()
-//        validasiFieldNotNull()
-        checkField
+        binding.edtId.addTextChangedListener(checkNull)
+        binding.edtPass.addTextChangedListener(checkNull)
         binding.loginbtn.setOnClickListener {
             binding.progressBar.visibility = View.VISIBLE
             userLogin(opsiLogin)
         }
     }
 
-    private val checkField = object : TextWatcher {
+    private val checkNull = object: TextWatcher {
         override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
-            TODO("Not yet implemented")
         }
 
         override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
-            val id: String = binding.edtId.toString().trim()
-            val password : String = binding.edtPass.toString().trim()
-            if (id.isEmpty() && password.isEmpty()) {
-                binding.loginbtn.isEnabled = false
-            } else {
-                binding.loginbtn.isEnabled = true
-            }
+            val id: String = binding.edtId.text.toString().trim()
+            val password : String = binding.edtPass.text.toString().trim()
+            binding.loginbtn.isEnabled = !id.isEmpty() && !password.isEmpty()
         }
 
         override fun afterTextChanged(p0: Editable?) {
-            TODO("Not yet implemented")
         }
-
     }
 
     private fun checkLogin(role_user : String) {
@@ -130,15 +122,6 @@ class LoginActivity : AppCompatActivity() {
             loginSpkt("Spkt")
         } else if (opsi.equals("Operator")) {
             loginOperator("Operator")
-        }
-    }
-
-    private fun validasiFieldNotNull() {
-
-        if (binding.edtId.text.toString().equals("") && binding.edtPass.text.toString().equals("")) {
-            binding.loginbtn.isEnabled = false
-        } else {
-            binding.loginbtn.isEnabled = true
         }
     }
 

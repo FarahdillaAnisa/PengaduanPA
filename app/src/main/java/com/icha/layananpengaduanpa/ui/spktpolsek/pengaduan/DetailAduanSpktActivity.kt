@@ -77,9 +77,7 @@ class DetailAduanSpktActivity : AppCompatActivity() {
                     }
 
                     override fun onFailure(call: Call<ResponsePengaduan>, t: Throwable) {
-                        Toast.makeText(this@DetailAduanSpktActivity, "Kode : $kodeAduan", Toast.LENGTH_SHORT).show()
-                        val responseCode = t.message
-                        Toast.makeText(this@DetailAduanSpktActivity, responseCode, Toast.LENGTH_SHORT).show()
+                        Toast.makeText(this@DetailAduanSpktActivity, "Gagal Mengambil Data Kode : $kodeAduan", Toast.LENGTH_SHORT).show()
                     }
                 })
             }

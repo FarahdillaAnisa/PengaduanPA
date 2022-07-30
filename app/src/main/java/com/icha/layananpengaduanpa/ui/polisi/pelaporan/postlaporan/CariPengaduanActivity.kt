@@ -1,14 +1,18 @@
 package com.icha.layananpengaduanpa.ui.polisi.pelaporan.postlaporan
 
+import android.content.DialogInterface
 import android.content.Intent
 import android.net.Uri
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.text.Editable
+import android.text.TextWatcher
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
 import android.widget.AdapterView
 import android.widget.Toast
+import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.icha.layananpengaduanpa.R
 import com.icha.layananpengaduanpa.databinding.ActivityCariPengaduanBinding
 import com.icha.layananpengaduanpa.model.ApiConfig
@@ -34,18 +38,35 @@ class CariPengaduanActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = ActivityCariPengaduanBinding.inflate(layoutInflater)
         setContentView(binding.root)
-        supportActionBar?.setDisplayHomeAsUpEnabled(true)
+        supportActionBar?.setDisplayHomeAsUpEnabled(false)
+        supportActionBar?.setHomeButtonEnabled(false)
 
         spinnerOpsiKecamatan()
         session = SessionManager(applicationContext)
+        val polisi: HashMap<String, String> = session.getUserDetails()
+        val satwil: String = polisi.get(SessionManager.KEY_SATWIL)!!
 
+        binding.txtKodeAduan.addTextChangedListener(checkNull)
         binding.btnCariAduan.setOnClickListener {
             binding.progressBar.visibility = View.VISIBLE
             cariAduan()
         }
 
         binding.btnTambahLaporan.setOnClickListener {
-            tambahLaporan(kode_aduan)
+            tambahLaporan(kode_aduan, satwil)
+        }
+    }
+
+    private val checkNull = object: TextWatcher {
+        override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
+        }
+
+        override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
+            val kodeAduan: String = binding.txtKodeAduan.text.toString().trim()
+            binding.btnCariAduan.isEnabled = !kodeAduan.isEmpty()
+        }
+
+        override fun afterTextChanged(p0: Editable?) {
         }
     }
 
@@ -58,18 +79,21 @@ class CariPengaduanActivity : AppCompatActivity() {
             }
 
             override fun onNothingSelected(p0: AdapterView<*>?) {
-                TODO("Not yet implemented")
             }
         }
     }
 
-    private fun tambahLaporan(kodeAduan : String) {
+    private fun tambahLaporan(kodeAduan: String, satwil: String) {
         if (status == true){
-            val intent = Intent(this, PostPelaporanActivity::class.java)
-            intent.putExtra(PostPelaporanActivity.EXTRA_KODE_ADUAN, kodeAduan)
-            startActivity(intent)
+            if (satwil == opsiKecamatan) {
+                val intent = Intent(this, PostPelaporanActivity::class.java)
+                intent.putExtra(PostPelaporanActivity.EXTRA_KODE_ADUAN, kodeAduan)
+                startActivity(intent)
+            } else {
+                dialogBox("Perhatian!", "Satuan Wilayah anda berbeda dengan Kecamatan Pengaduan")
+            }
         } else {
-            Toast.makeText(this@CariPengaduanActivity, "Tidak ada data aduan", Toast.LENGTH_SHORT).show()
+            dialogBox("Perhatian!", "Silahkan Cari Aduan Terlebih Dahulu")
         }
     }
 
@@ -92,7 +116,7 @@ class CariPengaduanActivity : AppCompatActivity() {
                             status = true
                         }
                     } else {
-                        Toast.makeText(this@CariPengaduanActivity, "Data Aduan : ${kode_aduan} sudah ditindaklanjuti", Toast.LENGTH_SHORT).show()
+                        dialogBox("Perhatian!", "Data Aduan : ${kode_aduan} sudah ditindaklanjuti")
                         binding.btnTambahLaporan.isEnabled = false
                         status = false
                         dataAduan.let {
@@ -110,9 +134,7 @@ class CariPengaduanActivity : AppCompatActivity() {
             }
 
             override fun onFailure(call: Call<ResponsePengaduan>, t: Throwable) {
-                Toast.makeText(this@CariPengaduanActivity, "Kode : $kode_aduan", Toast.LENGTH_SHORT).show()
-                val responseCode = t.message
-                Toast.makeText(this@CariPengaduanActivity, responseCode, Toast.LENGTH_SHORT).show()
+                Toast.makeText(this@CariPengaduanActivity, "Gagal Mengambil Data dengan Kode : $kode_aduan", Toast.LENGTH_SHORT).show()
             }
         })
 
@@ -132,6 +154,8 @@ class CariPengaduanActivity : AppCompatActivity() {
                             val dataAkun = response.body()
                             dataAkun?.let { data ->
                                 binding.tvDataNamaPelapor.setText("$idMsyFk - ${data.namaMsy}" )
+                                binding.btnKontakPelapor.isEnabled = true
+                                binding.btnLokasiAduan.isEnabled = true
                                 binding.tvNotelpPelapor.setText(data.notelpMsy)
                                 binding.btnKontakPelapor.setOnClickListener {
                                     val intent = Intent(Intent.ACTION_DIAL, Uri.parse("tel:" + Uri.encode(data.notelpMsy)))
@@ -156,14 +180,20 @@ class CariPengaduanActivity : AppCompatActivity() {
             R.id.action_simpan -> {
                 val kode_aduan = binding.txtKodeAduan.text.toString()
                 session.simpanDataAduan(kode_aduan, opsiKecamatan)
-                Toast.makeText(this, "Lihat Data Tersimpan di Beranda", Toast.LENGTH_SHORT).show()
+                dialogBox("Perhatian!", "Lihat Data Tersimpan di Beranda")
             }
         }
         return true
     }
 
-//    override fun onSupportNavigateUp(): Boolean {
-//        onBackPressed()
-//        return super.onSupportNavigateUp()
-//    }
+    private fun dialogBox(title: String, message: String) {
+        MaterialAlertDialogBuilder(this)
+                .setTitle(title)
+                .setMessage(message)
+                .setNeutralButton("Lanjutkan", object : DialogInterface.OnClickListener{
+                    override fun onClick(p0: DialogInterface?, p1: Int) {
+                    }
+                })
+                .show()
+    }
 }

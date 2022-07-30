@@ -13,6 +13,8 @@ import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.provider.Settings
+import android.text.Editable
+import android.text.TextWatcher
 import android.util.Log
 import android.view.View
 import android.widget.Toast
@@ -68,7 +70,7 @@ class PostPelaporanActivity : AppCompatActivity(), LocationListener {
             })
             .show()
         refreshPage()
-
+        binding.txtIsiLaporan.addTextChangedListener(checkNull)
         binding.btnAddLaporan.setOnClickListener {
             binding.progressBar.visibility = View.VISIBLE
             val bundle : Bundle? = intent.extras
@@ -82,6 +84,19 @@ class PostPelaporanActivity : AppCompatActivity(), LocationListener {
         }
 
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
+    }
+
+    private val checkNull = object: TextWatcher {
+        override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
+        }
+
+        override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
+            val isiLaporan: String = binding.txtIsiLaporan.text.toString().trim()
+            binding.btnAddLaporan.isEnabled = !isiLaporan.isEmpty()
+        }
+
+        override fun afterTextChanged(p0: Editable?) {
+        }
     }
 
     private fun refreshPage() {
@@ -106,15 +121,14 @@ class PostPelaporanActivity : AppCompatActivity(), LocationListener {
         ).enqueue(object : Callback<ResponsePengaduan> {
             override fun onResponse(call: Call<ResponsePengaduan>, response: Response<ResponsePengaduan>) {
                 binding.progressBar.visibility = View.GONE
-                Toast.makeText(applicationContext, "Laporan $kodeAduan : $idPolisi - ${binding.txtIsiLaporan.text.toString()}" +
-                        "${helper.saveCurrentDate()} telah berhasil disimpan!", Toast.LENGTH_SHORT).show()
+                dialogBox("Tambah Laporan Baru", "Laporan $kodeAduan : $idPolisi - ${binding.txtIsiLaporan.text.toString()} " +
+                        "${helper.saveCurrentDate()} telah berhasil disimpan!")
 //                val intent  = Intent(this@PostPelaporanActivity, PelaporanFragment::class.java)
 //                startActivity(intent)
             }
 
             override fun onFailure(call: Call<ResponsePengaduan>, t: Throwable) {
                 Toast.makeText(applicationContext, "Laporan ${kodeAduan} gagal disimpan!", Toast.LENGTH_SHORT).show()
-                Toast.makeText(applicationContext, "Message : ${t.message}", Toast.LENGTH_SHORT).show()
             }
         })
     }
@@ -178,11 +192,11 @@ class PostPelaporanActivity : AppCompatActivity(), LocationListener {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults)
         if (requestCode == PERMISSION_REQUEST_ACCESS_LOCATION) {
             if (grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-                Toast.makeText(this, "Permission Granted", Toast.LENGTH_SHORT).show()
+                Toast.makeText(this, "Izin Lokasi Diterima", Toast.LENGTH_SHORT).show()
                 getCurrentLocation()
             }
             else {
-                Toast.makeText(this, "Permission Denied", Toast.LENGTH_SHORT).show()
+                Toast.makeText(this, "Izin Lokasi Ditolak", Toast.LENGTH_SHORT).show()
             }
         }
     }
@@ -229,5 +243,16 @@ class PostPelaporanActivity : AppCompatActivity(), LocationListener {
     override fun onSupportNavigateUp(): Boolean {
         onBackPressed()
         return super.onSupportNavigateUp()
+    }
+
+    private fun dialogBox(title: String, message: String) {
+        MaterialAlertDialogBuilder(this)
+                .setTitle(title)
+                .setMessage(message)
+                .setNeutralButton("Lanjutkan", object : DialogInterface.OnClickListener{
+                    override fun onClick(p0: DialogInterface?, p1: Int) {
+                    }
+                })
+                .show()
     }
 }

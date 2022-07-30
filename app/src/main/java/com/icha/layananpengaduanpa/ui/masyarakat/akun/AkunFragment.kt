@@ -2,6 +2,8 @@ package com.icha.layananpengaduanpa.ui.masyarakat.akun
 
 import android.graphics.Color
 import android.os.Bundle
+import android.text.Editable
+import android.text.TextWatcher
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -37,6 +39,8 @@ class AkunFragment : Fragment() {
         val user: HashMap<String, String> = session.getUserDetails()
         val id: String = user.get(SessionManager.KEY_ID)!!
         binding.edtId.setText(id)
+        binding.edtNama.addTextChangedListener(checkNull)
+        binding.edtNotelp.addTextChangedListener(checkNull)
         detailAkun(id)
 
         binding.btnUpdate.setOnClickListener {
@@ -47,6 +51,20 @@ class AkunFragment : Fragment() {
                 updatePassAkun(id)
             }
 
+        }
+    }
+
+    private val checkNull = object: TextWatcher {
+        override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
+        }
+
+        override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
+            val nama: String = binding.edtNama.text.toString().trim()
+            val notelp: String = binding.edtNotelp.text.toString().trim()
+            binding.btnUpdate.isEnabled = !nama.isEmpty() && !notelp.isEmpty()
+        }
+
+        override fun afterTextChanged(p0: Editable?) {
         }
     }
 
@@ -123,7 +141,7 @@ class AkunFragment : Fragment() {
 
                 override fun onFailure(call: Call<MasyarakatModel>, t: Throwable) {
                     val responseCode = t.message
-                    Toast.makeText(context, responseCode, Toast.LENGTH_SHORT).show()
+                    Toast.makeText(context, "Gagal Menampilkan Data", Toast.LENGTH_SHORT).show()
                 }
             })
     }

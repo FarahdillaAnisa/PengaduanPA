@@ -7,6 +7,8 @@ import android.content.Intent
 import android.graphics.Color
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.text.Editable
+import android.text.TextWatcher
 import android.widget.Toast
 import com.icha.layananpengaduanpa.databinding.ActivitySignupBinding
 import com.icha.layananpengaduanpa.helper.Helper
@@ -29,20 +31,17 @@ class SignupActivity : AppCompatActivity() {
         setContentView(binding.root)
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
 
-        MaterialAlertDialogBuilder(this)
-                .setTitle("Perhatian!")
-                .setMessage("Halaman Signup ini hanya diperuntukkan" +
-                        "bagi masyarakat untuk mendaftarkan" +
-                        "akun baru")
-                .setNeutralButton("Lanjutkan", object : DialogInterface.OnClickListener{
-                    override fun onClick(p0: DialogInterface?, p1: Int) {
-                    }
-                })
-                .show()
+        dialogBox("Perhatian!", "Halaman Signup ini hanya diperuntukkan" +
+                "bagi masyarakat untuk mendaftarkan" +
+                "akun baru")
 
         val id_msy = helper.getRandomId(3, "masyarakat")
         binding.edtId.setText(id_msy)
-//        validasiFieldNotNull()
+
+        binding.edtNama.addTextChangedListener(checkNull)
+        binding.edtNotelp.addTextChangedListener(checkNull)
+        binding.edtPassword.addTextChangedListener(checkNull)
+
         binding.btnSignup.setOnClickListener {
             binding.progressBar.visibility = View.VISIBLE
             if (validasiPassword() == true){
@@ -50,14 +49,24 @@ class SignupActivity : AppCompatActivity() {
                 val clipboardManager = getSystemService(Context.CLIPBOARD_SERVICE) as android.content.ClipboardManager
                 val clipData = ClipData.newPlainText("text", id_msy)
                 clipboardManager.setPrimaryClip(clipData)
-                Toast.makeText(this, "ID Pengguna sudah disalin, silahkan gunakan saat masuk/login", Toast.LENGTH_SHORT).show()
+
+                dialogBox("Perhatian!", "ID Pengguna : $id_msy, Mohon diingat id pengguna beserta password untuk login, id pengguna telah disalin untuk login pertama kali")
             }
         }
     }
 
-    private fun validasiFieldNotNull() {
-        if (binding.edtId.text!!.equals("") && binding.edtNama.text!!.equals("") && binding.edtNotelp.text!!.equals("")) {
-            binding.btnSignup.isEnabled = false
+    private val checkNull = object: TextWatcher {
+        override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
+        }
+
+        override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
+            val nama: String = binding.edtNama.text.toString().trim()
+            val notelp: String = binding.edtNotelp.text.toString().trim()
+            val password : String = binding.edtPassword.text.toString().trim()
+            binding.btnSignup.isEnabled = !nama.isEmpty() && !password.isEmpty() && !notelp.isEmpty()
+        }
+
+        override fun afterTextChanged(p0: Editable?) {
         }
     }
 
@@ -83,7 +92,6 @@ class SignupActivity : AppCompatActivity() {
                 id_msy,
                 binding.edtNama.text.toString(),
                 binding.edtNotelp.text.toString(),
-//                    binding.edtUname.text.toString(),
                 binding.edtPassword.text.toString()
         ).enqueue(object : Callback<MasyarakatModel> {
             override fun onResponse(call: Call<MasyarakatModel>, response: Response<MasyarakatModel>) {
@@ -95,7 +103,6 @@ class SignupActivity : AppCompatActivity() {
 
             override fun onFailure(call: Call<MasyarakatModel>, t: Throwable) {
                 Toast.makeText(this@SignupActivity, "Data user gagal disimpan!", Toast.LENGTH_SHORT).show()
-                Toast.makeText(this@SignupActivity, "Message : ${t.message}", Toast.LENGTH_SHORT).show()
             }
         })
     }
@@ -103,6 +110,17 @@ class SignupActivity : AppCompatActivity() {
     override fun onSupportNavigateUp(): Boolean {
         onBackPressed()
         return super.onSupportNavigateUp()
+    }
+
+    private fun dialogBox(title: String, message: String) {
+        MaterialAlertDialogBuilder(this)
+                .setTitle(title)
+                .setMessage(message)
+                .setNeutralButton("Lanjutkan", object : DialogInterface.OnClickListener{
+                    override fun onClick(p0: DialogInterface?, p1: Int) {
+                    }
+                })
+                .show()
     }
 
 }

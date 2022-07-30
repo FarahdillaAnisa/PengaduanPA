@@ -1,6 +1,7 @@
 package com.icha.layananpengaduanpa.ui.masyarakat.pengaduan.postaduan
 
 import android.annotation.SuppressLint
+import android.content.DialogInterface
 import android.content.Intent
 import android.net.Uri
 import androidx.appcompat.app.AppCompatActivity
@@ -9,6 +10,7 @@ import android.view.Menu
 import android.view.MenuItem
 import android.webkit.WebView
 import android.webkit.WebViewClient
+import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.icha.layananpengaduanpa.R
 
 class MapsActivity : AppCompatActivity() {
@@ -25,7 +27,17 @@ class MapsActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_maps)
-        supportActionBar?.setDisplayHomeAsUpEnabled(true)
+        supportActionBar?.setDisplayHomeAsUpEnabled(false)
+        supportActionBar?.setHomeButtonEnabled(false)
+
+        MaterialAlertDialogBuilder(this)
+                .setTitle("Perhatian!")
+                .setMessage("Jika aplikasi gagal menampilkan maps, silahkan tekan tombol dengan icon lokasi di kanan atas untuk mengarahkan ke google maps")
+                .setNeutralButton("Lanjutkan", object : DialogInterface.OnClickListener{
+                    override fun onClick(p0: DialogInterface?, p1: Int) {
+                    }
+                })
+                .show()
 
         val bundle : Bundle? = intent.extras
         if (bundle?.containsKey(EXTRA_LOCATION_LATITUDE)!! && bundle.containsKey(EXTRA_LOCATION_LONGITUDE)) {
@@ -59,8 +71,4 @@ class MapsActivity : AppCompatActivity() {
         return true
     }
 
-//    override fun onSupportNavigateUp(): Boolean {
-//        onBackPressed()
-//        return super.onSupportNavigateUp()
-//    }
 }

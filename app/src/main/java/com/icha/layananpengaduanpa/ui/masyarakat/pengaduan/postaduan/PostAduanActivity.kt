@@ -12,6 +12,8 @@ import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.provider.Settings
+import android.text.Editable
+import android.text.TextWatcher
 import android.text.method.ScrollingMovementMethod
 import android.util.Log
 import android.view.View
@@ -69,7 +71,7 @@ class PostAduanActivity : AppCompatActivity(), LocationListener {
         getLokasi()
 
         dialogBox("Perhatian!", "Jika koordinat tidak muncul" +
-                " silahkan swipe kebawah untuk refresh halaman")
+                " silahkan usap layar kebawah untuk refresh halaman")
 
         refreshPage()
         binding.txtIsiAduan.movementMethod = ScrollingMovementMethod()
@@ -87,13 +89,12 @@ class PostAduanActivity : AppCompatActivity(), LocationListener {
         binding.subdistrictSpinner.onItemSelectedListener = object :
             AdapterView.OnItemSelectedListener {
             override fun onItemSelected(parent: AdapterView<*>, view: View, position: Int, id: Long) {
-                Toast.makeText(this@PostAduanActivity, subdistrictArray[position], Toast.LENGTH_SHORT).show()
+//                Toast.makeText(this@PostAduanActivity, subdistrictArray[position], Toast.LENGTH_SHORT).show()
                 subdistrict = subdistrictArray[position].toString()
                 Log.d("kecamatan" , subdistrict)
             }
 
             override fun onNothingSelected(parent: AdapterView<*>) {
-                // write code to perform some action
             }
         }
 
@@ -106,6 +107,7 @@ class PostAduanActivity : AppCompatActivity(), LocationListener {
 
         binding.txtNama.setText(nama)
         binding.notelpTxt.setText(notelp)
+        binding.txtIsiAduan.addTextChangedListener(checkNull)
 
         binding.btnAddAduan.setOnClickListener{
             binding.progressBar.visibility = View.VISIBLE
@@ -113,10 +115,21 @@ class PostAduanActivity : AppCompatActivity(), LocationListener {
         }
     }
 
+    private val checkNull = object: TextWatcher {
+        override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
+        }
+
+        override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
+            val isiAduan: String = binding.txtIsiAduan.text.toString().trim()
+            binding.btnAddAduan.isEnabled = !isiAduan.isEmpty()
+        }
+
+        override fun afterTextChanged(p0: Editable?) {
+        }
+    }
+
     private fun refreshPage() {
         binding.swipeToRefresh.setOnRefreshListener {
-//            getLokasi()
-//            getCurrentLocation()
             getLocation()
             binding.swipeToRefresh.isRefreshing = false
         }
@@ -200,11 +213,11 @@ class PostAduanActivity : AppCompatActivity(), LocationListener {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults)
         if (requestCode == PERMISSION_REQUEST_ACCESS_LOCATION) {
             if (grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-                Toast.makeText(this, "Permission Granted", Toast.LENGTH_SHORT).show()
+                Toast.makeText(this, "Izin Lokasi Diterima", Toast.LENGTH_SHORT).show()
                 getCurrentLocation()
             }
             else {
-                Toast.makeText(this, "Permission Denied", Toast.LENGTH_SHORT).show()
+                Toast.makeText(this, "Izin Lokasi Ditolak", Toast.LENGTH_SHORT).show()
             }
         }
     }
@@ -251,13 +264,11 @@ class PostAduanActivity : AppCompatActivity(), LocationListener {
         ).enqueue(object : Callback<ResponsePengaduan>{
             override fun onResponse(call: Call<ResponsePengaduan>, response: Response<ResponsePengaduan>) {
                 binding.progressBar.visibility = View.GONE
-                Toast.makeText(applicationContext, "Data telah berhasil disimpan!", Toast.LENGTH_SHORT).show()
                 dialogBox("Buat Pengaduan", "Data telah berhasil disimpan!")
             }
 
             override fun onFailure(call: Call<ResponsePengaduan>, t: Throwable) {
-                Toast.makeText(applicationContext, "Data gagal disimpan!", Toast.LENGTH_SHORT).show()
-                Toast.makeText(applicationContext, "Message : ${t.message}", Toast.LENGTH_SHORT).show()
+                dialogBox("Buat Pengaduan", "Data gagal disimpan!")
             }
         })
     }
@@ -266,8 +277,6 @@ class PostAduanActivity : AppCompatActivity(), LocationListener {
         onBackPressed()
         return super.onSupportNavigateUp()
     }
-
-
 
     private fun dialogBox(title : String, message : String) {
         MaterialAlertDialogBuilder(this)
