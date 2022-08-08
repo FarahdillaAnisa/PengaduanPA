@@ -13,26 +13,57 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:layout_marginStart="10dp">
-        <TextView
-            android:id="@+id/tv_kode_aduan"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:textSize="18sp"
-            android:textStyle="bold"
-            android:textColor="@color/primaryColor"
-            tools:text="Kode Aduan"
-            android:fontFamily="@font/montserrat_bold"/>
+        android:orientation="horizontal"
+        android:layout_marginStart="10dp"
+        android:weightSum="1">
 
-        <TextView
-            android:id="@+id/tv_tgl_aduan"
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:textSize="14sp"
-            android:textColor="#676565"
-            tools:text="Tgl Pengaduan : 12-02-2022"
-            android:fontFamily="@font/montserrat_regular"
-            />
+            android:orientation="vertical"
+            android:layout_weight="1">
+            <TextView
+                android:id="@+id/tv_kode_aduan"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textSize="18sp"
+                android:textStyle="bold"
+                android:textColor="@color/primaryColor"
+                tools:text="Kode Aduan"
+                android:fontFamily="@font/montserrat_bold"/>
+
+            <TextView
+                android:id="@+id/tv_tgl_aduan"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textSize="14sp"
+                android:textColor="#676565"
+                tools:text="Tgl Pengaduan : 12-02-2022"
+                android:fontFamily="@font/montserrat_regular"
+                />
+        </LinearLayout>
+
+        <com.google.android.material.card.MaterialCardView
+            android:id="@+id/cv_sdg_diproses"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:contentPadding="10dp"
+            app:cardCornerRadius="10dp"
+            app:cardElevation="10dp"
+            android:backgroundTint="@color/warning"
+            android:layout_gravity="right"
+            android:visibility="gone">
+
+            <com.google.android.material.textview.MaterialTextView
+                android:id="@+id/tv_sdg_diproses"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Sedang Diproses"
+                android:gravity="right"
+                android:textSize="11sp"
+                android:fontFamily="@font/montserrat_semibold"
+                android:textColor="@color/white"
+                />
+        </com.google.android.material.card.MaterialCardView>
     </LinearLayout>
 </com.google.android.material.card.MaterialCardView>

@@ -8,23 +8,12 @@ import retrofit2.http.*
      @GET("api/pengaduan/getAduan/{status_aduan}")
      fun getAllAduan(@Query("status_aduan") status_aduan: String): Call<ArrayList<ResponsePengaduan>>
 
-     //get count all aduan
-     @GET("api/pengaduan/getAduan/{status_aduan}")
-     fun countAllAduan(@Query("status_aduan") status_aduan: String): Call<AduanCount>
-
      //get aduan by status & kec
      @GET("api/pengaduan/getaduanbykecamatan/")
      fun getAduanKec(
              @Query("status_aduan") status_aduan:String,
              @Query("kec_lokasi") kec_lokasi: String
      ): Call<ArrayList<ResponsePengaduan>>
-
-     //get aduan by status & kec (count)
-     @GET("api/pengaduan/getaduanbykecamatan/")
-     fun countAduanKec(
-             @Query("status_aduan") status_aduan:String,
-             @Query("kec_lokasi") kec_lokasi: String
-     ): Call<AduanCount>
 
     //get aduan by id
     @GET("api/pengaduan/getaduanbyid/{kode_aduan}")
@@ -122,10 +111,6 @@ import retrofit2.http.*
          @Field("pass_polisi") pass_polisi: String,
          @Field("pass_awal") pass_awal: String,
      ): Call<PolisiModel>
-
-     @FormUrlEncoded
-     @DELETE("api/polisi/")
-     fun deleteAkunPolisi(@Field("id_polisi") id_polisi: String) : Call<PolisiModel>
 
      //Edit Akun Polisi
      @FormUrlEncoded
@@ -225,6 +210,13 @@ import retrofit2.http.*
             @Field("lat_laporan") lat_laporan : Double,
             @Field("long_laporan") long_laporan : Double,
             @Field("tgl_laporan") tgl_laporan : String
+    ) : Call<ResponsePengaduan>
+
+    //set status sedang diproses
+    @FormUrlEncoded
+    @PUT("api/pelaporan/ubahstatus/{kode_aduan}")
+    fun setSedangDiproses(
+            @Field("kode_aduan") kode_aduan : String
     ) : Call<ResponsePengaduan>
 
     //get aduan oleh polisi

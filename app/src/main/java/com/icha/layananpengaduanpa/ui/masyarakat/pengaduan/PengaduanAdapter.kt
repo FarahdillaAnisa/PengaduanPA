@@ -6,6 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
+import com.google.android.material.card.MaterialCardView
 import com.icha.layananpengaduanpa.R
 import com.icha.layananpengaduanpa.helper.Helper
 import com.icha.layananpengaduanpa.model.ResponsePengaduan
@@ -22,6 +23,7 @@ class PengaduanAdapter(private val listAduan: ArrayList<ResponsePengaduan>): Rec
     inner class AduanViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         var kodetxt: TextView = itemView.findViewById(R.id.tv_kode_aduan)
         var tgladuantxt: TextView = itemView.findViewById(R.id.tv_tgl_aduan)
+        var statusdiproses : MaterialCardView = itemView.findViewById(R.id.cv_sdg_diproses)
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): AduanViewHolder {
@@ -35,6 +37,11 @@ class PengaduanAdapter(private val listAduan: ArrayList<ResponsePengaduan>): Rec
         val tglAduan = helper.displayDate(dataAduan.tglAduan.toString())
         holder.kodetxt.text = dataAduan.kodeAduan
         holder.tgladuantxt.text = tglAduan
+        if (dataAduan.statusAduan == "diproses") {
+            holder.statusdiproses.visibility = View.VISIBLE
+        } else {
+            holder.statusdiproses.visibility = View.GONE
+        }
         holder.itemView.setOnClickListener{
             onItemClickCallback.onItemClicked(listAduan[holder.adapterPosition])
 //            val intent = Intent(holder.itemView.context, DetailAduanActivity::class.java)

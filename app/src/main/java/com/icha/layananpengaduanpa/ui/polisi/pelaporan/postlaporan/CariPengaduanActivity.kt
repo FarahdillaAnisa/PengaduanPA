@@ -107,12 +107,13 @@ class CariPengaduanActivity : AppCompatActivity() {
                 binding.progressBar.visibility = View.GONE
                 if (response.isSuccessful) {
                     val dataAduan = response.body()
-                    if (dataAduan?.statusAduan == "proses") {
+                    if (dataAduan?.statusAduan == "proses" || dataAduan?.statusAduan == "diproses") {
                         dataAduan.let {
                             getDataMsy(dataAduan.idMsyFk)
                             binding.tvKetAduan.setText(dataAduan.isiAduan)
                             latitude = dataAduan.latLokasi
                             longitude = dataAduan.longLokasi
+                            binding.btnTambahLaporan.isEnabled = true
                             status = true
                         }
                     } else {
@@ -129,7 +130,8 @@ class CariPengaduanActivity : AppCompatActivity() {
                     }
                 }
                 else {
-                    Toast.makeText(this@CariPengaduanActivity, "Gagal Mengambil Data", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(this@CariPengaduanActivity, "Data Pengaduan Tidak Ditemukan", Toast.LENGTH_SHORT).show()
+                    binding.btnTambahLaporan.isEnabled = false
                 }
             }
 

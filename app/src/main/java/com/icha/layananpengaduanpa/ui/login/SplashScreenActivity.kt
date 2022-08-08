@@ -16,6 +16,11 @@ class SplashScreenActivity : AppCompatActivity() {
         setContentView(binding.root)
 
         supportActionBar?.hide()
+        session = SessionManager(applicationContext)
+
+        if (session.isLoggedIn()){
+            binding.signupbtn.isEnabled = false
+        }
 
         binding.loginbtn.setOnClickListener {
             val intent = Intent(this, LoginActivity::class.java)

@@ -50,7 +50,17 @@ class SignupActivity : AppCompatActivity() {
                 val clipData = ClipData.newPlainText("text", id_msy)
                 clipboardManager.setPrimaryClip(clipData)
 
-                dialogBox("Perhatian!", "ID Pengguna : $id_msy, Mohon diingat id pengguna beserta password untuk login, id pengguna telah disalin untuk login pertama kali")
+                MaterialAlertDialogBuilder(this)
+                        .setTitle("Perhatian!")
+                        .setMessage("ID Pengguna : $id_msy, Mohon diingat id pengguna beserta password untuk login, id pengguna telah disalin untuk login pertama kali")
+                        .setNeutralButton("Lanjutkan", object : DialogInterface.OnClickListener{
+                            override fun onClick(p0: DialogInterface?, p1: Int) {
+                                Toast.makeText(this@SignupActivity, "User ${binding.edtNama.text} berhasil didaftarkan", Toast.LENGTH_SHORT).show()
+                                val intent = Intent(this@SignupActivity, LoginActivity::class.java)
+                                startActivity(intent)
+                            }
+                        })
+                        .show()
             }
         }
     }
@@ -96,9 +106,6 @@ class SignupActivity : AppCompatActivity() {
         ).enqueue(object : Callback<MasyarakatModel> {
             override fun onResponse(call: Call<MasyarakatModel>, response: Response<MasyarakatModel>) {
                 binding.progressBar.visibility = View.GONE
-                Toast.makeText(this@SignupActivity, "User ${binding.edtNama.text} berhasil didaftarkan", Toast.LENGTH_SHORT).show()
-                val intent = Intent(this@SignupActivity, LoginActivity::class.java)
-                startActivity(intent)
             }
 
             override fun onFailure(call: Call<MasyarakatModel>, t: Throwable) {

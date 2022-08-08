@@ -28,7 +28,6 @@ class PengaduanFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
         val fragmentAdapter = SectionsPagerAdapter(childFragmentManager)
         binding.viewPager.adapter = fragmentAdapter
         binding.tabs.setupWithViewPager(binding.viewPager)
